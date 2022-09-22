@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
+/*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/22 17:05:59 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:16:48 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ typedef enum e_token_type
 {
 	WORD,
 	REDIR,
-	PIPE,
-	NULL
+	PIPE
 }	t_token_type;
 
 typedef enum e_redir_type
