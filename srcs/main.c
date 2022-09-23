@@ -6,16 +6,20 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:12 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/22 16:53:34 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/23 10:10:40 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "../includes/minishell.h"
+
 int	main(void)
 {
+	t_argv	*argv;
 	// 초기화
-	init();
+	// init();
 	while (1)
 	{
+		argv = pharse_line();
 		// 사용자 입력 처리
 		// 환경변수 치환
 		// 문자열 분할
