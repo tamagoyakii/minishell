@@ -1,6 +1,7 @@
-#include "../minishell.h"
+#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
-int		heredoc_fork(t_redir *heredoc)
+static int	run_heredoc(t_redir *heredoc)
 {
 	int		fd;
 	char	*line;
@@ -15,6 +16,7 @@ int		heredoc_fork(t_redir *heredoc)
 			line = readline("> ");
 			if (!line || ft_strcmp(line, tmp->value) == 0)
 			{
+				free(line);
 				close(fd);
 				break ;
 			}
@@ -34,8 +36,8 @@ int		make_heredoc(t_argv *argv)
 	pid = fork();
 	if (pid == 0)
 	{
-		// set_signal();
-		heredoc_fork(argv->heredoc);
+		// set_heredoc_signal();
+		run_heredoc(argv->heredoc);
 	}
 	wait(&status);
 	return (status << 8);

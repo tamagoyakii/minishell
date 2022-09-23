@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	free_pids(pid_t *pids, int cnt)
 {
