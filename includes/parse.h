@@ -6,7 +6,7 @@
 int		is_pipe(char *input);
 int		is_redir(char *chunk);
 void	put_type(t_type *tokens, char *content);
-int		create_tokens(t_argv *argvs, t_chunk *chunk, t_type *tokens);
+int		create_tokens(t_chunk *chunk, t_type *tokens);
 int		parse_tokens(t_argv *argvs, t_chunk *chunk);
 
 /* create_argvs.c */
