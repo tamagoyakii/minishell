@@ -49,7 +49,7 @@ int	parse_tokens(t_argv *argvs, t_chunk *chunk)
 
 	if (create_tokens(argvs, chunk, tokens))
 		return (FAIL);
-	if (!create_argvs(argvs, tokens))
+	if (create_argvs(argvs, tokens))
 		return (FAIL);
 	return (SUCCESS);
 }

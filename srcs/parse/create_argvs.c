@@ -72,6 +72,7 @@ int	add_word(t_argv *argvs, t_list *cmds, char *value, int *last_type)
 	if (*last_type == HDOC)
 		argvs->hdoc->value = value;
 	*last_type = WORD;
+	return (SUCCESS);
 }
 
 int	create_argv(t_argv *argvs, t_type *tokens)
@@ -79,7 +80,6 @@ int	create_argv(t_argv *argvs, t_type *tokens)
 	t_list	*cmds;
 	int		cnt_cmd;
 	int		last_type;
-	int		r_type;
 	int		res;
 
 	cnt_cmd = 0;
@@ -88,16 +88,17 @@ int	create_argv(t_argv *argvs, t_type *tokens)
 	{
 		if (tokens->type == PIPE)
 			res = add_pipe(argvs, cmds, &cnt_cmd, &last_type);
-		if (tokens->type == REDIR)
-		{
-			r_type = is_redir(tokens->value);
-			res = add_redir(argvs, tokens->value, r_type, &last_type);
-		}
-		if (tokens->type == WORD)
+		else if (tokens->type == REDIR)
+			res = add_redir(argvs, tokens->value,
+					is_redir(tokens->value), &last_type);
+		else if (tokens->type == WORD)
 		{
 			res = add_word(argvs, cmds, tokens->value, &last_type);
 			cnt_cmd += 1;
 		}
+		if (res)
+			return (FAIL);
 		tokens = tokens->next;
 	}
+	return (SUCCESS);
 }
