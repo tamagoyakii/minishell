@@ -36,7 +36,7 @@ int	create_tokens(t_chunk *chunk, t_type **tokens)
 			*tokens = add_type(*tokens, REDIR, content);
 		else
 			*tokens = add_type(*tokens, WORD, content);
-		if (!tokens)
+		if (!(*tokens))
 			return (FAIL);
 		chunk->chunks = chunk->chunks->next;
 	}
