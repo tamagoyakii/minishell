@@ -89,8 +89,7 @@ int	create_argv(t_argv *argvs, t_type *tokens)
 		if (tokens->type == PIPE)
 			res = add_pipe(argvs, cmds, &cnt_cmd, &last_type);
 		else if (tokens->type == REDIR)
-			res = add_redir(argvs, tokens->value,
-					is_redir(tokens->value), &last_type);
+			res = add_redir(argvs, tokens->value, is_redir(tokens->value), &last_type);
 		else if (tokens->type == WORD)
 		{
 			res = add_word(argvs, cmds, tokens->value, &last_type);
