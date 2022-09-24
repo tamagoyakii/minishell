@@ -7,7 +7,8 @@ t_argv	*add_argv(t_argv *prev)
 	new = (t_argv *)malloc(sizeof(t_argv));
 	if (!new)
 		return (0);
-	prev->next = new;
+	if (!prev)
+		prev->next = new;
 	new->next = 0;
 	return (new);
 }
@@ -21,7 +22,8 @@ t_type	*add_type(t_type *prev, int type, char *value)
 		return (0);
 	new->type = type;
 	new->value = value;
-	prev->next = new;
+	if (!prev)
+		prev->next = new;
 	new->next = 0;
 	return (new);
 }
