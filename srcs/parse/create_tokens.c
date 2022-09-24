@@ -23,7 +23,7 @@ int	is_redir(char *chunk)
 	return (redir);
 }
 
-int	create_tokens(t_argv *argvs, t_chunk *chunk, t_type *tokens)
+int	create_tokens(t_chunk *chunk, t_type *tokens)
 {
 	char	*content;
 
@@ -47,7 +47,7 @@ int	parse_tokens(t_argv *argvs, t_chunk *chunk)
 {
 	t_type	*tokens;
 
-	if (create_tokens(argvs, chunk, tokens))
+	if (create_tokens(chunk, tokens))
 		return (FAIL);
 	if (create_argvs(argvs, tokens))
 		return (FAIL);
