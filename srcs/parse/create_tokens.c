@@ -23,7 +23,7 @@ int	is_redir(char *chunk)
 	return (redir);
 }
 
-int	create_tokens(t_chunk *chunk, t_type *tokens)
+int	create_tokens(t_chunk *chunk, t_type **tokens)
 {
 	char	*content;
 
@@ -31,11 +31,11 @@ int	create_tokens(t_chunk *chunk, t_type *tokens)
 	{
 		content = chunk->chunks->content;
 		if (is_pipe(content))
-			tokens = add_type(tokens, PIPE, content);
+			*tokens = add_type(*tokens, PIPE, content);
 		else if (is_redir(content))
-			tokens = add_type(tokens, REDIR, content);
+			*tokens = add_type(*tokens, REDIR, content);
 		else
-			tokens = add_type(tokens, WORD, content);
+			*tokens = add_type(*tokens, WORD, content);
 		if (!tokens)
 			return (FAIL);
 		chunk->chunks = chunk->chunks->next;
@@ -47,7 +47,7 @@ int	parse_tokens(t_argv *argvs, t_chunk *chunk)
 {
 	t_type	*tokens;
 
-	if (create_tokens(chunk, tokens))
+	if (create_tokens(chunk, &tokens))
 		return (FAIL);
 	if (create_argvs(argvs, tokens))
 		return (FAIL);
