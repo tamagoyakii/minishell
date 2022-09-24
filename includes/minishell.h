@@ -6,7 +6,7 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/24 17:13:24 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:09:52 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ typedef struct s_chunk
 	t_list	*chunks;
 }	t_chunk;
 
+typedef struct s_cmd
+{
+	int		cnt;
+	t_list	*cmds;
+}	t_cmd;
+
 typedef struct s_type
 {
 	int				type;
@@ -70,7 +76,6 @@ typedef struct s_type
 }	t_type;
 
 /* 구현부로 넘김 */
-
 typedef struct s_argv
 {
 	char			**cmd;
