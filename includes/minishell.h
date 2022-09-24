@@ -6,7 +6,7 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/23 17:55:35 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/24 17:13:24 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libs/libft/libft.h"
 # include "./execute.h"
+# include "./parse.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -32,6 +33,7 @@ typedef enum e_return_type
 
 typedef enum e_token_type
 {
+	NONE,
 	WORD,
 	REDIR,
 	PIPE
@@ -59,37 +61,32 @@ typedef struct s_chunk
 	int		cnt;
 	t_list	*chunks;
 }	t_chunk;
-typedef struct s_token
-{
-	int				t_type;
-	char			*str;
-	struct s_token	*next;
-}	t_token;
 
-typedef struct s_redir
+typedef struct s_type
 {
-	int				r_type;
+	int				type;
 	char			*value;
-	struct s_redir	*next;
-}	t_redir;
+	struct s_type	*next;
+}	t_type;
 
 /* 구현부로 넘김 */
+
 typedef struct s_argv
 {
 	char			**cmd;
-	struct s_redir	*in;
-	struct s_redir	*out;
-	struct s_redir	*hdoc;
+	struct s_type	*in;
+	struct s_type	*out;
+	struct s_type	*hdoc;
 	struct s_argv	*next;
 }	t_argv;
 
-typedef struct	s_pipe
+typedef struct s_pipe
 {
 	int		cnt;
 	int		**pipe;
 }	t_pipe;
 
-typedef struct	s_error
+typedef struct s_error
 {
 	int		errno;
 	int		last_errno;
