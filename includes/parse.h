@@ -10,9 +10,9 @@ int		create_tokens(t_argv *argvs, t_chunk *chunk, t_type *tokens);
 int		parse_tokens(t_argv *argvs, t_chunk *chunk);
 
 /* create_argvs.c */
-int		put_cmd(t_list *cmds, int size, char **cmd);
+int		put_cmd(t_cmd *cmd, char **arr);
 int		add_redir(t_argv *argvs, char *value, int r_type, int *last_type);
-int		add_pipe(t_argv *argvs, t_list *cmds, int *cnt_cmd, int *last_type);
+int		add_pipe(t_argv *argvs, t_cmd *cmd, int *last_type);
 int		add_word(t_argv *argvs, t_list *cmds, char *value, int *last_type);
 int		create_argv(t_argv *argvs, t_type *tokens);
 
