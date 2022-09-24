@@ -1,18 +1,27 @@
 # include "../includes/minishell.h"
 
-int	put_cmd(t_list *cmds, int size, char **cmd)
+int	put_cmd(t_cmd *cmd, char **arr)
 {
-	int	i;
+	t_list	*tmp;
+	int		i;
 
-	cmd = malloc(sizeof(char *) * (size + 1));
-	if (!cmd)
+	arr = malloc(sizeof(char *) * (cmd->cnt + 1));
+	if (!arr)
 		return (FAIL);
+	tmp = cmd->cmds;
 	i = -1;
-	while (++i < size)
+	while (++i < cmd->cnt)
 	{
-		cmd[i] = cmds->content;
-		cmds = cmds->next;
+		arr[i] = tmp->content;
+		tmp = tmp->next;
 	}
+	while (cmd->cmds)
+	{
+		tmp = cmd->cmds;
+		cmd->cmds = cmd->cmds->next;
+		free(tmp);
+	}
+	cmd->cnt = 0;
 	return (SUCCESS);
 }
 
@@ -45,11 +54,11 @@ int	add_redir(t_argv *argvs, char *value, int r_type, int *last_type)
 	return (SUCCESS);
 }
 
-int	add_pipe(t_argv *argvs, t_list *cmds, int *cnt_cmd, int *last_type)
+int	add_pipe(t_argv *argvs, t_cmd *cmd, int *last_type)
 {
 	if (*last_type == NONE)
 		return (FAIL);
-	if (!put_cmd(cmds, cnt_cmd, argvs->cmd))
+	if (!put_cmd(cmd, argvs->cmd))
 		return (FAIL);
 	*last_type = PIPE;
 	argvs = add_argv(argvs);
@@ -77,24 +86,22 @@ int	add_word(t_argv *argvs, t_list *cmds, char *value, int *last_type)
 
 int	create_argv(t_argv *argvs, t_type *tokens)
 {
-	t_list	*cmds;
-	int		cnt_cmd;
+	t_cmd	*cmd;
 	int		last_type;
+	int		r_type;
 	int		res;
 
-	cnt_cmd = 0;
+	cmd->cnt = 0;
 	last_type = NONE;
 	while (tokens)
 	{
+		r_type = is_redir(tokens->value);
 		if (tokens->type == PIPE)
-			res = add_pipe(argvs, cmds, &cnt_cmd, &last_type);
+			res = add_pipe(argvs, cmd, &last_type);
 		else if (tokens->type == REDIR)
-			res = add_redir(argvs, tokens->value, is_redir(tokens->value), &last_type);
+			res = add_redir(argvs, tokens->value, r_type, &last_type);
 		else if (tokens->type == WORD)
-		{
-			res = add_word(argvs, cmds, tokens->value, &last_type);
-			cnt_cmd += 1;
-		}
+			res = add_word(argvs, cmd, tokens->value, &last_type);
 		if (res)
 			return (FAIL);
 		tokens = tokens->next;
