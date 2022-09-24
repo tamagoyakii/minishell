@@ -106,5 +106,7 @@ int	create_argv(t_argv *argvs, t_type *tokens)
 			return (FAIL);
 		tokens = tokens->next;
 	}
+	if (last_type == PIPE || r_type != NONE)
+		return (FAIL);
 	return (SUCCESS);
 }
