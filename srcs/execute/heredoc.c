@@ -40,6 +40,8 @@ int		make_heredoc(t_argv *argv)
 		// set_heredoc_signal();
 		run_heredoc(argv->hdoc);
 	}
+	if (pid < 0)
+		return (FAIL);
 	wait(&status);
-	return (status << 8);
+	return (status >> 8);
 }

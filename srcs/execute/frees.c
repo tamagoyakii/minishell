@@ -1,12 +1,8 @@
 #include "../../includes/minishell.h"
 
-void	free_pids(pid_t *pids, int cnt)
+void	free_pids(pid_t **pids, int cnt)
 {
-	int	i;
-
-	i = -1;
-	while (++i < cnt)
-		free(pids);
+	free(*pids);
 }
 
 void	free_pipes(int **pipes, int cnt)

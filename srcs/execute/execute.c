@@ -8,12 +8,30 @@ void	init_execute(int *cnt_pipe, pid_t **pids, t_pipe *pipes, t_argv *argv)
 	set_pipe(pipes, cnt_pipe);
 }
 
+void	wait_childs(int cnt_pipe)
+{
+	int	i;
+	int	status;
+
+	i = -1;
+	status = 0;
+	while (++i < cnt_pipe)
+	{
+		if (wait(&status) < 0)
+			status = 1;
+	}
+	if (status > 1)
+		status = status >> 8;
+	g_error.errno = status;
+	g_error.last_errno = status;
+}
+
 void	end_execute(int cnt_pipe, pid_t **pids, t_pipe pipes, t_argv *argv)
 {
-	wait_childs(pids, cnt_pipe); // -> exit status 변경해줘야함 "$?"
+	wait_childs(cnt_pipe); // -> exit status 변경해줘야함 "$?"
 	close_pipe(pipes, cnt_pipe);
-	free_pids(pids, cnt_pipe);
-	free_pipe(pipes, cnt_pipe);
+	free_pids(pids);
+	free_pipe(pipes.pipe, cnt_pipe);
 	free_argv(argv);
 }
 
@@ -39,6 +57,8 @@ void	execute(t_argv *argv, t_env **env)
 			{
 				child_process(argv, pipes, i, env);
 			}
+			if (pids[i] < 0)
+				perror("ERROR");
 			argv = argv->next;
 		}
 	}
