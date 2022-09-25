@@ -31,7 +31,7 @@ int	is_builtin(char *cmd)
 	i = -1;
 	while (++i < 7)
 	{
-		if (ft_strcmp(cmd, builtins[i] == 0))
+		if (ft_strcmp(cmd, builtins[i]) == 0)
 			return (SUCCESS);
 	}
 	return (FAIL);
