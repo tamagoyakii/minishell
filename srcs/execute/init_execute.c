@@ -46,6 +46,7 @@ void	set_pipes(t_pipe *pipes, int cnt_pipe)
 			exit (FAIL);
 		}
 	}
+	i = -1;
 	while (++i < cnt_pipe)
 		pipe(pipes->pipe[i]);
 }
