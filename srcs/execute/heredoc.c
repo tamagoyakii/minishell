@@ -20,7 +20,7 @@ static int	run_heredoc(t_type *heredoc)
 				close(fd);
 				break ;
 			}
-			ft_putstr(fd, line);
+			ft_putstr(line, fd);
 			free(line);
 		}
 		close(fd);
