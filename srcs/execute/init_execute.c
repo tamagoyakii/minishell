@@ -17,7 +17,7 @@ void	set_pipe_cnt(int *cnt_pipe, t_argv *argv)
 
 void	set_pids(int **pids, int cnt_pipe)
 {
-	*pids = malloc(sizeof(int *) * cnt_pipe);
+	*pids = malloc(sizeof(int *) * (cnt_pipe + 1));
 	if (!*pids)
 	{
 		perror("ERROR");
