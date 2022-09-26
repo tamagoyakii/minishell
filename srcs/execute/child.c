@@ -2,16 +2,19 @@
 
 static void execve_process(t_argv *argv, t_env *env)
 {
-	char *str[2];
+	char	**envp;
+	char	*path;
 
-	str[0] = get_path(argv, env);
-	str[1] = NULL;
-	if (!str[0])
+	path = get_path(argv, env);
+	envp = make_2_arr_env(env); /* 우채가 만들어줄 예정 */
+	if (!envp)
+		exit (FAIL);
+	if (!path)
 	{
 		perror("filename: command not found"); /* 에러 코드 모아서 수정 필요 */
 		exit(FAIL);
 	}
-	if (execve(str[0], str, NULL) == -1)
+	if (execve(path, argv->cmd, envp) == -1)
 	{
 		perror("execve ERROR");
 		exit(FAIL);
