@@ -1,6 +1,13 @@
 #ifndef PARSE_H
 # define PARSE_H
 
+typedef enum e_quote
+{
+	NAQ = 1,
+	QUOTE = 2,
+	DQUOTE = 4
+}	t_quote;
+
 typedef struct s_cmd
 {
 	int		cnt;
