@@ -1,7 +1,6 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 
-void	single_builtin(t_argv *argv, t_env **env)
+void	single_builtin(t_argv *argv, t_env *env)
 {
 	int	origin_stdin;
 	int	origin_stdout;

@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 
 void	close_pipe(t_pipe pipe, int cnt)
 {

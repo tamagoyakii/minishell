@@ -1,11 +1,13 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 
 void	init_execute(int *cnt_pipe, pid_t **pids, t_pipe *pipes, t_argv *argv)
 {
 	set_pipe_num(&cnt_pipe, argv);
-	set_pids(&pids, cnt_pipe);
-	set_pipe(pipes, cnt_pipe);
+	if (*cnt_pipe > 0)
+	{
+		set_pids(&pids, cnt_pipe);
+		set_pipe(pipes, cnt_pipe);
+	}
 }
 
 void	wait_childs(int cnt_pipe)
@@ -35,7 +37,7 @@ void	end_execute(int cnt_pipe, pid_t **pids, t_pipe pipes, t_argv *argv)
 	free_argv(argv);
 }
 
-void	execute(t_argv *argv, t_env **env)
+void	execute(t_argv *argv, t_env *env)
 {
 	int		i;
 	int		cnt_pipe;
@@ -62,5 +64,5 @@ void	execute(t_argv *argv, t_env **env)
 			argv = argv->next;
 		}
 	}
-	end_execute(cnt_pipe, &pids, pipes, argv);
+	end_execute(cnt_pipe, pids, pipes, argv);
 }

@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 
 static int	run_heredoc(t_type *heredoc)
 {

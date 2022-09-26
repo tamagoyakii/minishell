@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 #include <fcntl.h>
 
 int	ft_open(char *file, int type)
@@ -25,7 +24,7 @@ int	ft_open(char *file, int type)
 int	is_builtin(char *cmd)
 {
 	int			i;
-	const char	builtins[7][7] = {"echo", "cd", "pwd", "export",
+	const char	*builtins[7] = {"echo", "cd", "pwd", "export",
 		"unset", "env", "exit"};
 
 	i = -1;

@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 
 int	set_stdin_redir(t_argv *argv)
 {
