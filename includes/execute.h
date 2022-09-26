@@ -1,9 +1,9 @@
 #ifndef EXECUTE_H
 # define EXCUTE_H
 
-void	execute(t_argv *argv, t_env **env);
+void	execute(t_argv *argv, t_env *env);
 /* builtin */
-void	single_builtin(t_argv *argv, t_env **env);
+void	single_builtin(t_argv *argv, t_env *env);
 /* pipe */
 void	set_stdout_pipe(t_argv *argv, t_pipe pipe, int num);
 void	set_stdin_pipe(t_pipe pipe, int num);
@@ -14,7 +14,9 @@ int		set_stdout_redir(t_argv *argv);
 /* heredoc */
 int		make_heredoc(t_argv *argv);
 /* child */
-void	child_process(t_argv *argv, t_pipe pipe, int i, t_env **env);
-
+void	child_process(t_argv *argv, t_env *env, t_pipe pipe, int i);
+/* signal */
+void	set_heredoc_signal(void);
+void	set_child_signal(void);
 
 #endif

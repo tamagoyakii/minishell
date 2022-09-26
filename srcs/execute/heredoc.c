@@ -36,7 +36,7 @@ int		make_heredoc(t_argv *argv)
 	pid = fork();
 	if (pid == 0)
 	{
-		// set_heredoc_signal();
+		set_heredoc_signal();
 		run_heredoc(argv->hdoc);
 	}
 	if (pid < 0)
