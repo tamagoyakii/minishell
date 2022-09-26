@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	set_stdin_redir(t_argv *argv)
+int	set_stdin_redir(t_argv *argv)
 {
 	int		fd;
 	int		flag;
@@ -11,11 +11,14 @@ void	set_stdin_redir(t_argv *argv)
 	while (tmp)
 	{
 		fd = ft_open(tmp->value, IN);
+		if (fd < 0)
+			return (FAIL);
 		tmp = tmp->next;
 		if (tmp)
 			close(fd);
 	}
 	dup2(fd, STDIN_FILENO);
+	return (SUCCESS);
 }
 
 void	reset_stdin(int fd)
@@ -24,7 +27,7 @@ void	reset_stdin(int fd)
 }
 
 
-void	set_stdout_type(t_argv *argv)
+int	set_stdout_type(t_argv *argv)
 {
 	int		fd;
 	t_type	*tmp;
@@ -36,11 +39,14 @@ void	set_stdout_type(t_argv *argv)
 			fd = ft_open(tmp->value, T_OUT);// 옵션 수정 필요, 실험 요망
 		if (tmp->type == A_OUT)
 			fd = ft_open(tmp->value, A_OUT);
+		if (fd < 0)
+			return (FAIL);
 		tmp = tmp->next;
 		if (tmp)
 			close(fd);
 	}
 	dup2(fd, STDOUT_FILENO);
+	return (SUCCESS);
 }
 
 void	reset_stdout(int fd)

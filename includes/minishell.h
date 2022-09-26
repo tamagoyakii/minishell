@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
+# include <errno.h>
+# include <string.h>
 
 typedef enum e_return_type
 {
@@ -75,13 +77,14 @@ typedef struct s_argv
 	struct s_argv	*next;
 }	t_argv;
 
-typedef struct s_error
+typedef struct s_info
 {
-	int		errno;
-	int		last_errno;
-	char	*msg;
-}	t_error; // 에러 구현시 쓸 구조체, 수정 예정
+	struct s_env	*env_list;
+	char			**env;
+	int				last_exit_num;
+	pid_t			pid;
+}	t_info;
 
-extern t_error	g_error;
+extern t_info	g_info;
 
 #endif

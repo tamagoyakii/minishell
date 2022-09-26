@@ -6,7 +6,7 @@ static char	*get_value(t_env **env, char *key)
 	t_env *tmp;
 
 	tmp = env;
-	while (tmp->next != NULL)
+	while (tmp->next)
 	{
 		if (!ft_strcmp(tmp->key, key))
 			return (tmp->value);
@@ -38,7 +38,7 @@ static char	*make_path(t_argv *argv, char *paths)
 	int			i;
 
 	i = -1;
-	while (paths[++i] != NULL)
+	while (paths[++i])
 	{
 		path = join_path_cmd(paths[i], argv->cmd[0]);
 		if (!path)
