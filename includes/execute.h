@@ -18,7 +18,8 @@ void	child_process(t_argv *argv, t_env *env, int **pipe, int i);
 /* signal */
 void	set_heredoc_signal(void);
 void	set_child_signal(void);
-
+/* path */
+char	*get_path(t_argv *argv, t_env *env);
 /* util */
 void	*ft_malloc(size_t size);
 int		is_builtin(char *cmd);

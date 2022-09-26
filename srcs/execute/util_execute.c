@@ -21,19 +21,21 @@ int	ft_open(char *file, int type)
 	return (fd);
 }
 
-int	is_builtin(char *cmd)
+int	is_builtin(char **cmd)
 {
 	int			i;
 	const char	*builtins[7] = {"echo", "cd", "pwd", "export",
 		"unset", "env", "exit"};
 
+	if (!cmd)
+		return (FALSE);
 	i = -1;
 	while (++i < 7)
 	{
 		if (ft_strcmp(cmd, builtins[i]) == 0)
-			return (SUCCESS);
+			return (TRUE);
 	}
-	return (FAIL);
+	return (FALSE);
 }
 
 void	*ft_malloc(size_t size)

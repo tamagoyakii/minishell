@@ -30,7 +30,7 @@ void	wait_childs(int cnt_pipe)
 	g_error.last_errno = status;
 }
 
-void	end_execute(int cnt_pipe, pid_t **pids, int **pipes, t_argv *argv)
+void	end_execute(int cnt_pipe, pid_t *pids, int **pipes, t_argv *argv)
 {
 	wait_childs(cnt_pipe); // -> exit status 변경해줘야함 "$?"
 	close_pipe(pipes);
@@ -50,7 +50,7 @@ void	execute(t_argv *argv, t_env *env)
 		return (free_argv(argv));	// FAIL일 경우 할당 해제 필요
 	init_execute(&cnt_pipe, &pids, &pipes, argv);
 	i = -1;
-	if (cnt_pipe == 0 && is_builtin(argv->cmd[0]) == TURE)
+	if (cnt_pipe == 0 && is_builtin(argv->cmd) == TRUE)
 		single_builtin(argv, env);
 	else
 	{
