@@ -57,7 +57,7 @@ void	execute(t_argv *argv, t_env *env)
 			pids[i] = ft_fork(pids, i);
 			if (pids[i] == 0)
 			{
-				child_process(argv, pipes, i, env);
+				child_process(argv, env, pipes, i);
 			}
 			if (pids[i] < 0)
 				perror("ERROR");
