@@ -1,23 +1,42 @@
 #ifndef PARSE_H
 # define PARSE_H
 
+typedef struct s_cmd
+{
+	int		cnt;
+	t_list	*cmds;
+}	t_cmd;
+
+typedef struct s_token
+{
+	int				type;
+	char			*value;
+}	t_token;
+
 /* jihyukim */
 /* create_tokens.c */
 int		is_pipe(char *input);
 int		is_redir(char *chunk);
-void	put_type(t_type *tokens, char *content);
-int		create_tokens(t_chunk *chunk, t_type *tokens);
-int		parse_tokens(t_argv *argvs, t_chunk *chunk);
+int		create_tokens(t_list *chunks, t_list **tokens);
 
 /* create_argvs.c */
-int		put_cmd(t_cmd *cmd, char **arr);
-int		add_redir(t_argv *argvs, char *value, int r_type, int *last_type);
-int		add_pipe(t_argv *argvs, t_cmd *cmd, int *last_type);
-int		add_word(t_argv *argvs, t_list *cmds, char *value, int *last_type);
-int		create_argv(t_argv *argvs, t_type *tokens);
+int		create_argvs(t_argv *argvs, t_type *tokens);
 
-/* token_utils.c */
-t_type	*add_type(t_type *prev, int type, char *value);
-t_argv	*add_argv(t_argv *prev);
+/* utils_t_token.c */
+t_token	*create_token(int type, char *value);
+void	free_token(void *token);
+
+/* utils_t_type.c */
+t_type	*create_type(int type, char *value);
+t_type	*ft_typelast(t_type *type);
+void	ft_typeadd_back(t_type **types, t_type *new);
+
+/* utils_t_argv.c */
+t_argv	*create_argv(void);
+t_argv	*ft_argvlast(t_argv *argv);
+void	ft_argvadd_back(t_argv **argvs, t_argv *new);
+
+/* utils_t_list.c */
+void	free_lst_only(t_list *lists);
 
 #endif

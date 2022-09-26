@@ -2,7 +2,7 @@
 
 int	is_pipe(char *input)
 {
-	if (ft_strncmp(input, "|", ft_strlen(input)))
+	if (ft_strcmp(input, "|"))
 		return (0);
 	return (1);
 }
@@ -12,44 +12,37 @@ int	is_redir(char *chunk)
 	int	redir;
 
 	redir = NONE;
-	if (!ft_strncmp(chunk, ">", ft_strlen(chunk)))
+	if (!ft_strcmp(chunk, ">"))
 		redir = T_OUT;
-	if (!ft_strncmp(chunk, ">>", ft_strlen(chunk)))
+	if (!ft_strcmp(chunk, ">>"))
 		redir = A_OUT;
-	if (!ft_strncmp(chunk, "<", ft_strlen(chunk)))
+	if (!ft_strcmp(chunk, "<"))
 		redir = IN;
-	if (!ft_strncmp(chunk, "<<", ft_strlen(chunk)))
+	if (!ft_strcmp(chunk, "<<"))
 		redir = HDOC;
 	return (redir);
 }
 
-int	create_tokens(t_chunk *chunk, t_type **tokens)
+int	create_tokens(t_list *chunks, t_list **tokens)
 {
-	char	*content;
+	t_list	*new_lst;
+	t_token	*new_token;
 
-	while (chunk->chunks)
+	while (chunks)
 	{
-		content = chunk->chunks->content;
-		if (is_pipe(content))
-			*tokens = add_type(*tokens, PIPE, content);
-		else if (is_redir(content))
-			*tokens = add_type(*tokens, REDIR, content);
+		if (is_pipe(chunks->content))
+			new_token = create_type(PIPE, chunks->content);
+		else if (is_redir(chunks->content))
+			new_token = create_type(REDIR, chunks->content);
 		else
-			*tokens = add_type(*tokens, WORD, content);
-		if (!(*tokens))
+			new_token = create_type(WORD, chunks->content);
+		if (!new_token)
 			return (FAIL);
-		chunk->chunks = chunk->chunks->next;
+		new_lst = ft_lstnew(new_token);
+		if (!new_lst)
+			return (FAIL);
+		ft_lstadd_back(*tokens, new_lst);
+		chunks = chunks->next;
 	}
-	return (SUCCESS);
-}
-
-int	parse_tokens(t_argv *argvs, t_chunk *chunk)
-{
-	t_type	*tokens;
-
-	if (create_tokens(chunk, &tokens))
-		return (FAIL);
-	if (create_argvs(argvs, tokens))
-		return (FAIL);
 	return (SUCCESS);
 }
