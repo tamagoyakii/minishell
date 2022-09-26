@@ -25,9 +25,7 @@ void	child_process(t_argv *argv, t_env *env, int **pipes, int i)
 	set_stdout_pipe(argv, pipes, i);
 	set_stdin_redir(argv);
 	set_stdout_redir(argv);
-	if (!argv->cmd)
-		exit(SUCCESS);
-	if (is_builtin(argv->cmd[0]) == TRUE)
+	if (is_builtin(argv->cmd) == TRUE)
 	{
 		builtin_process(argv->cmd, env);
 	}
