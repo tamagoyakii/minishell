@@ -1,7 +1,6 @@
 #include "../../includes/minishell.h"
-#include "../../includes/execute.h"
 
-void	child_process(t_argv *argv, t_pipe pipe, int i, t_env **env)
+void	child_process(t_argv *argv, t_pipe pipe, int i, t_env *env)
 {
 	set_stdin_pipe(pipe, i - 1);
 	set_stdout_pipe(argv, pipe, i);

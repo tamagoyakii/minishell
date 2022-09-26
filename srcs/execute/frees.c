@@ -1,14 +1,5 @@
 #include "../../includes/minishell.h"
 
-void	free_pids(pid_t *pids, int cnt)
-{
-	int	i;
-
-	i = -1;
-	while (++i < cnt)
-		free(pids);
-}
-
 void	free_pipes(int **pipes, int cnt)
 {
 	int	i;
@@ -17,6 +8,30 @@ void	free_pipes(int **pipes, int cnt)
 	while (++i < cnt)
 		free(pipes[i]);
 	free(pipes);
+}
+
+void	free_redir(t_type *type)
+{
+	t_type	*tmp;
+
+	while (type)
+	{
+		tmp = type->next;
+		free(type);
+		type = tmp;
+	}
+}
+
+void	free_strs(char **strs)
+{
+	int	i;
+
+	i = -1;
+	while (strs[++i])
+	{
+		free(strs[i]);
+	}
+	free(strs);
 }
 
 void	free_argv(t_argv *argv)
