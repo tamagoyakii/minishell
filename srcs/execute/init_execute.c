@@ -14,38 +14,21 @@ void	set_pipe_cnt(int *cnt_pipe, t_argv *argv)
 	*cnt_pipe = i;
 }
 
-void	set_pids(int **pids, int cnt_pipe)
+void	set_pids(pid_t **pids, int cnt_pipe)
 {
-	*pids = malloc(sizeof(int *) * (cnt_pipe + 1));
-	if (!*pids)
-	{
-		perror("ERROR");
-		exit(FAIL);
-	}
+	*pids = ft_malloc(sizeof(pid_t) * (cnt_pipe + 1));
 }
 
-void	set_pipes(t_pipe *pipes, int cnt_pipe)
+void	set_pipes(int ***pipes, int cnt_pipe)
 {
 	int	i;
 
-	pipes->cnt = cnt_pipe + 1;
-	pipes->pipe = malloc(sizeof(int *) * cnt_pipe);
-	if (!pipes->pipe)
-	{
-		perror("ERROR");
-		exit (FAIL);
-	}
+	*pipes = (int **)ft_malloc(sizeof(int *) * (cnt_pipe + 1));
+	*pipes[cnt_pipe] = NULL;
 	i = -1;
 	while (++i < cnt_pipe)
-	{
-		pipes->pipe[i] = malloc(sizeof(int) * 2);
-		if (!pipes->pipe)
-		{
-			perror("ERROR");
-			exit (FAIL);
-		}
-	}
+		*pipes[i] = (int *)ft_malloc(sizeof(int) * 2);
 	i = -1;
 	while (++i < cnt_pipe)
-		pipe(pipes->pipe[i]);
+		pipe(*pipes[i]);
 }

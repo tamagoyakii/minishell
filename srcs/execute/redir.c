@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	set_stdin_redir(t_argv *argv)
+void	set_stdin_redir(t_argv *argv)
 {
 	int		fd;
 	int		flag;
@@ -16,7 +16,6 @@ int	set_stdin_redir(t_argv *argv)
 			close(fd);
 	}
 	dup2(fd, STDIN_FILENO);
-	return (g_error.errno);
 }
 
 void	reset_stdin(int fd)
@@ -25,7 +24,7 @@ void	reset_stdin(int fd)
 }
 
 
-int	set_stdout_type(t_argv *argv)
+void	set_stdout_type(t_argv *argv)
 {
 	int		fd;
 	t_type	*tmp;
@@ -42,7 +41,6 @@ int	set_stdout_type(t_argv *argv)
 			close(fd);
 	}
 	dup2(fd, STDOUT_FILENO);
-	return (g_error.errno);
 }
 
 void	reset_stdout(int fd)

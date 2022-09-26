@@ -85,12 +85,6 @@ typedef struct s_argv
 	struct s_argv	*next;
 }	t_argv;
 
-typedef struct s_pipe
-{
-	int		cnt;
-	int		**pipe;
-}	t_pipe;
-
 typedef struct s_error
 {
 	int		errno;

@@ -1,43 +1,43 @@
 #include "../../includes/minishell.h"
 
-void	close_pipe(t_pipe pipe, int cnt)
+void	close_pipe(int **pipes)
 {
 	int	i;
 
 	i = -1;
-	while (++i < pipe.cnt)
+	while (pipes[++i])
 	{
-		close(pipe.pipe[i][0]);
-		close(pipe.pipe[i][1]);
+		close(pipes[i][0]);
+		close(pipes[i][1]);
 	}
 }
 
-void	set_stdin_pipe(t_pipe pipe, int num)
+void	set_stdin_pipe(int **pipes, int num)
 {
 	int	i;
 
 	if (num < 0)
 		return ;
 	i = -1;
-	while (++i < pipe.cnt)
+	while (pipes[++i])
 	{
 		if (i != num)
-			close(pipe.pipe[i][0]);
+			close(pipes[i][0]);
 	}
-	dup2(pipe.pipe[num][0], STDIN_FILENO);
+	dup2(pipes[num][0], STDIN_FILENO);
 }
 
-void	set_stdout_pipe(t_argv *argv, t_pipe pipe, int num)
+void	set_stdout_pipe(t_argv *argv, int **pipes, int num)
 {
 	int	i;
 
 	if (!argv->next)
 		return ;
 	i = -1;
-	while (++i < pipe.cnt)
+	while (pipes[++i])
 	{
 		if (i != num)
-			close(pipe.pipe[i][1]);
+			close(pipes[i][1]);
 	}
-	dup2(pipe.pipe[num][1], STDOUT_FILENO);
+	dup2(pipes[num][1], STDOUT_FILENO);
 }
