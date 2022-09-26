@@ -1,11 +1,13 @@
 #include "../../includes/minishell.h"
 
-void	init_execute(int *cnt_pipe, pid_t **pids, t_pipe *pipes, t_argv *argv)
+void	init_execute(int *cnt_pipe, pid_t **pids, int ***pipes, t_argv *argv)
 {
+	*pids = NULL;
+	**pipes = NULL;
 	set_pipe_num(&cnt_pipe, argv);
 	if (*cnt_pipe > 0)
 	{
-		set_pids(&pids, cnt_pipe);
+		set_pids(pids, cnt_pipe);
 		set_pipe(pipes, cnt_pipe);
 	}
 }
@@ -28,12 +30,12 @@ void	wait_childs(int cnt_pipe)
 	g_error.last_errno = status;
 }
 
-void	end_execute(int cnt_pipe, pid_t **pids, t_pipe pipes, t_argv *argv)
+void	end_execute(int cnt_pipe, pid_t **pids, int **pipes, t_argv *argv)
 {
 	wait_childs(cnt_pipe); // -> exit status 변경해줘야함 "$?"
-	close_pipe(pipes, cnt_pipe);
+	close_pipe(pipes);
 	free(pids);
-	free_pipe(pipes.pipe, cnt_pipe);
+	free_pipe(pipes);
 	free_argv(argv);
 }
 
@@ -41,14 +43,14 @@ void	execute(t_argv *argv, t_env *env)
 {
 	int		i;
 	int		cnt_pipe;
-	t_pipe	pipes;
+	int		**pipes;
 	pid_t	*pids;
 
 	if (make_heredoc(argv) == FAIL)
 		return (free_argv(argv));	// FAIL일 경우 할당 해제 필요
 	init_execute(&cnt_pipe, &pids, &pipes, argv);
 	i = -1;
-	if (cnt_pipe == 0 && is_builtin(argv->cmd[0]) == SUCCESS)
+	if (cnt_pipe == 0 && is_builtin(argv->cmd[0]) == TURE)
 		single_builtin(argv, env);
 	else
 	{
@@ -56,9 +58,7 @@ void	execute(t_argv *argv, t_env *env)
 		{
 			pids[i] = ft_fork(pids, i);
 			if (pids[i] == 0)
-			{
 				child_process(argv, env, pipes, i);
-			}
 			if (pids[i] < 0)
 				perror("ERROR");
 			argv = argv->next;

@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	child_process(t_argv *argv, t_env *env, t_pipe pipe, int i)
+void	child_process(t_argv *argv, t_pipe pipe, int i, t_env *env)
 {
 	set_stdin_pipe(pipe, i - 1);
 	set_stdout_pipe(argv, pipe, i);
@@ -8,7 +8,7 @@ void	child_process(t_argv *argv, t_env *env, t_pipe pipe, int i)
 		return ;
 	if (is_builtin(argv->cmd[0]))
 	{
-		set_child_signal();
+		// set_child_signal();
 		builtin_process(argv->cmd, env);
 	}
 	else

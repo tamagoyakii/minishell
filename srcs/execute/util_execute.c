@@ -35,3 +35,16 @@ int	is_builtin(char *cmd)
 	}
 	return (FAIL);
 }
+
+void	*ft_malloc(size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+	{
+		perror("MALLOC ERROR");
+		exit (FAIL);
+	}
+	return (ptr);
+}

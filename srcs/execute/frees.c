@@ -1,11 +1,13 @@
 #include "../../includes/minishell.h"
 
-void	free_pipes(int **pipes, int cnt)
+void	free_pipes(int **pipes)
 {
 	int	i;
-	
+
+	if (!pipes)
+		return ;
 	i = -1;
-	while (++i < cnt)
+	while (pipes[++i])
 		free(pipes[i]);
 	free(pipes);
 }
@@ -27,6 +29,8 @@ void	free_strs(char **strs)
 	int	i;
 
 	i = -1;
+	if (!strs)
+		return ;
 	while (strs[++i])
 	{
 		free(strs[i]);
