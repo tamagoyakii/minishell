@@ -32,7 +32,7 @@ void	end_execute(int cnt_pipe, pid_t **pids, t_pipe pipes, t_argv *argv)
 {
 	wait_childs(cnt_pipe); // -> exit status 변경해줘야함 "$?"
 	close_pipe(pipes, cnt_pipe);
-	free_pids(pids);
+	free(pids);
 	free_pipe(pipes.pipe, cnt_pipe);
 	free_argv(argv);
 }
