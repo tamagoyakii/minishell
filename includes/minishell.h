@@ -6,7 +6,7 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/24 18:09:52 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:33:21 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 typedef enum e_return_type
 {
 	SUCCESS,
-	FAIL
+	FAIL,
+	TRUE = 0,
+	FALSE = 1
 }	t_return_type;
 
 typedef enum e_token_type
@@ -55,18 +57,6 @@ typedef struct s_env
 	struct s_env	*prev;
 	struct s_env	*next;
 }	t_env;
-
-typedef struct s_chunk
-{
-	int		cnt;
-	t_list	*chunks;
-}	t_chunk;
-
-typedef struct s_cmd
-{
-	int		cnt;
-	t_list	*cmds;
-}	t_cmd;
 
 typedef struct s_type
 {
