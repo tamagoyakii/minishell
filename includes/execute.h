@@ -1,5 +1,5 @@
 #ifndef EXECUTE_H
-# define EXCUTE_H
+# define EXECUTE_H
 
 void	execute(t_argv *argv, t_env *env);
 /* builtin */

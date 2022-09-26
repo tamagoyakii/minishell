@@ -24,9 +24,9 @@ static int	create_dummy(t_list **dummys, char *addr, int size)
 static int	check_quote(char **line, int *flag)
 {
 	if (**line == '\'')
-		*flag ^= (QUOTE | NONE);
+		*flag ^= (QUOTE | NAQ);
 	else if (**line == '"')
-		*flag ^= (DQUOTE | NONE);
+		*flag ^= (DQUOTE | NAQ);
 	else if (**line == ' ')
 		;
 	else
@@ -39,17 +39,17 @@ static int	create_dummys(t_list **dummys, char *line)
 	int		flag;
 	char	*start_line;
 
-	flag = NONE;
+	flag = NAQ;
 	while (line && *line)
 	{
-		while (flag == NONE && *line == ' ')
+		while (flag == NAQ && *line == ' ')
 			line++;
 		if (check_quote(&line, &flag))
 			line++;
 		start_line = line;
 		while (*line)
 		{
-			if (flag & NONE && (*line == ' ' || *line == '\'' || *line == '"'))
+			if (flag & NAQ && (*line == ' ' || *line == '\'' || *line == '"'))
 				break ;
 			if (flag & QUOTE && *line == '\'')
 				break ;
@@ -75,7 +75,7 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 		return (NULL);
 	while (*dummy)
 	{
-		if (!ft_strncmp((*dummy)->content, "", 1))
+		if (!ft_strcmp((*dummy)->content, ""))
 		{
 			*dummy = (*dummy)->next;
 			break ;
