@@ -1,6 +1,24 @@
 #include "../../includes/minishell.h"
 
-static int	run_heredoc(t_type *heredoc)
+void	unlink_heredoc(t_argv *argv)
+{
+	t_argv	*tmp;
+	t_type	*heredoc;
+
+	tmp = argv;
+	while (tmp)
+	{
+		heredoc = tmp->hdoc;
+		while (heredoc)
+		{
+			unlink(heredoc->value);
+			heredoc = heredoc->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
+static void	run_heredoc(t_type *heredoc)
 {
 	int		fd;
 	char	*line;
@@ -9,35 +27,42 @@ static int	run_heredoc(t_type *heredoc)
 	tmp = heredoc;
 	while (tmp)
 	{
+		unlink(tmp->value);
 		fd = ft_open(tmp->value, HDOC);
-		while (1 && fd > 0)
+		while (fd > 0)
 		{
 			line = readline("> ");
-			if (!line || ft_strcmp(line, tmp->value) == 0)
+			if (!line || ft_strcmp(line, &tmp->value[5]) == SUCCESS)
 			{
 				free(line);
 				close(fd);
 				break ;
 			}
-			ft_putstr_fd(line, fd);
+			ft_putendl_fd(line, fd);
 			free(line);
 		}
 		close(fd);
 		tmp = tmp->next;
 	}
-	exit (SUCCESS);
 }
 
-int		make_heredoc(t_argv *argv)
+int	make_heredoc(t_argv *argv)
 {
 	int		status;
 	pid_t	pid;
+	t_argv	*tmp;
 
+	tmp = argv;
 	pid = fork();
 	if (pid == 0)
 	{
 		set_heredoc_signal();
-		run_heredoc(argv->hdoc);
+		while (tmp)
+		{
+			run_heredoc(tmp->hdoc);
+			tmp = tmp->next;
+		}
+		exit (SUCCESS);
 	}
 	if (pid < 0)
 		ft_error("fork", strerror(errno), FAIL);

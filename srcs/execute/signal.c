@@ -5,7 +5,7 @@ static void	heredoc_signal_handler(int signo)
 	exit(FAIL);
 }
 
-static void child_signal_handler(int signo)
+static void	child_signal_handler(int signo)
 {
 	if (signo == SIGINT)
 		ft_putstr_fd("^C\n", 2);

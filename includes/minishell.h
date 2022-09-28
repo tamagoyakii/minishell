@@ -31,8 +31,8 @@ typedef enum e_return_type
 {
 	SUCCESS,
 	FAIL,
-	TRUE = 0,
-	FALSE = 1
+	TRUE = 1,
+	FALSE = 0
 }	t_return_type;
 
 typedef enum e_token_type

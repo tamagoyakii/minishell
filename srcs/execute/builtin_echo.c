@@ -1,6 +1,15 @@
 #include "../../includes/minishell.h"
 
-void	check_option(char ***cmds, int *flag)
+void	change_flag(char ***cmd, int *flag, char **tmp, int i)
+{
+	if (i != 0)
+	{
+		*flag = TRUE;
+		*cmd = &tmp[i];
+	}
+}
+
+void	check_option(char ***cmd, int *flag)
 {
 	int		i;
 	int		j;
@@ -8,8 +17,8 @@ void	check_option(char ***cmds, int *flag)
 
 	i = 0;
 	j = 0;
-	(*cmds)++;
-	tmp = *cmds;
+	(*cmd)++;
+	tmp = *cmd;
 	*flag = FALSE;
 	while (tmp[i] && tmp[i][j] == '-')
 	{
@@ -20,33 +29,26 @@ void	check_option(char ***cmds, int *flag)
 				j++;
 		}
 		if (tmp[i][j])
-			break;
+			break ;
 		i++;
 		j = 0;
 	}
-	if (i != 0)
-	{
-		*flag = TRUE;
-		*cmds = &tmp[i];
-	}
+	change_flag(cmd, flag, tmp, i);
 }
 
-void	ft_echo(t_argv *argv)
+void	ft_echo(char **cmd)
 {
 	int		i;
 	int		flag;
-	char	**cmds;
 
-	cmds = argv->cmd;
-	check_option(cmds, &flag);
+	check_option(&cmd, &flag);
 	i = -1;
-	while (cmds[++i])
+	while (cmd[++i])
 	{
-		printf("%s");
-		if (cmds[i + 1])
+		printf("%s", cmd[i]);
+		if (cmd[i + 1])
 			printf(" ");
 	}
 	if (flag == FALSE)
 		printf("\n");
-	return (SUCCESS);
 }
