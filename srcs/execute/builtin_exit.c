@@ -31,18 +31,14 @@ static int	ft_atouc(char *str)
 
 void	ft_exit(char **cmd)
 {
-	int	i;
 	int	exit_num;
 
-	i = 0;
-	while (cmd[i])
-		i++;
-	if (i > 2)
+	if (cmd[2])
 	{
 		ft_error("exit", "too many arguments", FAIL);
 		return ;
 	}
-	if (i == 2)
+	if (cmd[1])
 		exit_num = ft_atouc(cmd[1]);
 	else
 		exit_num = 0;
