@@ -1,6 +1,12 @@
 #ifndef PARSE_H
 # define PARSE_H
 
+/* signal 탈취를 위한 매크로 상수 shell, default, ignore  */
+# define SHE 0
+# define DFL 1
+# define IGN 2
+
+// int	g_exit_code;
 typedef enum e_quote
 {
 	NAQ = 1,

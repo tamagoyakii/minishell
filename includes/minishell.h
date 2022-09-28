@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
+/*   By: wochae <wochae@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/26 14:33:21 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:34:24 by wochae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
+# include <term.h>
+# include <readline/history.h>
 # include <errno.h>
 # include <string.h>
 
