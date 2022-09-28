@@ -35,6 +35,6 @@ void	execute(t_argv *argv)
 	if (cnt_pipe == 0 && is_builtin(argv->cmd) == TRUE)
 		single_builtin(argv);
 	else
-		child_command(argv, pids, pipes, cnt_pipe);
+		run_fork(argv, pids, pipes, cnt_pipe);
 	end_execute(pids, pipes, argv);
 }
