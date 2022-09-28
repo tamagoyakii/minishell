@@ -3,7 +3,7 @@
 
 static char *get_env_key(char *str, t_env *env) // env 안에 str 해당 key가 존재한다면 value 반환, 존재하지 않는다면 NULL을 반환
 {
-	
+	return "null";
 }
 static char	*replace_dollar(char *line, t_env *env)
 {
@@ -48,9 +48,4 @@ char	*replace_env(char *line, t_env *env)
 	}
 
 	return ;
-}
-
-void	replace(char *line, t_env *env)
-{
-    
 }
