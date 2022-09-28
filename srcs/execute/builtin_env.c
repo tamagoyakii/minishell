@@ -16,5 +16,4 @@ void	ft_env(char **cmd)
 			printf("%s=%s", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	printf("_=/usr/bin/env");
 }

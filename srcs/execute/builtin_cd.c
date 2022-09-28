@@ -17,7 +17,10 @@ static void	update_env_pwds(void)
 	if (old_pwd)
 	{
 		free(old_pwd->value);
-		old_pwd->value = strdup(pwd->value);
+		if (!pwd)
+			old_pwd->value = strdup("");
+		else
+			old_pwd->value = strdup(pwd->value);
 	}
 	if (pwd)
 	{
