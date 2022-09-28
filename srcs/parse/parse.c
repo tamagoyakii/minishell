@@ -39,7 +39,7 @@ static int	parse_argvs(t_argv **argvs, t_list *chunks)
 	tokens = 0;
 	if (create_tokens(chunks, &tokens))
 		return (FAIL);
-	free_lst_only(&chunks); // 해제 확인해야함
+	free_lst_only(&chunks);
 	if (create_argvs(argvs, tokens))
 		return (FAIL);
 	return (SUCCESS);
