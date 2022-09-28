@@ -27,7 +27,7 @@ static void	update_env_pwds(void)
 		free(pwd->value);
 		pwd->value = cwd;
 	}
-	update_env();
+	update_2_arr_env();
 }
 
 void	ft_cd(char **cmd)
