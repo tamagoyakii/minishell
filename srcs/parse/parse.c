@@ -14,14 +14,17 @@ static int	parse_argvs(t_argv *argvs, t_list *chunks)
 
 static void read_input(char **line)
 {
-	*line = readline("minishell $ ");
-	if (!line)
-		break;
-	if (*line != '\0')
-		add_history(line);
-	if (*line != '\0' && !is_whitespace(line))
+	while(1)
 	{
-		argv = ft_list_init(); // 인자 초기화
+		*line = readline("minishell $ ");
+		if (!*line)
+			continue;	
+		if (*line != '\0')
+			free(*line);
+		add_history(line);
+		if (!is_whitespace(line))
+			continue;
+	}
 }
 
 void	parse(t_argv **argv, t_env *env)
