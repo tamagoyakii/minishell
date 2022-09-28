@@ -6,7 +6,7 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/28 17:57:52 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:23:55 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef enum e_return_type
 
 typedef enum e_token_type
 {
-	WORD = 5,
+	WORD = 1,
 	REDIR,
 	PIPE
 }	t_token_type;
