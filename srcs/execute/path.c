@@ -1,20 +1,5 @@
 #include "../../includes/minishell.h"
 
-/* 이거는 나중에 환경변수 다룰 때 재사용 해도 좋을 것 같아요 */
-static char	*get_value(char *key)
-{
-	t_env	*tmp;
-
-	tmp = g_info.env_list;
-	while (tmp->next)
-	{
-		if (!ft_strcmp(tmp->key, key))
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
 static char	*join_path_cmd(char *path, char *cmd)
 {
 	char	*tmp;
@@ -51,13 +36,14 @@ static char	*make_path(t_argv *argv, char **paths)
 
 char	*get_path(t_argv *argv)
 {
-	char	*env_path;
+	t_env	*env_path;
 	char	**paths;
 
-	env_path = get_value("PATH");
+
+	env_path = get_env("PATH");
 	if (!env_path)
 		exit (FAIL);
-	paths = ft_split(env_path, ':');
+	paths = ft_split(env_path->value, ':');
 	if (!paths)
 		exit (FAIL);
 	return (make_path(argv, paths));

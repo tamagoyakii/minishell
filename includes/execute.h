@@ -5,7 +5,6 @@
 # define ERR_EXIT_NAN 255
 
 void	execute(t_argv *argv);
-
 /* builtin */
 void	single_builtin(t_argv *argv);
 
@@ -33,11 +32,22 @@ void	set_child_signal(void);
 /* path */
 char	*get_path(t_argv *argv);
 
-/* util */
+/* util_execute */
 void	*ft_malloc(size_t size);
 int		is_builtin(char **cmd);
 int		ft_open(char *file, int type);
 void	ft_error(char *cmd, char *msg, int err_num);
 void	ft_error_exit(char *cmd, char *msg, int exit_num);
+
+/* util_env */
+t_env	*get_env(char *key);
+void	update_env(void);
+
+/* mandatory part */
+// 남준님 파트는 나중에 고치면서 추가 예정
+void	ft_pwd(char **cmd);
+void	ft_cd(char **cmd);
+void	ft_env(char **cmd);
+void	ft_unset(char **cmd);
 
 #endif
