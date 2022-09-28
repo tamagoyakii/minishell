@@ -23,6 +23,24 @@ int	is_redir(char *chunk)
 	return (redir);
 }
 
+
+static void	free_token(void *token)
+{
+	free(token);
+}
+
+static t_token	*create_token(int type, char *value)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_redir));
+	if (!new)
+		return (0);
+	new->type = type;
+	new->value = value;
+	return (new);
+}
+
 int	create_tokens(t_list *chunks, t_list **tokens)
 {
 	t_list	*new_lst;

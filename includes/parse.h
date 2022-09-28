@@ -42,10 +42,6 @@ int		create_tokens(t_list *chunks, t_list **tokens);
 /* create_argvs.c */
 int		create_argvs(t_argv **argvs, t_list *tokens);
 
-/* utils_t_token.c */
-t_token	*create_token(int type, char *value);
-void	free_token(void *token);
-
 /* utils_t_redir.c */
 t_redir	*create_redir(int redir, char *value);
 t_redir	*ft_redirlast(t_redir *redir);
