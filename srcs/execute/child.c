@@ -7,7 +7,7 @@ void	wait_childs(int cnt_pipe)
 
 	i = -1;
 	status = 0;
-	while (++i < cnt_pipe)
+	while (++i < cnt_pipe + 1)
 	{
 		if (wait(&status) < 0)
 			status = 1;
