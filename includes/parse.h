@@ -21,6 +21,12 @@ typedef struct s_cmd
 	t_list	*cmds;
 }	t_cmd;
 
+typedef struct s_type
+{
+	int	last;
+	int	redir;
+}	t_type;
+
 typedef struct s_token
 {
 	int				type;
@@ -40,12 +46,10 @@ int		create_argvs(t_argv **argvs, t_list *tokens);
 t_token	*create_token(int type, char *value);
 void	free_token(void *token);
 
-t_cmd	*create_cmd(void);
-
-/* utils_t_type.c */
-t_type	*create_type(int type, char *value);
-t_type	*ft_typelast(t_type *type);
-void	ft_typeadd_back(t_type **types, t_type *new);
+/* utils_t_redir.c */
+t_redir	*create_redir(int redir, char *value);
+t_redir	*ft_redirlast(t_redir *redir);
+void	ft_rediradd_back(t_redir **redir, t_redir *new);
 
 /* utils_t_argv.c */
 t_argv	*create_argv(void);
@@ -53,9 +57,14 @@ t_argv	*ft_argvlast(t_argv *argv);
 void	ft_argvadd_back(t_argv **argvs, t_argv *new);
 
 /* utils_t_list.c */
-void	free_lst_only(t_list *lists);
+void	free_lst_only(t_list **lists);
+
+/* init_argvs.c */
+int		init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type);
 
 /* donghyuk */
-int	split_line(t_list **chunks, char *line);
+int		split_line(t_list **chunks, char *line);
+
+void	parse(t_argv **argvs, t_env *env);
 
 #endif
