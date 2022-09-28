@@ -6,7 +6,7 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/28 15:39:58 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:57:52 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
 # include <term.h>
-# include <readline/history.h>
 # include <errno.h>
 # include <string.h>
+# include <signal.h>
 
 # define NONE 0
 typedef enum e_return_type
@@ -61,20 +62,20 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_type
+typedef struct s_redir
 {
 	int				type;
 	char			*value;
-	struct s_type	*next;
-}	t_type;
+	struct s_redir	*next;
+}	t_redir;
 
 /* 구현부로 넘김 */
 typedef struct s_argv
 {
 	char			**cmd;
-	struct s_type	*in;
-	struct s_type	*out;
-	struct s_type	*hdoc;
+	struct s_redir	*in;
+	struct s_redir	*out;
+	struct s_redir	*hdoc;
 	struct s_argv	*next;
 }	t_argv;
 
