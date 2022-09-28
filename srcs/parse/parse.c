@@ -68,7 +68,7 @@ void	parse(t_argv **argvs, t_env *env)
 
 	while(1)
 	{
-		// 우채님 소스
+		// 우채꺼
 		// read_input(&input);
 		// line = replace_env(input); // line을 읽어서 존재하는 환경변수를 치환한 다음, line에 변경된 값을 덮어쓴다. 그리고 이전 주소 해제
 
