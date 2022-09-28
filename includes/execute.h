@@ -4,6 +4,8 @@
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_EXIT_NAN 255
 
+# include "./minishell.h"
+
 void	execute(t_argv *argv);
 
 /* builtin */
