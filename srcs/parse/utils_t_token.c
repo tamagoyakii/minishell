@@ -4,7 +4,7 @@ t_token	*create_token(int type, char *value)
 {
 	t_token	*new;
 
-	new = malloc(sizeof(t_type));
+	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (0);
 	new->type = type;
@@ -15,16 +15,4 @@ t_token	*create_token(int type, char *value)
 void	free_token(void *token)
 {
 	free(token);
-}
-
-t_cmd	*create_cmd(void)
-{
-	t_cmd	*new;
-
-	new = malloc(sizeof(t_cmd));
-	if (!new)
-		return (0);
-	new->cnt = 0;
-	new->cmds = 0;
-	return (new);
 }
