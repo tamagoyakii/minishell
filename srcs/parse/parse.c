@@ -41,7 +41,10 @@ static int	parse_argvs(t_argv **argvs, t_list *chunks)
 		return (FAIL);
 	free_lst_only(&chunks);
 	if (create_argvs(argvs, tokens))
+	{
+		ft_lstclear(tokens, free_token);
 		return (FAIL);
+	}
 	return (SUCCESS);
 }
 
