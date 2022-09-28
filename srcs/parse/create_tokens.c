@@ -23,8 +23,7 @@ int	is_redir(char *chunk)
 	return (redir);
 }
 
-
-static void	free_token(void *token)
+void	free_token(void *token)
 {
 	free(token);
 }

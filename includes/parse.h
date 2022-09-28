@@ -37,6 +37,7 @@ typedef struct s_token
 /* create_tokens.c */
 int		is_pipe(char *input);
 int		is_redir(char *chunk);
+void	free_token(void *token);
 int		create_tokens(t_list *chunks, t_list **tokens);
 
 /* create_argvs.c */
