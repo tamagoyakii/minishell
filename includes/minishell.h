@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wochae <wochae@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/26 18:34:24 by wochae           ###   ########.fr       */
+/*   Updated: 2022/09/28 15:39:58 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-# include "./execute.h"
-# include "./parse.h"
+// # include "./execute.h"
+// # include "./parse.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -29,6 +29,7 @@
 # include <errno.h>
 # include <string.h>
 
+# define NONE 0
 typedef enum e_return_type
 {
 	SUCCESS,
@@ -39,16 +40,14 @@ typedef enum e_return_type
 
 typedef enum e_token_type
 {
-	NONE,
-	WORD,
+	WORD = 5,
 	REDIR,
 	PIPE
 }	t_token_type;
 
 typedef enum e_redir_type
 {
-	NONE,
-	T_OUT,
+	T_OUT = 1,
 	A_OUT,
 	IN,
 	HDOC

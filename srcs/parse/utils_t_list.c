@@ -1,14 +1,17 @@
 # include "../../includes/minishell.h"
 
-void	free_lst_only(t_list *lists)
+void	free_lst_only(t_list **lst)
 {
 	t_list	*to_free;
+	t_list	*seek;
 
-	while (lists)
+	seek = *lst;
+	while (seek)
 	{
-		to_free = lists;
-		lists = lists->next;
+		to_free = seek;
+		seek = seek->next;
 		if (to_free)
 			free(to_free);
 	}
+	*lst = 0;
 }

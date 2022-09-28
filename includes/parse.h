@@ -6,7 +6,8 @@
 # define DFL 1
 # define IGN 2
 
-// int	g_exit_code;
+# include "./minishell.h"
+
 typedef enum e_quote
 {
 	NAQ = 1,
@@ -33,11 +34,13 @@ int		is_redir(char *chunk);
 int		create_tokens(t_list *chunks, t_list **tokens);
 
 /* create_argvs.c */
-int		create_argvs(t_argv *argvs, t_type *tokens);
+int		create_argvs(t_argv **argvs, t_list *tokens);
 
 /* utils_t_token.c */
 t_token	*create_token(int type, char *value);
 void	free_token(void *token);
+
+t_cmd	*create_cmd(void);
 
 /* utils_t_type.c */
 t_type	*create_type(int type, char *value);
@@ -51,5 +54,8 @@ void	ft_argvadd_back(t_argv **argvs, t_argv *new);
 
 /* utils_t_list.c */
 void	free_lst_only(t_list *lists);
+
+/* donghyuk */
+int	split_line(t_list **chunks, char *line);
 
 #endif

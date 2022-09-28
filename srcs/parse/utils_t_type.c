@@ -6,7 +6,7 @@ t_type	*create_type(int type, char *value)
 
 	new = malloc(sizeof(t_type));
 	if (!new)
-		return (FAIL);
+		return (0);
 	new->type = type;
 	new->value = value;
 	new->next = 0;
@@ -22,7 +22,7 @@ t_type	*ft_typelast(t_type *type)
 	return (type);
 }
 
-void	ft_typeadd_back(t_type **type, t_list *new)
+void	ft_typeadd_back(t_type **type, t_type *new)
 {
 	t_type	*last;
 

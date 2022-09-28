@@ -1,2 +1,5 @@
 .vscode
 .history
+*.dSYM/
+a.out
+*.a

@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../includes/parse.h"
 
 static int	create_dummy(t_list **dummys, char *addr, int size)
 {

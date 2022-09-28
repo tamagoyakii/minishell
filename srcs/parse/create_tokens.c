@@ -1,4 +1,4 @@
-# include "../../includes/minishell.h"
+# include "../../includes/parse.h"
 
 int	is_pipe(char *input)
 {
@@ -31,17 +31,17 @@ int	create_tokens(t_list *chunks, t_list **tokens)
 	while (chunks)
 	{
 		if (is_pipe(chunks->content))
-			new_token = create_type(PIPE, chunks->content);
+			new_token = create_token(PIPE, chunks->content);
 		else if (is_redir(chunks->content))
-			new_token = create_type(REDIR, chunks->content);
+			new_token = create_token(REDIR, chunks->content);
 		else
-			new_token = create_type(WORD, chunks->content);
+			new_token = create_token(WORD, chunks->content);
 		if (!new_token)
 			return (FAIL);
 		new_lst = ft_lstnew(new_token);
 		if (!new_lst)
 			return (FAIL);
-		ft_lstadd_back(*tokens, new_lst);
+		ft_lstadd_back(tokens, new_lst);
 		chunks = chunks->next;
 	}
 	return (SUCCESS);
