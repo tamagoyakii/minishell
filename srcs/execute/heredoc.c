@@ -40,7 +40,7 @@ int		make_heredoc(t_argv *argv)
 		run_heredoc(argv->hdoc);
 	}
 	if (pid < 0)
-		return (FAIL);
+		ft_error("fork", strerror(errno), FAIL);
 	wait(&status);
 	return (status >> 8);
 }

@@ -26,8 +26,6 @@ void	wait_childs(int cnt_pipe)
 	}
 	if (status > 1)
 		status = status >> 8;
-	g_error.errno = status;
-	g_error.last_errno = status;
 }
 
 void	end_execute(int cnt_pipe, pid_t *pids, int **pipes, t_argv *argv)
@@ -60,7 +58,7 @@ void	execute(t_argv *argv, t_env *env)
 			if (pids[i] == 0)
 				child_process(argv, env, pipes, i);
 			if (pids[i] < 0)
-				perror("ERROR");
+				ft_error("fork", strerror(errno), FAIL);
 			argv = argv->next;
 		}
 	}

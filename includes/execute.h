@@ -1,6 +1,10 @@
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
+# define ERR_CMD_NOT_FOUND 127
+# define ERR_EXIT_NAN 255
+
+
 void	execute(t_argv *argv, t_env *env);
 /* builtin */
 void	single_builtin(t_argv *argv, t_env *env);
@@ -22,7 +26,8 @@ void	set_child_signal(void);
 char	*get_path(t_argv *argv, t_env *env);
 /* util */
 void	*ft_malloc(size_t size);
-int		is_builtin(char *cmd);
+int		is_builtin(char **cmd);
 int		ft_open(char *file, int type);
+void	ft_error(char *cmd, char *msg, int err_num);
 
 #endif
