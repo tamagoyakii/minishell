@@ -4,6 +4,8 @@ void	close_pipe(int **pipes)
 {
 	int	i;
 
+	if (!pipes)
+		return ;
 	i = -1;
 	while (pipes[++i])
 	{
@@ -16,28 +18,34 @@ void	set_stdin_pipe(int **pipes, int num)
 {
 	int	i;
 
-	if (num < 0)
-		return ;
 	i = -1;
-	while (pipes[++i])
+	if (!pipes)
+		return ;
+	if (num < 0)
 	{
-		if (i != num)
+		while (pipes[++i])
 			close(pipes[i][0]);
+		return ;
 	}
 	dup2(pipes[num][0], STDIN_FILENO);
+	while (pipes[++i])
+		close(pipes[i][0]);
 }
 
 void	set_stdout_pipe(t_argv *argv, int **pipes, int num)
 {
 	int	i;
 
-	if (!argv->next)
-		return ;
 	i = -1;
-	while (pipes[++i])
+	if (!pipes)
+		return ;
+	if (!argv->next)
 	{
-		if (i != num)
+		while (pipes[++i])
 			close(pipes[i][1]);
+		return ;
 	}
 	dup2(pipes[num][1], STDOUT_FILENO);
+	while (pipes[++i])
+		close(pipes[i][1]);
 }

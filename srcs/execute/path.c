@@ -1,12 +1,12 @@
 #include "../../includes/minishell.h"
 
 /* 이거는 나중에 환경변수 다룰 때 재사용 해도 좋을 것 같아요 */
-static char	*get_value(t_env **env, char *key)
+static char	*get_value(char *key)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
-	tmp = env;
-	while (tmp->next != NULL)
+	tmp = g_info.env_list;
+	while (tmp->next)
 	{
 		if (!ft_strcmp(tmp->key, key))
 			return (tmp->value);
@@ -18,7 +18,7 @@ static char	*get_value(t_env **env, char *key)
 static char	*join_path_cmd(char *path, char *cmd)
 {
 	char	*tmp;
-	
+
 	tmp = ft_strjoin("/", cmd);
 	if (!tmp)
 		return (NULL);
@@ -31,14 +31,14 @@ static char	*join_path_cmd(char *path, char *cmd)
 	return (path);
 }
 
-static char	*make_path(t_argv *argv, char *paths)
+static char	*make_path(t_argv *argv, char **paths)
 {
 	char		*path;
 	struct stat	info;
 	int			i;
 
 	i = -1;
-	while (paths[++i] != NULL)
+	while (paths[++i])
 	{
 		path = join_path_cmd(paths[i], argv->cmd[0]);
 		if (!path)
@@ -49,12 +49,12 @@ static char	*make_path(t_argv *argv, char *paths)
 	return (NULL);
 }
 
-char	*get_path(t_argv *argv, t_env *env)
+char	*get_path(t_argv *argv)
 {
 	char	*env_path;
 	char	**paths;
 
-	env_path = get_value(env, "PATH");
+	env_path = get_value("PATH");
 	if (!env_path)
 		exit (FAIL);
 	paths = ft_split(env_path, ':');
