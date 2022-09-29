@@ -8,12 +8,21 @@
 
 # include "./minishell.h"
 
-typedef enum e_quote
+
+typedef enum e_dummy_type
 {
-	NAQ = 1,
-	QUOTE = 2,
-	DQUOTE = 4
-}	t_quote;
+	CHAR	= 0x0001,
+	_QUOTE	= 0x0002,
+	S_QUOTE	= 0x0004,
+	D_QUOTE	= 0x0008,
+	_REDIR	= 0x0010,
+	R_REDIR	= 0x0020,
+	L_REDIR	= 0x0040,
+	_PIPE	= 0x0100,
+	SPACE	= 0x0200,
+	BREAK	= 0x1000,
+	ADD_NULL= 0x2000
+}	t_dummy_type;
 
 typedef struct s_cmd
 {
@@ -32,6 +41,14 @@ typedef struct s_token
 	int				type;
 	char			*value;
 }	t_token;
+
+typedef	struct s_dummy
+{
+	int		type;
+	int		size;
+	char	*addr;
+}	t_dummy;
+
 
 /* jihyukim */
 /* create_tokens.c */
@@ -60,7 +77,8 @@ void	free_lst_only(t_list **lists);
 int		init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type);
 
 /* donghyuk */
-int		split_line(t_list **chunks, char *line);
+int	search_dummy(t_dummy *dummy, char *line);
+int	split_line(t_list **chunks, char *line);
 
 void	parse(t_argv **argvs, t_env *env);
 
