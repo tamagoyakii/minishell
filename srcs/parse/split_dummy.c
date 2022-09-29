@@ -7,10 +7,6 @@ static int	get_read_size(t_dummy dummy, char *line)
 	read_size = line - dummy.addr;
 	if (dummy.type & _QUOTE)
 		read_size = read_size + 1;
-	if (dummy.type & L_REDIR && (*line == '<'))
-		read_size = 2;
-	if (dummy.type & R_REDIR && (*line == '>'))
-		read_size = 2;
 	return (read_size);
 }
 
@@ -19,12 +15,8 @@ static int	get_dummy_size(t_dummy dummy, char *line)
 	int	size;
 
 	size = line - dummy.addr;
-	if (dummy.type & (SPACE | _PIPE))
+	if (dummy.type & (SPACE | _PIPE | _REDIR))
 		size = 1;
-	else if (dummy.type & L_REDIR)
-		size = (*line == '<') + 1;
-	else if (dummy.type & R_REDIR)
-		size = (*line == '>') + 1;
 	else if (dummy.type & _QUOTE && dummy.type & BREAK)
 		size = size - 1;
 	return (size);
@@ -55,7 +47,11 @@ static int	update_dummy_type(t_dummy dummy, char line)
 {
 	if (dummy.type & CHAR && (line == '>' || line == '<' || line == '|'))
 		dummy.type ^= ADD_NULL;
-	if (dummy.type & _REDIR || dummy.type & _PIPE || dummy.type & SPACE)
+	else if (dummy.type & L_REDIR && line != '<')
+		dummy.type ^= ADD_NULL;
+	else if (dummy.type & R_REDIR && line != '>')
+		dummy.type ^= ADD_NULL;
+	else if (dummy.type & _PIPE || dummy.type & SPACE)
 		dummy.type ^= ADD_NULL;
 	return (dummy.type);
 }
