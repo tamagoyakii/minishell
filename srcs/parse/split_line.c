@@ -1,64 +1,45 @@
 #include "../../includes/parse.h"
 
-static int	create_dummy(t_list **dummys, char *addr, int size)
+static t_list	*create_dummy(char *addr, int size)
 {
 	t_list	*new;
 	char	*dummy;
 
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
-		return (FAIL);
-	dummy = malloc(sizeof(char) * (size + 1));
+		return (NULL);
+	dummy = ft_calloc(size + 1, sizeof(char));
 	if (!dummy)
 	{
 		free(new);
-		return (FAIL);
+		return (NULL);
 	}
 	new->next = NULL;
 	new->content = dummy;
 	ft_strlcpy(dummy, addr, size + 1);
-	ft_lstadd_back(dummys, new);
-	return (SUCCESS);
-}
-
-static int	check_quote(char **line, int *flag)
-{
-	if (**line == '\'')
-		*flag ^= (QUOTE | NAQ);
-	else if (**line == '"')
-		*flag ^= (DQUOTE | NAQ);
-	else if (**line == ' ')
-		;
-	else
-		return (0);
-	return (1);
+	return (new);
 }
 
 static int	create_dummys(t_list **dummys, char *line)
 {
-	int		flag;
-	char	*start_line;
+	t_list	*dummy;
+	t_dummy	dummy_info;
 
-	flag = NAQ;
-	while (line && *line)
+	while (*line == ' ')
+		line++;
+	while (*line)
 	{
-		while (flag == NAQ && *line == ' ')
-			line++;
-		if (check_quote(&line, &flag))
-			line++;
-		start_line = line;
-		while (*line)
-		{
-			if (flag & NAQ && (*line == ' ' || *line == '\'' || *line == '"'))
-				break ;
-			if (flag & QUOTE && *line == '\'')
-				break ;
-			if (flag & DQUOTE && *line == '"')
-				break ;
-			line++;
-		}
-		if (create_dummy(dummys, start_line, line - start_line))
+		line += search_dummy(&dummy_info, line);
+		dummy = create_dummy(dummy_info.addr, dummy_info.size);
+		if (!dummy)
 			return (FAIL);
+		if (dummy_info.type & ADD_NULL)
+		{
+			dummy->next = create_dummy(dummy_info.addr, 0);
+			if (!dummy->next)
+				return (FAIL);
+		}
+		ft_lstadd_back(dummys, dummy);
 	}
 	return (SUCCESS);
 }
@@ -75,7 +56,7 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 		return (NULL);
 	while (*dummy)
 	{
-		if (!ft_strcmp((*dummy)->content, ""))
+		if (!ft_strncmp((*dummy)->content, "", 1))
 		{
 			*dummy = (*dummy)->next;
 			break ;
