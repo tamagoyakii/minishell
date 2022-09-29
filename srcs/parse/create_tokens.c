@@ -1,4 +1,4 @@
-# include "../../includes/minishell.h"
+# include "../../includes/parse.h"
 
 int	is_pipe(char *input)
 {
@@ -23,6 +23,23 @@ int	is_redir(char *chunk)
 	return (redir);
 }
 
+void	free_token(void *token)
+{
+	free(token);
+}
+
+static t_token	*create_token(int type, char *value)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_redir));
+	if (!new)
+		return (0);
+	new->type = type;
+	new->value = value;
+	return (new);
+}
+
 int	create_tokens(t_list *chunks, t_list **tokens)
 {
 	t_list	*new_lst;
@@ -31,17 +48,17 @@ int	create_tokens(t_list *chunks, t_list **tokens)
 	while (chunks)
 	{
 		if (is_pipe(chunks->content))
-			new_token = create_type(PIPE, chunks->content);
+			new_token = create_token(PIPE, chunks->content);
 		else if (is_redir(chunks->content))
-			new_token = create_type(REDIR, chunks->content);
+			new_token = create_token(REDIR, chunks->content);
 		else
-			new_token = create_type(WORD, chunks->content);
+			new_token = create_token(WORD, chunks->content);
 		if (!new_token)
 			return (FAIL);
 		new_lst = ft_lstnew(new_token);
 		if (!new_lst)
 			return (FAIL);
-		ft_lstadd_back(*tokens, new_lst);
+		ft_lstadd_back(tokens, new_lst);
 		chunks = chunks->next;
 	}
 	return (SUCCESS);

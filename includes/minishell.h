@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wochae <wochae@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/26 18:34:24 by wochae           ###   ########.fr       */
+/*   Updated: 2022/09/28 18:23:55 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-# include "./execute.h"
-# include "./parse.h"
+// # include "./execute.h"
+// # include "./parse.h"
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
 # include <term.h>
-# include <readline/history.h>
 # include <errno.h>
 # include <string.h>
+# include <signal.h>
 
+# define NONE 0
 typedef enum e_return_type
 {
 	SUCCESS,
@@ -39,16 +41,14 @@ typedef enum e_return_type
 
 typedef enum e_token_type
 {
-	NONE,
-	WORD,
+	WORD = 1,
 	REDIR,
 	PIPE
 }	t_token_type;
 
 typedef enum e_redir_type
 {
-	NONE,
-	T_OUT,
+	T_OUT = 1,
 	A_OUT,
 	IN,
 	HDOC
@@ -62,20 +62,20 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_type
+typedef struct s_redir
 {
 	int				type;
 	char			*value;
-	struct s_type	*next;
-}	t_type;
+	struct s_redir	*next;
+}	t_redir;
 
 /* 구현부로 넘김 */
 typedef struct s_argv
 {
 	char			**cmd;
-	struct s_type	*in;
-	struct s_type	*out;
-	struct s_type	*hdoc;
+	struct s_redir	*in;
+	struct s_redir	*out;
+	struct s_redir	*hdoc;
 	struct s_argv	*next;
 }	t_argv;
 

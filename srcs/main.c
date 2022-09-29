@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wochae <wochae@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:12 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/28 12:22:26 by wochae           ###   ########.fr       */
+/*   Updated: 2022/09/28 18:00:18 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	main_init(int ac, char *av[])
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	set_signal(SHE,SHE);// signal.c 는 후술 작성 완!
+	// set_signal(SHE,SHE); // signal.c 는 후술 작성 완!
 	// g_state_code = 0;
 	(void)ac;
 	(void)av;
@@ -50,14 +50,8 @@ int	main(int ac, char *av[], char *envp[])
 	init_env_list(&env, envp); // 환경변수 초기화
 	while (1)
 	{
-		parse(&argv, env);
-			split();
-			// 문자열 분할
-
-			// 토큰 생성
-			// 인자 생성
-			// 구현부 넘기기
-
+		parse(&argv, &env);
+		// 구현부 넘기기
 	}
 	
 }

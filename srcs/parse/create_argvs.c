@@ -1,57 +1,39 @@
-# include "../includes/minishell.h"
+# include "../../includes/parse.h"
 
-static int	put_cmd(t_cmd *cmd, char **arr)
+static int	put_cmd(t_cmd *cmd, t_argv **argvs)
 {
-	t_list	*tmp;
+	t_list	*h_cmd;
+	char	**arr;
 	int		i;
 
 	arr = malloc(sizeof(char *) * (cmd->cnt + 1));
 	if (!arr)
 		return (FAIL);
-	tmp = cmd->cmds;
+	h_cmd = cmd->cmds;
 	i = -1;
 	while (++i < cmd->cnt)
 	{
-		arr[i] = tmp->content;
-		tmp = tmp->next;
+		arr[i] = ft_strdup(cmd->cmds->content);
+		if (!arr[i])
+			return (FAIL);
+		cmd->cmds = cmd->cmds->next;
 	}
 	arr[i] = 0;
-	free_lst(cmd->cmds);
+	ft_argvlast(*argvs)->cmd = arr;
+	free_lst_only(&h_cmd);
 	cmd->cnt = 0;
 	return (SUCCESS);
 }
 
-static int	add_redir(t_argv *argvs, char *value, int r_type, int *last_type)
-{
-	t_type	*head;
-	t_type	*new;
-
-	if (*last_type != PIPE && *last_type != WORD && *last_type != NONE)
-		return (FAIL);
-	if (r_type == T_OUT || A_OUT)
-		head = argvs->out;
-	else
-		head = argvs->in;
-	new = create_type(r_type, 0);
-	if (!new)
-		return (FAIL);
-	ft_typeadd_back(&head, new);
-	if (r_type == HDOC)
-		ft_typeadd_back(&argvs->hdoc, new);
-	free(value);
-	*last_type = r_type;
-	return (SUCCESS);
-}
-
-static int	add_pipe(t_argv *argvs, t_cmd *cmd, int *last_type)
+static int	add_pipe(t_argv **argvs, t_cmd *cmd, t_type *type)
 {
 	t_argv	*new_argv;
 
-	if (*last_type != WORD)
+	if (type->last != WORD)
 		return (FAIL);
-	if (!put_cmd(cmd, argvs->cmd))
+	if (put_cmd(cmd, argvs))
 		return (FAIL);
-	*last_type = PIPE;
+	type->last = PIPE;
 	new_argv = create_argv();
 	if (!new_argv)
 		return (FAIL);
@@ -59,18 +41,39 @@ static int	add_pipe(t_argv *argvs, t_cmd *cmd, int *last_type)
 	return (SUCCESS);
 }
 
-static int	add_word(t_argv *argvs, t_cmd *cmd, char *value, int *last_type)
+static int	add_redir(t_argv **argvs, char *value, t_type *type)
+{
+	t_redir	*new;
+
+	if (type->last == REDIR)
+		return (FAIL);
+	type->redir = is_redir(value);
+	new = create_redir(type->redir, 0);
+	if (!new)
+		return (FAIL);
+	if (type->redir == T_OUT || type->redir == A_OUT)
+		ft_rediradd_back(&(*argvs)->out, new);
+	else
+		ft_rediradd_back(&(*argvs)->in, new);
+	if (type->redir == HDOC)
+		ft_rediradd_back(&(*argvs)->hdoc, new);
+	free(value);
+	type->last = REDIR;
+	return (SUCCESS);
+}
+
+static int	add_word(t_argv **argvs, t_cmd *cmd, char *value, t_type *type)
 {
 	t_list	*new_cmd;
 
-	if (*last_type == T_OUT || *last_type == A_OUT)
-		ft_typelast(argvs->out)->value = value;
-	else if (*last_type == IN)
-		ft_typelast(argvs->in)->value = value;
-	else if (*last_type == HDOC)
+	if (type->redir == T_OUT || type->redir == A_OUT)
+		ft_redirlast((*argvs)->out)->value = value;
+	else if (type->redir == IN)
+		ft_redirlast((*argvs)->in)->value = value;
+	else if (type->redir == HDOC)
 	{
-		ft_typelast(argvs->in)->value = ft_strjoin("/tmp/", value);
-		ft_typelast(argvs->hdoc)->value = ft_strjoin("/tmp/", value);
+		ft_redirlast((*argvs)->in)->value = ft_strjoin("/tmp/", value);
+		ft_redirlast((*argvs)->hdoc)->value = ft_strjoin("/tmp/", value);
 		free(value);
 	}
 	else
@@ -78,38 +81,38 @@ static int	add_word(t_argv *argvs, t_cmd *cmd, char *value, int *last_type)
 		new_cmd = ft_lstnew(value);
 		if (!new_cmd)
 			return (FAIL);
-		ft_lstadd_back(cmd->cmds, new_cmd);
+		ft_lstadd_back(&cmd->cmds, new_cmd);
 		cmd->cnt += 1;
 	}
-	*last_type = WORD;
+	type->last = WORD;
 	return (SUCCESS);
 }
 
-int	create_argvs(t_argv *argvs, t_list *tokens)
+int	create_argvs(t_argv **argvs, t_list *tokens)
 {
 	t_token	*token;
 	t_cmd	*cmd;
-	int		last_type;
-	int		r_type;
+	t_type	*type;
 	int		res;
 
-	cmd->cnt = 0;
-	last_type = NONE;
+	if (init_argvs(argvs, &cmd, &type))
+		return (FAIL);
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
-		r_type = is_redir(token->value);
 		if (token->type == PIPE)
-			res = add_pipe(argvs, cmd, &last_type);
+			res = add_pipe(argvs, cmd, type);
 		else if (token->type == REDIR)
-			res = add_redir(argvs, token->value, r_type, &last_type);
+			res = add_redir(argvs, token->value, type);
 		else if (token->type == WORD)
-			res = add_word(argvs, cmd, token->value, &last_type);
+			res = add_word(argvs, cmd, token->value, type);
 		if (res)
 			return (FAIL);
 		tokens = tokens->next;
 	}
-	if (last_type == PIPE || r_type != NONE)
+	if ((*argvs)->cmd)
+		put_cmd(cmd, argvs);
+	if (type->last != WORD)
 		return (FAIL);
 	return (SUCCESS);
 }
