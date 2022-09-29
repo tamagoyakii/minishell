@@ -8,15 +8,20 @@ static t_list	*create_dummy(char *addr, int size)
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	dummy = ft_calloc(size + 1, sizeof(char));
-	if (!dummy)
+	if (!addr)
+		dummy = NULL;
+	else
 	{
-		free(new);
-		return (NULL);
+		dummy = ft_calloc(size + 1, sizeof(char));
+		if (!dummy)
+		{
+			free(new);
+			return (NULL);
+		}
+		ft_strlcpy(dummy, addr, size + 1);
 	}
 	new->next = NULL;
 	new->content = dummy;
-	ft_strlcpy(dummy, addr, size + 1);
 	return (new);
 }
 
@@ -35,7 +40,7 @@ static int	create_dummys(t_list **dummys, char *line)
 			return (FAIL);
 		if (dummy_info.type & ADD_NULL)
 		{
-			dummy->next = create_dummy(dummy_info.addr, 0);
+			dummy->next = create_dummy(NULL, 1);
 			if (!dummy->next)
 				return (FAIL);
 		}
@@ -56,7 +61,7 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 		return (NULL);
 	while (*dummy)
 	{
-		if (!ft_strncmp((*dummy)->content, "", 1))
+		if (!(*dummy)->content)
 		{
 			*dummy = (*dummy)->next;
 			break ;
