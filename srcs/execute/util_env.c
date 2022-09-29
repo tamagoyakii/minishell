@@ -31,12 +31,12 @@ void	print_invalid_error(char *cmd, char *input)
 	char	*message;
 	char	*tmp;
 
-	tmp = ft_strjoin(cmd, " not a valid identifier");
+	tmp = ft_strjoin(cmd, ": not a valid identifier");
 	if (!tmp)
 		ft_error_exit("malloc", strerror(errno), FAIL);
 	message = ft_strjoin("export: ", tmp);
 	free(tmp);
-	ft_putstr_fd(message, 2);
+	ft_putendl_fd(message, 2);
 }
 
 void	insert_new_env(t_env *new)

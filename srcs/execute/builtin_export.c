@@ -24,7 +24,7 @@ static char	*make_key(char *cmd)
 	while (cmd[i] != '=' && cmd[i])
 	{
 		tmp = key;
-		key = strjoin(tmp, cmd[i]);
+		key = ft_strjoin(tmp, cmd[i]);
 		if (!key)
 			ft_error_exit("malloc", strerror(errno), FAIL);
 		free(tmp);
@@ -38,12 +38,11 @@ static void	make_new_env(char *cmd)
 	t_env	*new_env;
 	char	*key;
 	char	*value;
-	int		i;
 
 	key = make_key(cmd);
 	value = ft_strchr(cmd, '=');
 	new_env->key = key;
-	if (vlaue && ++value)
+	if (value && ++value)
 		new_env->value = value;
 	else
 		new_env->value = NULL;
@@ -55,18 +54,15 @@ static int	is_update_env(char *cmd)
 	t_env	*exist;
 	char	*key;
 	char	*value;
-	int		i;
 
-	i = 0;
 	key = NULL;
-	tmp = NULL;
 	value = ft_strchr(cmd, '=');
 	if (!value)
 		return (FAIL); 
 	key = make_key(cmd);
 	exist = get_env(key);
 	if (!exist)
-		reuturn (FAIL);
+		return (FAIL);
 	free(exist->value);
 	exist->value = ++value;
 	return (SUCCESS);
