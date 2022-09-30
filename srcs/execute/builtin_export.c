@@ -38,22 +38,6 @@ static char	*make_key(char *cmd)
 	return (key);
 }
 
-static void	make_new_env(char *cmd)
-{
-	t_env	*new_env;
-	char	*key;
-	char	*value;
-
-	key = make_key(cmd);
-	value = ft_strchr(cmd, '=');
-	new_env->key = key;
-	if (value && ++value)
-		new_env->value = value;
-	else
-		new_env->value = NULL;
-	insert_new_env();
-}
-
 static int	is_update_env(char *cmd)
 {
 	t_env	*exist;
@@ -92,7 +76,7 @@ void	ft_export(char **cmd)
 	while (cmd[i])
 	{
 		if (!is_valid_key(cmd[i]))
-			print_invalid_error("export", cmd[i]);
+			print_invalid_error("export: ", cmd[i]);
 		else if (!is_update_env(cmd[i]))
 			add_one(&g_info.env_list, cmd[i]);
 		i++;
