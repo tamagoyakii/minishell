@@ -1,7 +1,9 @@
 #include "../../includes/execute.h"
+#include "../../includes/utils.h"
 
 static void	heredoc_signal_handler(int signo)
 {
+	(void)signo;
 	exit(FAIL);
 }
 

@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 void	free_redir(t_redir *type)
 {

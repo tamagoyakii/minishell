@@ -18,7 +18,7 @@ t_env	*get_env(char *key);
 t_env	*make_env(char *env);
 void	add_env(t_env **lst, char *env);
 void	print_invalid_key(char *cmd, char *input);
-void	get_env_list_size(void);
+int		get_env_list_size(void);
 void	init_env(char **env);
 void	make_env_arr(void);
 

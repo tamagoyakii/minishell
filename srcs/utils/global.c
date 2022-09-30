@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 void	*ft_malloc(size_t size)
 {

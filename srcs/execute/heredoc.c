@@ -1,6 +1,6 @@
 #include "../../includes/execute.h"
 
-static void	unlink_heredoc(t_argv *argv)
+void	unlink_heredoc(t_argv *argv)
 {
 	t_argv	*tmp;
 	t_redir	*heredoc;
