@@ -91,10 +91,10 @@ void	ft_export(char **cmd)
 		return (print_export());
 	while (cmd[i])
 	{
-		if (is_valid_key(cmd[i]) == FAIL)
+		if (!is_valid_key(cmd[i]))
 			print_invalid_error("export", cmd[i]);
-		else if (is_update_env(cmd[i]) == FAIL)
-			// make_new_env(cmd[i]);
+		else if (!is_update_env(cmd[i]))
+			add_one(&g_info.env_list, cmd[i]);
 		i++;
 	}
 	update_2_arr_env();
