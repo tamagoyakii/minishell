@@ -42,7 +42,7 @@ static int	parse_argvs(t_argv **argvs, t_list *chunks)
 	free_lst_only(&chunks);
 	if (create_argvs(argvs, tokens))
 	{
-		ft_lstclear(tokens, free_token);
+		ft_lstclear(tokens, free_content);
 		return (FAIL);
 	}
 	return (SUCCESS);
@@ -54,7 +54,7 @@ static void read_input(char **line)
 	{
 		*line = readline("minishell $ ");
 		if (!*line)
-			continue;	
+			continue;
 		if (*line != '\0')
 			free(*line);
 		add_history(line);

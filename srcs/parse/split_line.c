@@ -78,11 +78,6 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 	return (chunk);
 }
 
-void	free_dummy(void *content)
-{
-	free(content);
-}
-
 int	split_line(t_list **chunks, char *line)
 {
 	t_list	*chunk;
@@ -94,7 +89,7 @@ int	split_line(t_list **chunks, char *line)
 	h_dummys = dummys;
 	if (create_dummys(&dummys, line))
 	{
-		// free();
+		ft_lstclear(&h_dummys, free_content);
 		return (FAIL);
 	}
 	while (dummys)
@@ -102,11 +97,11 @@ int	split_line(t_list **chunks, char *line)
 		chunk = dummys_to_chunk(&dummys);
 		if (!chunk)
 		{
-			// free();
+			ft_lstclear(&h_dummys, free_content);
 			return (FAIL);
 		}
 		ft_lstadd_back(chunks, chunk);
 	}
-	ft_lstclear(&h_dummys, free_dummy);
+	ft_lstclear(&h_dummys, free_content);
 	return (SUCCESS);
 }

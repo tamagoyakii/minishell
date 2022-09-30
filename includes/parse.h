@@ -8,10 +8,9 @@
 
 # include "./minishell.h"
 
-
 typedef enum e_dummy_type
 {
-	CHAR	= 0x0001,
+	CHAR		= 0x0001,
 	_QUOTE	= 0x0002,
 	S_QUOTE	= 0x0004,
 	D_QUOTE	= 0x0008,
@@ -21,7 +20,7 @@ typedef enum e_dummy_type
 	_PIPE	= 0x0100,
 	SPACE	= 0x0200,
 	BREAK	= 0x1000,
-	ADD_NULL= 0x2000
+	ADD_NULL	= 0x2000
 }	t_dummy_type;
 
 typedef struct s_cmd
@@ -72,6 +71,7 @@ void	ft_argvadd_back(t_argv **argvs, t_argv *new);
 
 /* utils_t_list.c */
 void	free_lst_only(t_list **lists);
+void	free_content(void *content);
 
 /* init_argvs.c */
 int		init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type);
