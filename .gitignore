@@ -3,3 +3,4 @@
 *.dSYM/
 a.out
 *.a
+.DS_Store
