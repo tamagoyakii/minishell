@@ -22,7 +22,7 @@ void	ft_unset(char **cmd)
 		else
 		{
 			if (!is_valid_key(cmd[i]))
-				print_invalid_error("unset", cmd[i]);
+				print_invalid_error("unset: ", cmd[i]);
 		}
 		i++;
 	}

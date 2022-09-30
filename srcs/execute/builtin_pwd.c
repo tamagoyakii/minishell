@@ -15,5 +15,5 @@ void	ft_pwd(char **cmd)
 		ft_error("pwd", strerror(errno), FAIL);
 		return ;
 	}
-	printf("%s", cwd);
+	printf("%s\n", cwd);
 }

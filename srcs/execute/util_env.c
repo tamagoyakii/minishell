@@ -20,12 +20,12 @@ int	is_valid_key(char *key)
 	
 	i = 0;
 	if (!(ft_isalpha(key[i]) || key[i] == '_'))
-		return (False);
+		return (FALSE);
 	i++;
 	while (key[i] && key[i] != '=')
 	{
 		if (!(ft_isalnum(key[i]) || key[i] == '_'))
-			return (False);
+			return (FALSE);
 		i++;
 	}
 	return (TRUE);
