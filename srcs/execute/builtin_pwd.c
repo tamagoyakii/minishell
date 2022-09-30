@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 #include <limits.h>
 
 void	ft_pwd(char **cmd)

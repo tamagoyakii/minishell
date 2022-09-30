@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
 static void	heredoc_signal_handler(int signo)
 {
@@ -24,3 +24,5 @@ void	set_child_signal(void)
 {
 	signal(-1, child_signal_handler);
 }
+
+// 김우채 메인에서 사용하는 시그널 추가

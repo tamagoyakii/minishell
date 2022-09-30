@@ -1,46 +1,31 @@
 #include "../../includes/minishell.h"
 
-void	make_2_arr_env(void)
+void	make_env_arr(void)
 {
 	t_env	*env_lst;
 	char	**env_arr;
-	char	*tmp;
-	int		size;
+	int		lst_size;
 	int		i;
 
-	i = 0;
-	env_lst = g_info.env_list;
-	while (env_lst)
-	{
-		env_lst = env_lst->next;
-		i++;
-	}
-	size = i;
-	env_arr = (char **)ft_malloc(sizeof(char *) * (i + 1));
-	env_arr[i] = NULL;
+	free_strs(g_info.env);
+	lst_size = get_env_list_size();
 	env_lst = g_info.env_list;
 	i = 0;
+	env_arr = (char **)ft_malloc(sizeof(char *) * (lst_size + 1));
 	while (env_lst)
 	{
 		if (env_lst->value)
 		{
-			tmp = ft_strjoin(g_info.env_list->key, "=");
-			if (!tmp)
-				ft_error_exit("malloc", strerror(errno), FAIL);
-			env_arr[i] = ft_strjoin(tmp, env_lst->value);
-			if (!env_arr[i])
-				ft_error_exit("malloc", strerror(errno), FAIL);
-			free(tmp);
+			env_arr[i] = ft_strjoin_3(env_list->key, "=", env_lst->value);
 			i++;
 		}
 		env_lst = env_lst->next;
 	}
-	while (i < size)
-		env_arr[i++] = NULL;
+	env_arr[lst_size] = NULL;
 	g_info.env = env_arr;
 }
 
-void	insert_new_env(t_env **lst, t_env *tmp, t_env *new, char *env)
+static void	insert_new_env(t_env **lst, t_env *tmp, t_env *new, char *env)
 {
 	if (ft_strcmp(tmp->key, env) < 0)
 	{
@@ -62,7 +47,7 @@ void	insert_new_env(t_env **lst, t_env *tmp, t_env *new, char *env)
 	}
 }
 
-t_env	*new_env_lst(char *env)
+t_env	*make_env(char *env)
 {
 	t_env	*new;
 	char	*str;
@@ -87,7 +72,7 @@ t_env	*new_env_lst(char *env)
 	return (new);
 }
 
-void	add_one(t_env **lst, char *env)
+void	add_env(t_env **lst, char *env)
 {
 	t_env	*new;
 	t_env	*tmp;
@@ -96,7 +81,7 @@ void	add_one(t_env **lst, char *env)
 	tmp = *lst;
 	if (!tmp)
 	{
-		tmp = new_env_lst(env);
+		tmp = make_env(env);
 		tmp->next = *lst;
 		tmp->prev = NULL;
 		*lst = tmp;
@@ -104,21 +89,20 @@ void	add_one(t_env **lst, char *env)
 	}
 	while (tmp->next && ft_strcmp(tmp->key, env) < 0)
 		tmp = tmp->next;
-	new = new_env_lst(env);
+	new = make_env(env);
 	insert_new_env(lst, tmp, new, env);
 }
 
 /* 맨 처음 시작시 char *envp[] -> list 만들어줌 */
-void	set_env(char **env)
+void	init_env(char **env)
 {
 	int		i;
 	t_env	*head;
 
 	i = -1;
 	head = NULL;
-	add_one(&head, env[++i]);
 	while (env[++i])
-		add_one(&head, env[i]);
+		add_env(&head, env[i]);
 	g_info.env_list = head;
-	make_2_arr_env();
+	make_env_arr();
 }

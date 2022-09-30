@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
 static char	*join_path_cmd(char *path, char *cmd)
 {
@@ -38,7 +38,6 @@ char	*get_path(t_argv *argv)
 {
 	t_env	*env_path;
 	char	**paths;
-
 
 	env_path = get_env("PATH");
 	if (!env_path)

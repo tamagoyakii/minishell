@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
 static void	print_export(void)
 {
@@ -13,29 +13,6 @@ static void	print_export(void)
 		printf("\n");
 		tmp = tmp->next;
 	}
-}
-
-static char	*make_key(char *cmd)
-{
-	char	*key;
-	char	*tmp;
-	int		i;
-
-	tmp = ft_strchr(cmd, '=');
-	if (tmp)
-	{
-		key = ft_substr(cmd, 0, ft_strlen(cmd) - ft_strlen(tmp));
-		if (!key)
-			ft_error_exit("malloc", strerror(errno), FAIL);
-	}
-	else
-	{
-		key = ft_strdup(cmd);
-		if (!key)
-			ft_error_exit("malloc", strerror(errno), FAIL);
-
-	}
-	return (key);
 }
 
 static int	is_update_env(char *cmd)
@@ -76,9 +53,9 @@ void	ft_export(char **cmd)
 	while (cmd[i])
 	{
 		if (!is_valid_key(cmd[i]))
-			print_invalid_error("export: ", cmd[i]);
+			print_invalid_key("export: ", cmd[i]);
 		else if (!is_update_env(cmd[i]))
-			add_one(&g_info.env_list, cmd[i]);
+			add_env(&g_info.env_list, cmd[i]);
 		i++;
 	}
 	update_2_arr_env();

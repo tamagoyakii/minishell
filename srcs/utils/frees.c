@@ -1,24 +1,13 @@
 #include "../../includes/minishell.h"
 
-void	free_pipes(int **pipes)
+void	free_redir(t_redir *type)
 {
-	int	i;
-
-	if (!pipes)
-		return ;
-	i = -1;
-	while (pipes[++i])
-		free(pipes[i]);
-	free(pipes);
-}
-
-void	free_redir(t_type *type)
-{
-	t_type	*tmp;
+	t_redir	*tmp;
 
 	while (type)
 	{
 		tmp = type->next;
+		free(type->value);
 		free(type);
 		type = tmp;
 	}
