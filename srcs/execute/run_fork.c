@@ -19,7 +19,6 @@ static void	wait_childs(int cnt_pipe)
 
 static void run_execve_proc(t_argv *argv)
 {
-	char	**envp;
 	char	*path;
 
 	path = get_path(argv);

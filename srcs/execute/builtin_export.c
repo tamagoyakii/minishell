@@ -43,9 +43,7 @@ static int	is_update_env(char *cmd)
 
 void	ft_export(char **cmd)
 {
-	t_env	*updone;
 	int		i;
-	int		j;
 	
 	i = 1;
 	if (!cmd[i])
@@ -58,5 +56,5 @@ void	ft_export(char **cmd)
 			add_env(&g_info.env_list, cmd[i]);
 		i++;
 	}
-	update_2_arr_env();
+	make_env_arr();
 }

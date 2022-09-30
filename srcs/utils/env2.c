@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 void	make_env_arr(void)
 {
@@ -16,7 +17,7 @@ void	make_env_arr(void)
 	{
 		if (env_lst->value)
 		{
-			env_arr[i] = ft_strjoin_3(env_list->key, "=", env_lst->value);
+			env_arr[i] = ft_strjoin_3(env_lst->key, "=", env_lst->value);
 			i++;
 		}
 		env_lst = env_lst->next;
@@ -76,7 +77,6 @@ void	add_env(t_env **lst, char *env)
 {
 	t_env	*new;
 	t_env	*tmp;
-	char	*str;
 
 	tmp = *lst;
 	if (!tmp)

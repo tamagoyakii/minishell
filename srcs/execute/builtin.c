@@ -17,7 +17,7 @@ int	is_builtin(char **cmd)
 	return (FALSE);
 }
 
-void	builtin_process(char **cmd)
+void	run_builtin_proc(char **cmd)
 {
 	if (ft_strcmp(cmd[0], "echo") == SUCCESS)
 		ft_echo(cmd);
@@ -50,7 +50,7 @@ void	single_builtin(t_argv *argv)
 		reset_stdout(origin_stdout);
 		return ;
 	}
-	builtin_process(argv->cmd);
+	run_builtin_proc(argv->cmd);
 	reset_stdin(origin_stdin);
 	reset_stdout(origin_stdout);
 }

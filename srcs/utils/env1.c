@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 t_env	*get_env(char *key)
 {
@@ -35,7 +36,6 @@ char	*make_key(char *cmd)
 {
 	char	*key;
 	char	*tmp;
-	int		i;
 
 	tmp = ft_strchr(cmd, '=');
 	if (tmp)
@@ -67,7 +67,7 @@ void	print_invalid_key(char *cmd, char *input)
 	g_info.last_exit_num = FAIL;
 }
 
-void	get_env_list_size(void)
+int	get_env_list_size(void)
 {
 	int		i;
 	t_env	*env_lst;
@@ -76,9 +76,9 @@ void	get_env_list_size(void)
 	env_lst = g_info.env_list;
 	while (env_lst)
 	{
-		env_lst = env_lst->next;
 		if (env_lst->value)
 			i++;
+		env_lst = env_lst->next;
 	}
 	return (i);
 }
