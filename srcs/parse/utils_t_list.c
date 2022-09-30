@@ -15,3 +15,8 @@ void	free_lst_only(t_list **lst)
 	}
 	*lst = 0;
 }
+
+void	free_content(void *content)
+{
+	free(content);
+}

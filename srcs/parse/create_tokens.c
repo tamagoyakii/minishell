@@ -23,11 +23,6 @@ int	is_redir(char *chunk)
 	return (redir);
 }
 
-void	free_token(void *token)
-{
-	free(token);
-}
-
 static t_token	*create_token(int type, char *value)
 {
 	t_token	*new;
