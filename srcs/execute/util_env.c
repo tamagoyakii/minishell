@@ -37,12 +37,12 @@ void	print_invalid_error(char *cmd, char *input)
 	char	*tmp;
 	char	*key;
 
-	key = make_key(cmd);
+	key = make_key(input);
 	tmp = ft_strjoin(key, ": not a valid identifier");
 	free(key);
 	if (!tmp)
 		ft_error_exit("malloc", strerror(errno), FAIL);
-	message = ft_strjoin("export: ", tmp);
+	message = ft_strjoin(cmd, tmp);
 	free(tmp);
 	if (!message)
 		ft_error_exit("malloc", strerror(errno), FAIL);

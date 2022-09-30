@@ -65,19 +65,19 @@ static int	is_update_env(char *cmd)
 	if (!exist)
 	{
 		free(key);
-		return (FAIL);
+		return (FALSE);
 	}
 	free(key);
 	value = ft_strchr(cmd, '=');
 	if (!value && !exist)
-		return (FAIL); 
+		return (FALSE); 
 	if (!value && exist)
-		return (SUCCESS);
+		return (TRUE);
 	free(exist->value);
 	exist->value = ft_strdup(++value);
 	if (!exist->value)
 			ft_error_exit("malloc", strerror(errno), FAIL);
-	return (SUCCESS);
+	return (TRUE);
 }
 
 void	ft_export(char **cmd)
