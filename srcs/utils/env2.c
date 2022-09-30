@@ -51,24 +51,20 @@ static void	insert_new_env(t_env **lst, t_env *tmp, t_env *new, char *env)
 t_env	*make_env(char *env)
 {
 	t_env	*new;
-	char	*str;
+	char	*value;
 
 	new = (t_env *)ft_malloc(sizeof(t_env));
-	str = ft_strchr(env, '=');
-	if (str)
-		new->key = ft_substr(env, 0, ft_strlen(env) - ft_strlen(str));
-	else
-		new->key = ft_strdup(env);
-	if (!new->key)
-		ft_error_exit("malloc", strerror(errno), FAIL);
-	if (str)
+	new->key = make_key(env);
+	value = ft_strchr(env, '=');
+	if (value)
 	{
-		new->value = ft_strdup(str + 1);
+		new->value = ft_strdup(++value);
 		if (!new->value)
 			ft_error_exit("malloc", strerror(errno), FAIL);
 	}
 	else
 		new->value = NULL;
+	free(value);
 	new->next = NULL;
 	return (new);
 }
@@ -93,7 +89,6 @@ void	add_env(t_env **lst, char *env)
 	insert_new_env(lst, tmp, new, env);
 }
 
-/* 맨 처음 시작시 char *envp[] -> list 만들어줌 */
 void	init_env(char **env)
 {
 	int		i;

@@ -30,14 +30,13 @@ static int	is_update_env(char *cmd)
 	}
 	free(key);
 	value = ft_strchr(cmd, '=');
-	if (!value && !exist)
-		return (FALSE); 
-	if (!value && exist)
+	if (!value)
 		return (TRUE);
 	free(exist->value);
 	exist->value = ft_strdup(++value);
 	if (!exist->value)
 			ft_error_exit("malloc", strerror(errno), FAIL);
+	free(value);
 	return (TRUE);
 }
 
@@ -45,16 +44,15 @@ void	ft_export(char **cmd)
 {
 	int		i;
 	
-	i = 1;
-	if (!cmd[i])
+	i = 0;
+	if (!cmd[++i])
 		return (print_export());
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		if (!is_valid_key(cmd[i]))
 			print_invalid_key("export: ", cmd[i]);
 		else if (!is_update_env(cmd[i]))
 			add_env(&g_info.env_list, cmd[i]);
-		i++;
 	}
 	make_env_arr();
 }

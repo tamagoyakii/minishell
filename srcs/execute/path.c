@@ -1,21 +1,5 @@
 #include "../../includes/execute.h"
 
-static char	*join_path_cmd(char *path, char *cmd)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin("/", cmd);
-	if (!tmp)
-		return (NULL);
-	path = ft_strjoin(path, tmp);
-	if (!path)
-	{
-		free(tmp);
-		return (NULL);
-	}
-	return (path);
-}
-
 static char	*make_path(t_argv *argv, char **paths)
 {
 	char		*path;
@@ -25,12 +9,13 @@ static char	*make_path(t_argv *argv, char **paths)
 	i = -1;
 	while (paths[++i])
 	{
-		path = join_path_cmd(paths[i], argv->cmd[0]);
+		path = ft_strjoin_3(paths[i], "/", argv->cmd[0]);
 		if (!path)
 			exit (FAIL);
 		if (stat(path, &info) == SUCCESS)
 			return (path);
 	}
+	free(path);
 	return (NULL);
 }
 
