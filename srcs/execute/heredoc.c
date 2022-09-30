@@ -67,5 +67,7 @@ int	make_heredoc(t_argv *argv)
 	if (pid < 0)
 		ft_error("fork", strerror(errno), FAIL);
 	wait(&status);
-	return (status >> 8);
+	status = status >> 8;
+	g_info.last_exit_num = status;
+	return (status);
 }
