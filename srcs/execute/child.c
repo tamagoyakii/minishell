@@ -22,20 +22,11 @@ static void execve_process(t_argv *argv)
 	char	**envp;
 	char	*path;
 
-	path = get_path(argv, env);
-	envp = make_2_arr_env(env); /* 우채가 만들어줄 예정 */
-	if (!envp)
-		exit (FAIL);
+	path = get_path(argv);
 	if (!path)
-	{
-		perror("filename: command not found"); /* 에러 코드 모아서 수정 필요 */
-		exit(FAIL);
-	}
-	if (execve(path, argv->cmd, envp) == -1)
-	{
-		perror("execve ERROR");
-		exit(FAIL);
-	}
+		ft_error_exit("command not found", argv->cmd[0], ERR_CMD_NOT_FOUND);
+	if (execve(path, argv->cmd, g_info.env) == -1)
+		ft_error_exit(strerror(errno), argv->cmd[0], FAIL);
 }
 
 void	child_process(t_argv *argv, int **pipes, int i)
