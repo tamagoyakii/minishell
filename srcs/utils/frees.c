@@ -22,9 +22,7 @@ void	free_strs(char **strs)
 	if (!strs)
 		return ;
 	while (strs[++i])
-	{
 		free(strs[i]);
-	}
 	free(strs);
 }
 

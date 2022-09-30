@@ -65,6 +65,6 @@ int	main2(int ac, char *av[], char *ev[])
 int	main(int ac, char *av[], char *ev[])
 {
 	main2(ac, av, ev);
-	// system("leaks a.out");
+	// system("leaks minishell");
 	return (g_info.last_exit_num);
 }

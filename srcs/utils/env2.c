@@ -11,15 +11,12 @@ void	make_env_arr(void)
 	free_strs(g_info.env);
 	lst_size = get_env_list_size();
 	env_lst = g_info.env_list;
-	i = 0;
+	i = -1;
 	env_arr = (char **)ft_malloc(sizeof(char *) * (lst_size + 1));
 	while (env_lst)
 	{
 		if (env_lst->value)
-		{
-			env_arr[i] = ft_strjoin_3(env_lst->key, "=", env_lst->value);
-			i++;
-		}
+			env_arr[++i] = ft_strjoin_3(env_lst->key, "=", env_lst->value);
 		env_lst = env_lst->next;
 	}
 	env_arr[lst_size] = NULL;
@@ -64,7 +61,6 @@ t_env	*make_env(char *env)
 	}
 	else
 		new->value = NULL;
-	free(value);
 	new->next = NULL;
 	return (new);
 }
