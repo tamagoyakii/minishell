@@ -5,12 +5,13 @@ static void	print_export(void)
 	t_env	*tmp;
 
 	tmp = g_info.env_list;
-	while (tmp->next)
+	while (tmp)
 	{
 		printf("declare -x %s", tmp->key);
 		if (tmp->value)
 			printf("=\"%s\"", tmp->value);
 		printf("\n");
+		tmp = tmp->next;
 	}
 }
 
@@ -18,17 +19,21 @@ static char	*make_key(char *cmd)
 {
 	char	*key;
 	char	*tmp;
+	int		i;
 
-	key = NULL;
-	tmp = NULL;
-	while (cmd[i] != '=' && cmd[i])
+	tmp = ft_strchr(cmd, '=');
+	if (tmp)
 	{
-		tmp = key;
-		key = ft_strjoin(tmp, cmd[i]);
+		key = ft_substr(cmd, 0, ft_strlen(cmd) - ft_strlen(tmp));
 		if (!key)
 			ft_error_exit("malloc", strerror(errno), FAIL);
-		free(tmp);
-		i++;
+	}
+	else
+	{
+		key = ft_strdup(cmd);
+		if (!key)
+			ft_error_exit("malloc", strerror(errno), FAIL);
+
 	}
 	return (key);
 }
@@ -55,16 +60,23 @@ static int	is_update_env(char *cmd)
 	char	*key;
 	char	*value;
 
-	key = NULL;
-	value = ft_strchr(cmd, '=');
-	if (!value)
-		return (FAIL); 
 	key = make_key(cmd);
 	exist = get_env(key);
 	if (!exist)
+	{
+		free(key);
 		return (FAIL);
+	}
+	free(key);
+	value = ft_strchr(cmd, '=');
+	if (!value && !exist)
+		return (FAIL); 
+	if (!value && exist)
+		return (SUCCESS);
 	free(exist->value);
-	exist->value = ++value;
+	exist->value = ft_strdup(++value);
+	if (!exist->value)
+			ft_error_exit("malloc", strerror(errno), FAIL);
 	return (SUCCESS);
 }
 
@@ -79,10 +91,10 @@ void	ft_export(char **cmd)
 		return (print_export());
 	while (cmd[i])
 	{
-		if (!is_valid_key(cmd[i]))
+		if (is_valid_key(cmd[i]) == FAIL)
 			print_invalid_error("export", cmd[i]);
-		else if (!is_update_env(cmd[i]))
-			make_new_env(cmd[i]);
+		else if (is_update_env(cmd[i]) == FAIL)
+			// make_new_env(cmd[i]);
 		i++;
 	}
 	update_2_arr_env();
