@@ -43,7 +43,7 @@ void	ft_error_exit(char *cmd, char *msg, int exit_num);
 
 /* util_env */
 t_env	*get_env(char *key);
-void	update_env(void);
+void	update_2_arr_env(void);
 
 /* mandatory part */
 // 남준님 파트는 나중에 고치면서 추가 예정
@@ -51,5 +51,6 @@ void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
 void	ft_env(char **cmd);
 void	ft_unset(char **cmd);
+void	ft_export(char **cmd);
 
 #endif

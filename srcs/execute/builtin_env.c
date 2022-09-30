@@ -10,7 +10,7 @@ void	ft_env(char **cmd)
 		ft_error("env", "too many arguments", FAIL);
 		return ;
 	}
-	while (tmp->next)
+	while (tmp)
 	{
 		if (tmp->value)
 			printf("%s=%s", tmp->key, tmp->value);
