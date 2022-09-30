@@ -10,7 +10,7 @@
 
 typedef enum e_dummy_type
 {
-	CHAR		= 0x0001,
+	CHAR	= 0x0001,
 	_QUOTE	= 0x0002,
 	S_QUOTE	= 0x0004,
 	D_QUOTE	= 0x0008,
@@ -20,8 +20,24 @@ typedef enum e_dummy_type
 	_PIPE	= 0x0100,
 	SPACE	= 0x0200,
 	BREAK	= 0x1000,
-	ADD_NULL	= 0x2000
+	ADD_NULL= 0x2000
 }	t_dummy_type;
+
+typedef enum e_error_type
+{
+	E_CHUNKS	= 0x01,
+	E_TOKENS	= 0x02,
+	E_ARGVS		= 0x04,
+	E_SYNTAX	= 0x08
+}	t_error_type;
+
+typedef struct s_parse
+{
+	t_list	*chunks;
+	t_list	*tokens;
+	t_cmd	*cmd;
+	t_type	*type;
+}	t_parse;
 
 typedef struct s_cmd
 {
@@ -56,8 +72,11 @@ int		is_redir(char *chunk);
 void	free_token(void *token);
 int		create_tokens(t_list *chunks, t_list **tokens);
 
+/* create_argvs_2.c */
+int		put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type);
+
 /* create_argvs.c */
-int		create_argvs(t_argv **argvs, t_list *tokens);
+int		create_argvs(t_argv **argvs, t_parse *parse);
 
 /* utils_t_redir.c */
 t_redir	*create_redir(int redir, char *value);
@@ -72,9 +91,6 @@ void	ft_argvadd_back(t_argv **argvs, t_argv *new);
 /* utils_t_list.c */
 void	free_lst_only(t_list **lists);
 void	free_content(void *content);
-
-/* init_argvs.c */
-int		init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type);
 
 /* donghyuk */
 int	search_dummy(t_dummy *dummy, char *line);
