@@ -42,10 +42,10 @@ static int	is_update_env(char *cmd)
 
 void	ft_export(char **cmd)
 {
-	int		i;
+	int	i;
 	
 	i = 0;
-	if (!cmd[++i])
+	if (!cmd[1])
 		return (print_export());
 	while (cmd[++i])
 	{
