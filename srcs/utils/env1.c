@@ -39,18 +39,11 @@ char	*make_key(char *cmd)
 
 	tmp = ft_strchr(cmd, '=');
 	if (tmp)
-	{
 		key = ft_substr(cmd, 0, ft_strlen(cmd) - ft_strlen(tmp));
-		if (!key)
-			ft_error_exit("malloc", strerror(errno), FAIL);
-	}
 	else
-	{
 		key = ft_strdup(cmd);
-		if (!key)
+	if (!key)
 			ft_error_exit("malloc", strerror(errno), FAIL);
-
-	}
 	return (key);
 }
 

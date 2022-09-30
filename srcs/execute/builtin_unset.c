@@ -2,29 +2,28 @@
 
 void	ft_unset(char **cmd)
 {
-	t_env	*delone;
+	t_env	*del;
 	int		i;
 	
-	i = 1;
-	if (!cmd[i])
+	i = 0;
+	if (!cmd[++i])
 		return ;
-	while (cmd[i])
+	while (cmd[++i])
 	{
-		delone = get_env(cmd[i]);
-		if (delone)
+		del = get_env(cmd[i]);
+		if (del)
 		{
-			delone->prev->next = delone->next;
-			delone->next->prev = delone->prev;
-			free(delone->key);
-			free(delone->value);
-			free(delone);
+			del->prev->next = del->next;
+			del->next->prev = del->prev;
+			free(del->key);
+			free(del->value);
+			free(del);
 		}
 		else
 		{
 			if (!is_valid_key(cmd[i]))
 				print_invalid_key("unset: ", cmd[i]);
 		}
-		i++;
 	}
 	make_env_arr();
 }

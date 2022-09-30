@@ -1,37 +1,34 @@
 #include "../../includes/execute.h"
 #include <limits.h>
 
-static void	update_env_pwds(void)
+static void	update_env_pwds(char *cwd)
 {
-	char	cwd[PATH_MAX];
 	t_env	*old_pwd;
 	t_env	*pwd;
 
-	if (!getcwd(cwd, sizeof(cwd)))
-	{
-		ft_error("cd", strerror(errno), FAIL);
-		return ;
-	}
 	old_pwd = get_env("OLDPWD");
 	pwd = get_env("PWD");
 	if (old_pwd)
 	{
 		free(old_pwd->value);
 		if (!pwd)
-			old_pwd->value = strdup("");
+			old_pwd->value = ft_strdup("");
 		else
-			old_pwd->value = strdup(pwd->value);
+			old_pwd->value = ft_strdup(pwd->value);
+		if (!old_pwd->value)
+			ft_error_exit("malloc", strerror(errno), FAIL);
 	}
 	if (pwd)
 	{
 		free(pwd->value);
 		pwd->value = cwd;
 	}
-	make_env_arr();
 }
 
 void	ft_cd(char **cmd)
 {
+	char	cwd[PATH_MAX];
+	
 	if (!cmd[1])
 		return ;
 	if (cmd[2])
@@ -44,5 +41,11 @@ void	ft_cd(char **cmd)
 		ft_error("cd", strerror(errno), FAIL);
 		return ;
 	}
-	update_env_pwds();
+	if (!getcwd(cwd, sizeof(cwd)))
+	{
+		ft_error("cd", strerror(errno), FAIL);
+		return ;
+	}
+	update_env_pwds(cwd);
+	make_env_arr();
 }
