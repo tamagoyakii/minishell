@@ -10,8 +10,6 @@ static char	*make_path(t_argv *argv, char **paths)
 	while (paths[++i])
 	{
 		path = ft_strjoin_3(paths[i], "/", argv->cmd[0]);
-		if (!path)
-			exit (FAIL);
 		if (stat(path, &info) == SUCCESS)
 			return (path);
 	}
