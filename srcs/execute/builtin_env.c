@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
 void	ft_env(char **cmd)
 {
@@ -13,7 +13,7 @@ void	ft_env(char **cmd)
 	while (tmp)
 	{
 		if (tmp->value)
-			printf("%s=%s", tmp->key, tmp->value);
+			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 }

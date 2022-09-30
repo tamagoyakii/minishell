@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
+/*   By: jabae <jabae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/28 18:23:55 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:27:13 by jabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-// # include "./execute.h"
-// # include "./parse.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -24,8 +22,8 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-# include <dirent.h>
-# include <term.h>
+// # include <dirent.h>
+// # include <term.h>
 # include <errno.h>
 # include <string.h>
 # include <signal.h>

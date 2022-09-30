@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
 void	ft_unset(char **cmd)
 {
@@ -22,9 +22,9 @@ void	ft_unset(char **cmd)
 		else
 		{
 			if (!is_valid_key(cmd[i]))
-				print_invalid_error("unset: ", cmd[i]);
+				print_invalid_key("unset: ", cmd[i]);
 		}
 		i++;
 	}
-	update_2_arr_env();
+	make_env_arr();
 }

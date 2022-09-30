@@ -1,6 +1,6 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
-void	change_flag(char ***cmd, int *flag, char **tmp, int i)
+static void	change_flag(char ***cmd, int *flag, char **tmp, int i)
 {
 	if (i != 0)
 	{
@@ -9,7 +9,7 @@ void	change_flag(char ***cmd, int *flag, char **tmp, int i)
 	}
 }
 
-void	check_option(char ***cmd, int *flag)
+static void	check_option(char ***cmd, int *flag)
 {
 	int		i;
 	int		j;

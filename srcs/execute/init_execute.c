@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
 void	set_pipe_cnt(int *cnt_pipe, t_argv *argv)
 {

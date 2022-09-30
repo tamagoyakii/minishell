@@ -1,9 +1,9 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 
-void	unlink_heredoc(t_argv *argv)
+static void	unlink_heredoc(t_argv *argv)
 {
 	t_argv	*tmp;
-	t_type	*heredoc;
+	t_redir	*heredoc;
 
 	tmp = argv;
 	while (tmp)
@@ -18,11 +18,11 @@ void	unlink_heredoc(t_argv *argv)
 	}
 }
 
-static void	run_heredoc(t_type *heredoc)
+static void	run_heredoc(t_redir *heredoc)
 {
 	int		fd;
 	char	*line;
-	t_type	*tmp;
+	t_redir	*tmp;
 
 	tmp = heredoc;
 	while (tmp)

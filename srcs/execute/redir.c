@@ -1,9 +1,21 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
+
+void	reset_stdin(int fd)
+{
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
+
+void	reset_stdout(int fd)
+{
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+}
 
 int	set_stdin_redir(t_argv *argv)
 {
 	int		fd;
-	t_type	*tmp;
+	t_redir	*tmp;
 
 	tmp = argv->in;
 	if (!tmp)
@@ -22,16 +34,10 @@ int	set_stdin_redir(t_argv *argv)
 	return (SUCCESS);
 }
 
-void	reset_stdin(int fd)
-{
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-}
-
 int	set_stdout_redir(t_argv *argv)
 {
 	int		fd;
-	t_type	*tmp;
+	t_redir	*tmp;
 
 	tmp = argv->out;
 	if (!tmp)
@@ -51,10 +57,4 @@ int	set_stdout_redir(t_argv *argv)
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (SUCCESS);
-}
-
-void	reset_stdout(int fd)
-{
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
 }

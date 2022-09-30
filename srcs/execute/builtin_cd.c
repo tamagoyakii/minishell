@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
 #include <limits.h>
 
 static void	update_env_pwds(void)
@@ -27,7 +27,7 @@ static void	update_env_pwds(void)
 		free(pwd->value);
 		pwd->value = cwd;
 	}
-	update_2_arr_env();
+	make_env_arr();
 }
 
 void	ft_cd(char **cmd)

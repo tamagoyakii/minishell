@@ -1,4 +1,21 @@
-#include "../../includes/minishell.h"
+#include "../../includes/execute.h"
+
+int	is_builtin(char **cmd)
+{
+	int			i;
+	const char	*builtins[7] = {"echo", "cd", "pwd", "export",
+		"unset", "env", "exit"};
+
+	if (!cmd)
+		return (FALSE);
+	i = -1;
+	while (++i < 7)
+	{
+		if (ft_strcmp(*cmd, builtins[i]) == 0)
+			return (TRUE);
+	}
+	return (FALSE);
+}
 
 void	builtin_process(char **cmd)
 {

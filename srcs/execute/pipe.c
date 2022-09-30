@@ -1,18 +1,4 @@
-#include "../../includes/minishell.h"
-
-void	close_pipe(int **pipes)
-{
-	int	i;
-
-	if (!pipes)
-		return ;
-	i = -1;
-	while (pipes[++i])
-	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-	}
-}
+#include "../../includes/execute.h"
 
 void	set_stdin_pipe(int **pipes, int num)
 {
@@ -48,4 +34,30 @@ void	set_stdout_pipe(t_argv *argv, int **pipes, int num)
 	dup2(pipes[num][1], STDOUT_FILENO);
 	while (pipes[++i])
 		close(pipes[i][1]);
+}
+
+void	close_pipes(int **pipes)
+{
+	int	i;
+
+	if (!pipes)
+		return ;
+	i = -1;
+	while (pipes[++i])
+	{
+		close(pipes[i][0]);
+		close(pipes[i][1]);
+	}
+}
+
+void	free_pipes(int **pipes)
+{
+	int	i;
+
+	if (!pipes)
+		return ;
+	i = -1;
+	while (pipes[++i])
+		free(pipes[i]);
+	free(pipes);
 }
