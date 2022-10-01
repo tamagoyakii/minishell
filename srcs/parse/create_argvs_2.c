@@ -85,6 +85,7 @@ static int	add_word(t_argv **argvs, t_cmd *cmd, char *value, t_type *type)
 		cmd->cnt += 1;
 	}
 	type->last = WORD;
+	type->redir = NONE;
 	return (SUCCESS);
 }
 
