@@ -35,6 +35,7 @@ void	free_argv(t_argv *argv)
 	{
 		free_redir(tmp->in);
 		free_redir(tmp->out);
+		free_redir(tmp->hdoc);
 		free_strs(tmp->cmd);
 		tmp = argv->next;
 		free(argv);

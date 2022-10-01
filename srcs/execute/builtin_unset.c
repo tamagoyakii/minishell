@@ -6,7 +6,7 @@ void	ft_unset(char **cmd)
 	int		i;
 	
 	i = 0;
-	if (!cmd[++i])
+	if (!cmd[1])
 		return ;
 	while (cmd[++i])
 	{
@@ -14,7 +14,8 @@ void	ft_unset(char **cmd)
 		if (del)
 		{
 			del->prev->next = del->next;
-			del->next->prev = del->prev;
+			if (del->next)
+				del->next->prev = del->prev;
 			free(del->key);
 			free(del->value);
 			free(del);
