@@ -15,7 +15,9 @@ static int	get_dummy_size(t_dummy dummy, char *line)
 	int	size;
 
 	size = line - dummy.addr;
-	if (dummy.type & (SPACE | _PIPE | _REDIR))
+	if (dummy.type & SPACE)
+		size = 0;
+	if (dummy.type & (_PIPE | _REDIR))
 		size = 1;
 	else if (dummy.type & _QUOTE && dummy.type & BREAK)
 		size = size - 1;
