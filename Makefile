@@ -20,7 +20,18 @@ EXECUTE_SRCS = builtin.c \
 			run_fork.c \
 			init_execute.c \
 			open.c
-#PARSE_SRCS =
+
+#			replace.c
+PARSE_SRCS = parse.c \
+			split_dummy.c \
+			split_line.c \
+			create_tokens.c \
+			create_argvs.c \
+			create_argvs_2.c \
+			utils_env.c \
+			utils_t_argv.c \
+			utils_t_list.c \
+			utils_t_redir.c
 
 UTILS_SRCS = env1.c \
 			env2.c \
@@ -29,12 +40,15 @@ UTILS_SRCS = env1.c \
 			signal.c
 
 SRCS := ${addprefix ${EXECUTE_DIR}/, ${EXECUTE_SRCS}} \
+		${addprefix ${PARSE_DIR}/, ${PARSE_SRCS}} \
 		${addprefix ${UTILS_DIR}/, ${UTILS_SRCS}} \
-		main_execute.c
+		./srcs/main.c
+
 libft = ./libs/libft/libft.a
 #		${addprefix ${PARSE_DIR}/, ${PARSE_SRCS}} \#
+
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 all : $(NAME)
 

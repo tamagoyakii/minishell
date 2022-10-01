@@ -73,6 +73,7 @@ void	free_token(void *token);
 int		create_tokens(t_list *chunks, t_list **tokens);
 
 /* create_argvs_2.c */
+int		put_cmd(t_cmd *cmd, t_argv **argvs);
 int		put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type);
 
 /* create_argvs.c */
@@ -96,6 +97,6 @@ void	free_content(void *content);
 int	search_dummy(t_dummy *dummy, char *line);
 int	split_line(t_list **chunks, char *line);
 
-void	parse(t_argv **argvs, t_env *env);
+void	parse(t_argv **argvs);
 
 #endif
