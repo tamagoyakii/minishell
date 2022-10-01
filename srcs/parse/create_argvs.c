@@ -44,15 +44,13 @@ static int	init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type)
 int	create_argvs(t_argv **argvs, t_parse *p)
 {
 	t_list	*tokens;
-	t_token	*token;
-	int		res;
 
 	if (init_argvs(argvs, p->cmd, p->type))
 		return (E_ARGVS);
 	tokens = p->tokens;
 	while (tokens)
 	{
-		if (put_argv(argvs, tokens->content, p->cmd, p->type))
+		if (put_argv(argvs, tokens->content, &p->cmd, &p->type))
 			return (E_ARGVS);
 		tokens = tokens->next;
 	}
@@ -61,7 +59,7 @@ int	create_argvs(t_argv **argvs, t_parse *p)
 		if (put_cmd(p->cmd, argvs))
 			return (E_ARGVS);
 	}
-	free_lst_only(p->cmd->cmds);
+	free_lst_only(&p->cmd->cmds);
 	free(p->cmd);
 	free(p->type);
 	return (SUCCESS);

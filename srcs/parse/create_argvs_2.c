@@ -96,4 +96,5 @@ int	put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type)
 		return (add_redir(argvs, token->value, type));
 	if (token->type == WORD)
 		return (add_word(argvs, cmd, token->value, type));
+	return (FAIL);
 }
