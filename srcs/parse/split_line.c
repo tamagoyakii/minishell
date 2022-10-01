@@ -90,7 +90,7 @@ int	split_line(t_list **chunks, char *line)
 	if (create_dummys(&dummys, line))
 	{
 		ft_lstclear(&h_dummys, free_content);
-		return (FAIL);
+		return (E_CHUNKS);
 	}
 	while (dummys)
 	{
@@ -98,7 +98,7 @@ int	split_line(t_list **chunks, char *line)
 		if (!chunk)
 		{
 			ft_lstclear(&h_dummys, free_content);
-			return (FAIL);
+			return (E_CHUNKS);
 		}
 		ft_lstadd_back(chunks, chunk);
 	}

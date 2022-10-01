@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jabae <jabae@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 16:53:54 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/30 15:27:13 by jabae            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -28,7 +16,6 @@
 # include <string.h>
 # include <signal.h>
 
-# define NONE 0
 typedef enum e_return_type
 {
 	SUCCESS,
@@ -39,7 +26,8 @@ typedef enum e_return_type
 
 typedef enum e_token_type
 {
-	WORD = 1,
+	NONE,
+	WORD,
 	REDIR,
 	PIPE
 }	t_token_type;
