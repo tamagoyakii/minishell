@@ -96,6 +96,6 @@ void	free_content(void *content);
 int	search_dummy(t_dummy *dummy, char *line);
 int	split_line(t_list **chunks, char *line);
 
-void	parse(t_argv **argvs, t_env *env);
+void	parse(t_argv **argvs);
 
 #endif
