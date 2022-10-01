@@ -56,7 +56,12 @@ static int	add_redir(t_argv **argvs, char *value, t_type *type)
 	else
 		ft_rediradd_back(&(*argvs)->in, new);
 	if (type->redir == HDOC)
+	{
+		new = create_redir(type->redir, 0);
+		if (!new)
+			return (FAIL);
 		ft_rediradd_back(&(*argvs)->hdoc, new);
+	}
 	free(value);
 	type->last = REDIR;
 	return (SUCCESS);
