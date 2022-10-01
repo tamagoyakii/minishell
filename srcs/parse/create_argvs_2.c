@@ -1,6 +1,6 @@
 # include "../../includes/parse.h"
 
-static int	put_cmd(t_cmd *cmd, t_argv **argvs)
+int	put_cmd(t_cmd *cmd, t_argv **argvs)
 {
 	t_list	*h_cmd;
 	char	**arr;

@@ -73,6 +73,7 @@ void	free_token(void *token);
 int		create_tokens(t_list *chunks, t_list **tokens);
 
 /* create_argvs_2.c */
+int		put_cmd(t_cmd *cmd, t_argv **argvs);
 int		put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type);
 
 /* create_argvs.c */
