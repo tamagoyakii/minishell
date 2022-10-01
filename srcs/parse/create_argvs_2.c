@@ -33,11 +33,12 @@ static int	add_pipe(t_argv **argvs, t_cmd *cmd, t_type *type)
 		return (FAIL);
 	if (put_cmd(cmd, argvs))
 		return (FAIL);
-	type->last = PIPE;
 	new_argv = create_argv();
 	if (!new_argv)
 		return (FAIL);
 	ft_argvadd_back(argvs, new_argv);
+	type->redir = NONE;
+	type->last = PIPE;
 	return (SUCCESS);
 }
 
@@ -89,6 +90,7 @@ static int	add_word(t_argv **argvs, t_cmd *cmd, char *value, t_type *type)
 		ft_lstadd_back(&cmd->cmds, new_cmd);
 		cmd->cnt += 1;
 	}
+	type->redir = NONE;
 	type->last = WORD;
 	return (SUCCESS);
 }
