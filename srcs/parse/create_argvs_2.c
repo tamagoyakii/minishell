@@ -38,6 +38,7 @@ static int	add_pipe(t_argv **argvs, t_cmd *cmd, t_type *type)
 	if (!new_argv)
 		return (FAIL);
 	ft_argvadd_back(argvs, new_argv);
+	*argvs = (*argvs)->next;
 	return (SUCCESS);
 }
 
@@ -56,7 +57,12 @@ static int	add_redir(t_argv **argvs, char *value, t_type *type)
 	else
 		ft_rediradd_back(&(*argvs)->in, new);
 	if (type->redir == HDOC)
+	{
+		new = create_redir(type->redir, 0);
+		if (!new)
+			return (FAIL);
 		ft_rediradd_back(&(*argvs)->hdoc, new);
+	}
 	free(value);
 	type->last = REDIR;
 	return (SUCCESS);
