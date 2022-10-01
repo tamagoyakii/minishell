@@ -1,4 +1,9 @@
 # include "../includes/minishell.h"
+# include "../includes/execute.h"
+# include "../includes/parse.h"
+# include "../includes/utils.h"
+
+t_info g_info;
 
 int	is_whitespace(char *line)
 {
@@ -31,13 +36,14 @@ void	main_init(int ac, char *av[])
 int	main(int ac, char *av[], char *envp[])
 {
 	t_argv		*argvs;
-	t_env		*env;
 
 	main_init(ac, av); // 인자들 초기화
-	init_env_list(&env, envp); // 환경변수 초기화
+	//init_env_list(&env, envp); // 환경변수 초기화
+	init_env(envp);
+	argvs = NULL;
 	while (1)
 	{
-		parse(&argvs, &env);
-		// 구현부 넘기기
+		parse(&argvs);
+		execute(argvs);
 	}
 }

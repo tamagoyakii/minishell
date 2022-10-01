@@ -1,6 +1,6 @@
 # include "../../includes/parse.h"
 
-static int	put_cmd(t_cmd *cmd, t_argv **argvs)
+int	put_cmd(t_cmd *cmd, t_argv **argvs)
 {
 	t_list	*h_cmd;
 	char	**arr;
@@ -96,4 +96,5 @@ int	put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type)
 		return (add_redir(argvs, token->value, type));
 	if (token->type == WORD)
 		return (add_word(argvs, cmd, token->value, type));
+	return (FAIL); // 향후 처리 필요
 }

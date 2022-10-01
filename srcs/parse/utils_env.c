@@ -1,25 +1,5 @@
-#include "../includes/minishell.h"
-
+#include "../../includes/minishell.h"
 /* calloc(size, n) 쓰는거 괜찮나? */
-
-static char **make_2_arr_env(t_env *env) // 스태틱 함수에 필드 변수들은 다 0으로 초기화 되나요?
-{
-	// 자배용 이중 key:value
-	t_env	*head; // 없어도 될 듯
-	char	**arr_env;
-	int		i;
-
-	head = env; // 주소 기억하려고
-	arr_env = (char	*)ft_calloc(sizeof(char *), 2); // 주소만 기억하려면 이게 맞나? 몰라~ key, value 이렇게 필요한거 아녀?
-	i = 0;
-	while(head) // head 대신 env해도 됨.
-	{
-		arr_env[0] = head->key;
-		arr_env[1] = head->value;
-		head = head->next;
-	} // 이래도 되나 싶네.
-	return arr_env; // 이거 주소값일텐데 또 발록해야되는지?
-}
 
 char	*get_env_key(char *key_value)
 {
@@ -100,39 +80,4 @@ t_env	*new_env(char *key_value)
 		new->prev = NULL;
 	}
 	return (new);
-}
-
-int	init_env_list(t_env *cur, char **envp)
-{
-	size_t	i;
-	t_env	*new;
-	t_env	*head;
-
-	i = 0;
-	// head = cur; 여기 말고
-	cur->key = get_env_key(envp[i]);
-	if (cur->key == NULL)
-		return (-1);
-	cur->value = get_env_value(envp[i]);
-	if (cur->value == NULL)
-		return (-1);
-	cur->next = 0;
-	cur->prev = 0;
-	head = cur; // 여기가 맞지 않나 ?
-	while (envp[++i])
-	{
-		new = new_env(envp[i]);
-		if (new == NULL)
-			return (-1);
-		cur->next = new;
-		new->prev = cur;
-		cur = cur->next;
-	}
-	new = new_env(NULL);
-	new->prev = cur;
-	cur->next = new;
-	make_2_arr_env(cur); // 노드 제일 첫 번째를 이중배열 함수에 보내준다.
-	return (0);
-
-
 }
