@@ -21,7 +21,7 @@ static void run_execve_proc(t_argv *argv)
 {
 	char	*path;
 
-	path = get_path(argv);
+	path = get_path(argv->cmd);
 	if (!path)
 		ft_error_exit(argv->cmd[0], "command not found", ERR_CMD_NOT_FOUND);
 	if (execve(path, argv->cmd, g_info.env) == -1)
