@@ -6,11 +6,12 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:16:26 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/10/02 16:29:06 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:55:44 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
 void	ft_putchar_fd(char c, int fd)
 {
