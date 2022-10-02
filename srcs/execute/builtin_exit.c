@@ -1,5 +1,4 @@
 #include "../../includes/execute.h"
-#include <unistd.h>
 
 static int	ft_atouc(char *str)
 {

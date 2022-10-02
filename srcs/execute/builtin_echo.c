@@ -1,5 +1,4 @@
 #include "../../includes/execute.h"
-#include <unistd.h>
 
 static void	change_flag(char ***cmd, int *flag, char **tmp, int i)
 {

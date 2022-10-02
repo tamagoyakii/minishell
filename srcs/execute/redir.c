@@ -1,5 +1,4 @@
 #include "../../includes/execute.h"
-#include <unistd.h>
 
 void	reset_stdin(int fd)
 {

@@ -1,6 +1,5 @@
 #include "../../includes/execute.h"
 #include <fcntl.h>
-#include <unistd.h>
 
 int	ft_open(char *file, int type)
 {

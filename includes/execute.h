@@ -5,6 +5,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
+# include <unistd.h>
 
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_EXIT_NAN 255
