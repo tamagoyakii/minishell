@@ -54,11 +54,8 @@ int	create_argvs(t_argv **argvs, t_parse *p)
 			return (E_ARGVS);
 		tokens = tokens->next;
 	}
-	if (p->cmd)
-	{
-		if (put_cmd(p->cmd, argvs))
-			return (E_ARGVS);
-	}
+	if (put_cmd(p->cmd, argvs))
+		return (E_ARGVS);
 	free_lst_only(&p->cmd->cmds);
 	free(p->cmd);
 	free(p->type);
