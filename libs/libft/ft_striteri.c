@@ -6,11 +6,9 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:00:16 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/01/28 18:39:01 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:10:20 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
