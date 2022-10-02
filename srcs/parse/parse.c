@@ -1,4 +1,5 @@
-# include "../../includes/parse.h"
+#include "../../includes/parse.h"
+#include <readline/readline.h>
 
 /*
 static void	test_argvs(t_argv **argvs)

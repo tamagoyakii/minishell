@@ -11,7 +11,7 @@ EXECUTE_SRCS = builtin.c \
 			builtin_exit.c \
 			builtin_export.c \
 			builtin_pwd.c \
-			builtin_unset.c \
+			builtin_unset.c	\
 			path.c \
 			pipe.c \
 			redir.c \
@@ -29,15 +29,15 @@ PARSE_SRCS = parse.c \
 			create_argvs.c \
 			create_argvs_2.c \
 			utils_env.c \
-			utils_t_argv.c \
-			utils_t_list.c \
-			utils_t_redir.c
 
-UTILS_SRCS = env1.c \
+UTILS_SRCS = alloc.c \
+			env1.c \
 			env2.c \
-			frees.c \
-			global.c \
-			signal.c
+			error.c \
+			signal.c \
+			t_argv.c \
+			t_list.c \
+			t_redir.c
 
 SRCS := ${addprefix ${EXECUTE_DIR}/, ${EXECUTE_SRCS}} \
 		${addprefix ${PARSE_DIR}/, ${PARSE_SRCS}} \

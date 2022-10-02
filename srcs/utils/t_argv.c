@@ -1,4 +1,4 @@
-# include "../../includes/parse.h"
+#include "../../includes/utils.h"
 
 t_argv	*create_argv(void)
 {
@@ -7,12 +7,29 @@ t_argv	*create_argv(void)
 	new = (t_argv *)malloc(sizeof(t_argv));
 	if (!new)
 		return (0);
-	new->in = 0;
-	new->out = 0;
-	new->hdoc = 0;
-	new->next = 0;
-	new->cmd = 0;
+	new->in = NULL;
+	new->out = NULL;
+	new->hdoc = NULL;
+	new->next = NULL;
+	new->cmd = NULL;
 	return (new);
+}
+
+void	free_argv(t_argv *argv)
+{
+	t_argv	*tmp;
+
+	tmp = argv;
+	while (argv)
+	{
+		free_redir(tmp->in);
+		free_redir(tmp->out);
+		free_redir(tmp->hdoc);
+		free_strs(tmp->cmd);
+		tmp = argv->next;
+		free(argv);
+		argv = tmp;
+	}
 }
 
 t_argv	*ft_argvlast(t_argv *argv)

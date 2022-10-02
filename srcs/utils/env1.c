@@ -1,5 +1,6 @@
-#include "../../includes/minishell.h"
 #include "../../includes/utils.h"
+#include <string.h>
+#include <errno.h>
 
 t_env	*get_env(char *key)
 {

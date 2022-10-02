@@ -1,4 +1,5 @@
 #include "../../includes/execute.h"
+#include <readline/readline.h>
 
 void	unlink_heredoc(t_argv *argv)
 {

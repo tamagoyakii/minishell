@@ -1,4 +1,4 @@
-# include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 void	free_lst_only(t_list **lst)
 {
@@ -13,7 +13,7 @@ void	free_lst_only(t_list **lst)
 		if (to_free)
 			free(to_free);
 	}
-	*lst = 0;
+	*lst = NULL;
 }
 
 void	free_content(void *content)

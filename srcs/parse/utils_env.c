@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 /* calloc(size, n) 쓰는거 괜찮나? */
 char	*get_env_key(char *key_value)

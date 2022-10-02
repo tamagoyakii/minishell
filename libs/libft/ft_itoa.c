@@ -6,11 +6,11 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 12:38:12 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/01/28 18:35:50 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:06:16 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
 static int	digit_count(int n)
 {

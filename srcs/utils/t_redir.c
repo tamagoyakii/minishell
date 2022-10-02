@@ -1,4 +1,4 @@
-# include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 t_redir	*create_redir(int redir, char *value)
 {
@@ -9,8 +9,21 @@ t_redir	*create_redir(int redir, char *value)
 		return (0);
 	new->type = redir;
 	new->value = value;
-	new->next = 0;
+	new->next = NULL;
 	return (new);
+}
+
+void	free_redir(t_redir *redir)
+{
+	t_redir	*tmp;
+
+	while (redir)
+	{
+		tmp = redir->next;
+		free(redir->value);
+		free(redir);
+		redir = tmp;
+	}
 }
 
 t_redir	*ft_redirlast(t_redir *redir)

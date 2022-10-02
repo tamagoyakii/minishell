@@ -1,11 +1,14 @@
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
+# include "./utils.h"
+# include <errno.h>
+# include <stdio.h>
+# include <string.h>
+# include <unistd.h>
+
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_EXIT_NAN 255
-
-# include "./minishell.h"
-# include "./utils.h"
 
 void	execute(t_argv *argv);
 /* run_fork */

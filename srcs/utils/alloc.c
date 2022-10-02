@@ -1,5 +1,18 @@
-#include "../../includes/minishell.h"
 #include "../../includes/utils.h"
+#include <string.h>
+#include <errno.h>
+
+void	free_strs(char **strs)
+{
+	int	i;
+
+	i = -1;
+	if (!strs)
+		return ;
+	while (strs[++i])
+		free(strs[i]);
+	free(strs);
+}
 
 void	*ft_malloc(size_t size)
 {
@@ -9,20 +22,6 @@ void	*ft_malloc(size_t size)
 	if (!ptr)
 		ft_error_exit("malloc", strerror(errno), FAIL);
 	return (ptr);
-}
-
-void	ft_error(char *cmd, char *msg, int err_num)
-{
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(msg, STDERR_FILENO);
-	g_info.last_exit_num = err_num;
-}
-
-void	ft_error_exit(char *cmd, char *msg, int exit_num)
-{
-	ft_error(cmd, msg, exit_num);
-	exit(exit_num);
 }
 
 char	*ft_strjoin_3(char *s1, char *s2, char *s3)

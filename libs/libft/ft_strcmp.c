@@ -6,11 +6,9 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:04:33 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/09/26 13:04:39 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:10:05 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_strcmp(const char *str1, const char *str2)
 {

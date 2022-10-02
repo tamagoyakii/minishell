@@ -6,11 +6,11 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:55:32 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/01/28 18:38:34 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:56:00 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
 static void	write_nbr(long long n, int fd)
 {
