@@ -33,11 +33,8 @@ void	ft_exit(char **cmd)
 {
 	int	exit_num;
 
-	if (cmd[2])
-	{
-		ft_error("exit", "too many arguments", FAIL);
-		return ;
-	}
+	if (cmd[1] && cmd[2])
+		return (ft_error("exit", "too many arguments", FAIL));
 	if (cmd[1])
 		exit_num = ft_atouc(cmd[1]);
 	else

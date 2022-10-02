@@ -6,6 +6,11 @@ void	set_pipe_cnt(int *cnt_pipe, t_argv *argv)
 	t_argv	*tmp;
 
 	i = 0;
+	if (!argv)
+	{
+		*cnt_pipe = 0;
+		return ;
+	}
 	tmp = argv->next;
 	while (tmp)
 	{

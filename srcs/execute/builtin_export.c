@@ -36,7 +36,6 @@ static int	is_update_env(char *cmd)
 	exist->value = ft_strdup(++value);
 	if (!exist->value)
 			ft_error_exit("malloc", strerror(errno), FAIL);
-	free(value);
 	return (TRUE);
 }
 
