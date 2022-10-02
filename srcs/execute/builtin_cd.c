@@ -22,7 +22,7 @@ static void	update_env_pwds(char *cwd)
 	{
 		free(pwd->value);
 		pwd->value = ft_strdup(cwd);
-		if (pwd->value)
+		if (!pwd->value)
 			ft_error_exit("malloc", strerror(errno), FAIL);
 	}
 }
