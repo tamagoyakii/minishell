@@ -73,11 +73,17 @@ int	error_handler(t_parse p, int err)
 		if (p.type)
 			free(p.type);
 	}
+	if (p.line)
+		free(p.line);
+	if (p.input)
+		free(p.input);
 	return (FAIL);
 }
 
 void	init_parse(t_parse *p)
 {
+	p->line = 0;
+	p->input = 0;
 	p->chunks = 0;
 	p->tokens = 0;
 	p->cmd = 0;
@@ -108,9 +114,12 @@ void	parse(t_argv **argvs)
 			free_lst_only(&p.chunks);
 			err = create_argvs(argvs, &p);
 		}
-		if (error_handler(p, err))
-			continue ;
-		break ;
+		if (!error_handler(p, err))
+		{
+			ft_lstclear(&p.tokens, free_content);
+			free(p.line);
+			break ;
+		}
 	}
 	// test_argvs(argvs);
 }
