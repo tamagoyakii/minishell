@@ -54,7 +54,7 @@ int	create_argvs(t_argv **argvs, t_parse *p)
 			return (E_ARGVS);
 		tokens = tokens->next;
 	}
-	if ((*argvs)->cmd)
+	if (p->cmd)
 	{
 		if (put_cmd(p->cmd, argvs))
 			return (E_ARGVS);
