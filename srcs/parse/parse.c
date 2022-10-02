@@ -1,36 +1,38 @@
 # include "../../includes/parse.h"
 
-// void	test_argvs(t_argv **argvs)
-// {
-// 	int	i = -1;
-// 	int j = -1;
-// 	while (*argvs)
-// 	{
-// 		++i;
-// 		j = -1;
-// 		while ((*argvs)->out)
-// 		{
-// 			printf("out_%d_%d: %d, %s\n", i, ++j, (*argvs)->out->type, (*argvs)->out->value);
-// 			(*argvs)->out = (*argvs)->out->next;
-// 		}
-// 		j = -1;
-// 		while ((*argvs)->in)
-// 		{
-// 			printf("in_%d_%d: %d, %s\n", i, ++j, (*argvs)->in->type, (*argvs)->in->value);
-// 			(*argvs)->in = (*argvs)->in->next;
-// 		}
-// 		j = -1;
-// 		while ((*argvs)->hdoc)
-// 		{
-// 			printf("hdoc_%d_%d: %d, %s\n", i, ++j, (*argvs)->hdoc->type, (*argvs)->hdoc->value);
-// 			(*argvs)->hdoc = (*argvs)->hdoc->next;
-// 		}
-// 		j = -1;
-// 		while ((*argvs)->cmd[++j])
-// 			printf("cmd_%d: %s\n", j, (*argvs)->cmd[j]);
-// 		*argvs = (*argvs)->next;
-// 	}
-// }
+/*
+static void	test_argvs(t_argv **argvs)
+{
+	int	i = -1;
+	int j = -1;
+	while (*argvs)
+	{
+		++i;
+		j = -1;
+		while ((*argvs)->out)
+		{
+			printf("out_%d_%d: %d, %s\n", i, ++j, (*argvs)->out->type, (*argvs)->out->value);
+			(*argvs)->out = (*argvs)->out->next;
+		}
+		j = -1;
+		while ((*argvs)->in)
+		{
+			printf("in_%d_%d: %d, %s\n", i, ++j, (*argvs)->in->type, (*argvs)->in->value);
+			(*argvs)->in = (*argvs)->in->next;
+		}
+		j = -1;
+		while ((*argvs)->hdoc)
+		{
+			printf("hdoc_%d_%d: %d, %s\n", i, ++j, (*argvs)->hdoc->type, (*argvs)->hdoc->value);
+			(*argvs)->hdoc = (*argvs)->hdoc->next;
+		}
+		j = -1;
+		while ((*argvs)->cmd[++j])
+			printf("cmd_%d_%d: %s\n", i, j, (*argvs)->cmd[j]);
+		*argvs = (*argvs)->next;
+	}
+}
+*/
 
 /*
 static void read_input(char **line)
@@ -109,5 +111,5 @@ void	parse(t_argv **argvs)
 			continue ;
 		break ;
 	}
- 	//test_argvs(argvs);
+	// test_argvs(argvs);
 }

@@ -97,11 +97,14 @@ static int	add_word(t_argv **argvs, t_cmd *cmd, char *value, t_type *type)
 
 int	put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type)
 {
+	t_argv	*argv_last;
+
+	argv_last = ft_argvlast(*argvs);
 	if (token->type == PIPE)
 		return (add_pipe(argvs, cmd, type));
 	if (token->type == REDIR)
-		return (add_redir(argvs, token->value, type));
+		return (add_redir(&argv_last, token->value, type));
 	if (token->type == WORD)
-		return (add_word(argvs, cmd, token->value, type));
+		return (add_word(&argv_last, cmd, token->value, type));
 	return (FAIL);
 }
