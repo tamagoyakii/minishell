@@ -5,7 +5,12 @@ static int	is_valid_path(char *path)
 	struct stat	info;
 
 	if (stat(path, &info) == SUCCESS)
+	{
+		if (info.st_mode == S_ISDIR)
+			ft_error_exit(path, "is a directory", FAIL);
+		//디렉토리인지 확인
 		return (TRUE);
+	}
 	return (FALSE);
 }
 
