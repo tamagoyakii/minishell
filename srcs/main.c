@@ -1,6 +1,5 @@
 #include "../includes/minishell.h"
 #include <termios.h>
-#include <unistd.h>
 
 t_info g_info;
 
