@@ -29,6 +29,7 @@ void	main_init(int ac, char *av[])
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	// set_signal(SHE,SHE); // signal.c 는 후술 작성 완!
 	// g_state_code = 0;
+	g_info.pid = getpid();
 	(void)ac;
 	(void)av;
 }
