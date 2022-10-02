@@ -6,9 +6,8 @@ static int	is_valid_path(char *path)
 
 	if (stat(path, &info) == SUCCESS)
 	{
-		if (info.st_mode == S_ISDIR)
+		if ((info.st_mode & S_IFMT) == S_IFDIR)
 			ft_error_exit(path, "is a directory", FAIL);
-		//디렉토리인지 확인
 		return (TRUE);
 	}
 	return (FALSE);
