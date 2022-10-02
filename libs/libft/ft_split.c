@@ -6,12 +6,11 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 12:42:24 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/10/02 16:01:14 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:29:22 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 static int	str_count(char const *s, char c)
 {
