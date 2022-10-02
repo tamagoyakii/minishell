@@ -86,12 +86,13 @@ int	split_line(t_list **chunks, char *line)
 
 	dummys = NULL;
 	*chunks = NULL;
-	h_dummys = dummys;
 	if (create_dummys(&dummys, line))
 	{
+		h_dummys = dummys;
 		ft_lstclear(&h_dummys, free_content);
 		return (E_CHUNKS);
 	}
+	h_dummys = dummys;
 	while (dummys)
 	{
 		chunk = dummys_to_chunk(&dummys);
