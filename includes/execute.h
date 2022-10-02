@@ -21,7 +21,7 @@ int		set_pipes(int ***pipes, int cnt_pipe);
 /* open */
 int		ft_open(char *file, int type);
 /* path */
-char	*get_path(t_argv *argv);
+char	*get_path(char *cmd);
 /* pipe */
 void	set_stdout_pipe(t_argv *argv, int **pipes, int num);
 void	set_stdin_pipe(int **pipes, int num);

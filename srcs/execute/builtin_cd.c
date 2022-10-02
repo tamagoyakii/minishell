@@ -21,7 +21,9 @@ static void	update_env_pwds(char *cwd)
 	if (pwd)
 	{
 		free(pwd->value);
-		pwd->value = cwd;
+		pwd->value = ft_strdup(cwd);
+		if (pwd->value)
+			ft_error_exit("malloc", strerror(errno), FAIL);
 	}
 }
 
