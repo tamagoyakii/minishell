@@ -1,5 +1,5 @@
-#include "../../includes/minishell.h"
 #include "../../includes/utils.h"
+#include <errno.h>
 
 void	make_env_arr(void)
 {

@@ -1,17 +1,13 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "./minishell.h"
+# include "./global.h"
 
-/* global */
-void	*ft_malloc(size_t size);
-void	ft_error(char *cmd, char *msg, int err_num);
-void	ft_error_exit(char *cmd, char *msg, int exit_num);
-char	*ft_strjoin_3(char *s1, char *s2, char *s3);
+/* alloc.c */
 void	free_strs(char **strs);
-void	free_argv(t_argv *argv);
-
-/* util_env */
+void	*ft_malloc(size_t size);
+char	*ft_strjoin_3(char *s1, char *s2, char *s3);
+/* env.c */
 int		is_valid_key(char *key);
 char	*make_key(char *cmd);
 t_env	*get_env(char *key);
@@ -21,9 +17,24 @@ void	print_invalid_key(char *cmd, char *input);
 int		get_env_list_size(void);
 void	init_env(char **env);
 void	make_env_arr(void);
-
-/* signal */
+/* error.c */
+void	ft_error(char *cmd, char *msg, int err_num);
+void	ft_error_exit(char *cmd, char *msg, int exit_num);
+/* signal.c */
 void	set_heredoc_signal(void);
 void	set_child_signal(void);
+/* t_argv.c */
+t_argv	*create_argv(void);
+void	free_argv(t_argv *argv);
+t_argv	*ft_argvlast(t_argv *argv);
+void	ft_argvadd_back(t_argv **argvs, t_argv *new);
+/* t_list.c */
+void	free_lst_only(t_list **lst);
+void	free_content(void *content);
+/* t_redir.c */
+t_redir	*create_redir(int redir, char *value);
+void	free_redir(t_redir *redir);
+t_redir	*ft_redirlast(t_redir *redir);
+void	ft_rediradd_back(t_redir **redir, t_redir *new);
 
 #endif
