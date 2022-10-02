@@ -17,15 +17,15 @@ static void	wait_childs(int cnt_pipe)
 	g_info.last_exit_num = status;
 }
 
-static void run_execve_proc(t_argv *argv)
+static void run_execve_proc(char **cmd)
 {
 	char	*path;
 
-	path = get_path(argv->cmd);
+	path = get_path(*cmd);
 	if (!path)
-		ft_error_exit(argv->cmd[0], "command not found", ERR_CMD_NOT_FOUND);
-	if (execve(path, argv->cmd, g_info.env) == -1)
-		ft_error_exit(argv->cmd[0], strerror(errno), FAIL);
+		ft_error_exit(*cmd, "command not found", ERR_CMD_NOT_FOUND);
+	if (execve(path, cmd, g_info.env) == -1)
+		ft_error_exit(*cmd, strerror(errno), FAIL);
 }
 
 static void	run_child_proc(t_argv *argv, int **pipes, int i)
@@ -38,7 +38,7 @@ static void	run_child_proc(t_argv *argv, int **pipes, int i)
 	if (is_builtin(argv->cmd) == TRUE)
 		run_builtin_proc(argv->cmd);
 	else
-		run_execve_proc(argv);
+		run_execve_proc(argv->cmd);
 }
 
 void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe)

@@ -9,7 +9,7 @@ static int	is_valid_path(char *path)
 	return (FALSE);
 }
 
-static char	*make_path(char **cmd, char **paths)
+static char	*make_path(char *cmd, char **paths)
 {
 	char		*path;
 	int			i;
@@ -17,7 +17,7 @@ static char	*make_path(char **cmd, char **paths)
 	i = -1;
 	while (paths[++i])
 	{
-		path = ft_strjoin_3(paths[i], "/", cmd[0]);
+		path = ft_strjoin_3(paths[i], "/", cmd);
 		if (is_valid_path(path))
 			return (path);
 	}
@@ -25,13 +25,13 @@ static char	*make_path(char **cmd, char **paths)
 	return (NULL);
 }
 
-char	*get_path(char **cmd)
+char	*get_path(char *cmd)
 {
 	t_env	*env_path;
 	char	**paths;
 
-	if (is_valid_path(cmd[0]))
-			return (cmd[0]);
+	if (is_valid_path(cmd))
+			return (cmd);
 	env_path = get_env("PATH");
 	if (!env_path)
 		exit (FAIL);
