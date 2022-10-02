@@ -33,10 +33,10 @@ typedef enum e_error_type
 
 typedef struct s_parse
 {
-	t_list	*chunks;
-	t_list	*tokens;
-	t_cmd	*cmd;
-	t_type	*type;
+	t_list			*chunks;
+	t_list			*tokens;
+	struct s_cmd	*cmd;
+	struct s_type	*type;
 }	t_parse;
 
 typedef struct s_cmd
