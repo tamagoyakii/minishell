@@ -45,12 +45,12 @@ int	create_argvs(t_argv **argvs, t_parse *p)
 {
 	t_list	*tokens;
 
-	if (init_argvs(argvs, p->cmd, p->type))
+	if (init_argvs(argvs, &p->cmd, &p->type))
 		return (E_ARGVS);
 	tokens = p->tokens;
 	while (tokens)
 	{
-		if (put_argv(argvs, tokens->content, &p->cmd, &p->type))
+		if (put_argv(argvs, tokens->content, p->cmd, p->type))
 			return (E_ARGVS);
 		tokens = tokens->next;
 	}
