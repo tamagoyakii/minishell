@@ -22,7 +22,7 @@ int	put_cmd(t_cmd *cmd, t_argv **argvs)
 	}
 	arr[i] = NULL;
 	ft_argvlast(*argvs)->cmd = arr;
-	free_lst_only(&h_cmd);
+	ft_lstclear(&h_cmd, free_content);
 	cmd->cnt = 0;
 	return (SUCCESS);
 }

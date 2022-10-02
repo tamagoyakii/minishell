@@ -59,7 +59,7 @@ int	error_handler(t_parse p, int err)
 	if (err & E_CHUNKS)
 		ft_lstclear(&p.chunks, free_content);
 	if (err & E_TOKENS)
-		free_lst_only(&p.tokens);
+		ft_lstclear(&p.tokens, free_content);
 	if (err & E_SYNTAX)
 		;// error 출력
 	if (err & E_ARGVS)
@@ -78,6 +78,8 @@ int	error_handler(t_parse p, int err)
 
 void	init_parse(t_parse *p)
 {
+	p->line = 0;
+	p->input = 0;
 	p->chunks = 0;
 	p->tokens = 0;
 	p->cmd = 0;
@@ -91,6 +93,7 @@ void	parse(t_argv **argvs)
 //	char	*input;
 	int		err;
 
+	err = 0;
 	while(1)
 	{
 		init_parse(&p);
@@ -100,7 +103,8 @@ void	parse(t_argv **argvs)
 		//if (!err)
 		//	err = split_line(&p.chunks, line);
 		line = readline("minishell > ");
-		err = split_line(&p.chunks, line);
+		if (!err)
+		 	err = split_line(&p.chunks, line);
 		if (!err)
 			err = create_tokens(p.chunks, &p.tokens);
 		if (!err)
@@ -108,9 +112,11 @@ void	parse(t_argv **argvs)
 			free_lst_only(&p.chunks);
 			err = create_argvs(argvs, &p);
 		}
-		if (error_handler(p, err))
-			continue ;
-		break ;
+		if (!error_handler(p, err))
+		{
+			ft_lstclear(&p.tokens, free_content);
+			break ;
+		}
 	}
 	// test_argvs(argvs);
 }
