@@ -1,4 +1,5 @@
 #include "../../includes/execute.h"
+#include <unistd.h>
 
 void	set_pipe_cnt(int *cnt_pipe, t_argv *argv)
 {

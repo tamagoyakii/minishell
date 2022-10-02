@@ -1,4 +1,4 @@
-# include "../../includes/parse.h"
+#include "../../includes/parse.h"
 
 int	put_cmd(t_cmd *cmd, t_argv **argvs)
 {
@@ -20,7 +20,7 @@ int	put_cmd(t_cmd *cmd, t_argv **argvs)
 			return (FAIL);
 		cmd->cmds = cmd->cmds->next;
 	}
-	arr[i] = 0;
+	arr[i] = NULL;
 	ft_argvlast(*argvs)->cmd = arr;
 	free_lst_only(&h_cmd);
 	cmd->cnt = 0;
@@ -51,7 +51,7 @@ static int	add_redir(t_argv **argvs, char *value, t_type *type)
 	if (type->last == REDIR)
 		return (FAIL);
 	type->redir = is_redir(value);
-	new = create_redir(type->redir, 0);
+	new = create_redir(type->redir, NULL);
 	if (!new)
 		return (FAIL);
 	if (type->redir == T_OUT || type->redir == A_OUT)
@@ -60,7 +60,7 @@ static int	add_redir(t_argv **argvs, char *value, t_type *type)
 		ft_rediradd_back(&(*argvs)->in, new);
 	if (type->redir == HDOC)
 	{
-		new = create_redir(type->redir, 0);
+		new = create_redir(type->redir, NULL);
 		if (!new)
 			return (FAIL);
 		ft_rediradd_back(&(*argvs)->hdoc, new);

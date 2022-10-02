@@ -1,4 +1,4 @@
-# include "../../includes/parse.h"
+#include "../../includes/parse.h"
 
 int	is_pipe(char *input)
 {

@@ -1,4 +1,4 @@
-# include "../../includes/minishell.h"
+# include "../../includes/parse.h"
 
 
 static char *get_env_key(char *str, t_env *env) // env 안에 str 해당 key가 존재한다면 value 반환, 존재하지 않는다면 NULL을 반환

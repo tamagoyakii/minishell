@@ -1,4 +1,5 @@
 #include "../../includes/execute.h"
+#include <sys/stat.h>
 
 static int	is_valid_path(char *path)
 {

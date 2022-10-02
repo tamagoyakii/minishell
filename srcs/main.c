@@ -1,7 +1,6 @@
-# include "../includes/minishell.h"
-# include "../includes/execute.h"
-# include "../includes/parse.h"
-# include "../includes/utils.h"
+#include "../includes/minishell.h"
+#include <termios.h>
+#include <unistd.h>
 
 t_info g_info;
 

@@ -1,4 +1,5 @@
 #include "../../includes/execute.h"
+#include <unistd.h>
 
 static void	wait_childs(int cnt_pipe)
 {

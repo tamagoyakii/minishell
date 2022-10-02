@@ -1,4 +1,6 @@
 #include "../../includes/utils.h"
+#include <string.h>
+#include <errno.h>
 
 void	free_strs(char **strs)
 {

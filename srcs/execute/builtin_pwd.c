@@ -1,5 +1,6 @@
 #include "../../includes/execute.h"
 #include <limits.h>
+#include <unistd.h>
 
 void	ft_pwd(char **cmd)
 {

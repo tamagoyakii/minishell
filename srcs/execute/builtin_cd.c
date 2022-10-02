@@ -1,5 +1,6 @@
 #include "../../includes/execute.h"
 #include <limits.h>
+#include <unistd.h>
 
 static void	update_env_pwds(char *cwd)
 {
