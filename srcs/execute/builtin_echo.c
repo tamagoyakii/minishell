@@ -45,11 +45,11 @@ void	ft_echo(char **cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		printf("%s", cmd[i]);
+		ft_putstr_fd(cmd[i], STDOUT_FILENO);
 		if (cmd[i + 1])
-			printf(" ");
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (flag == FALSE)
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	g_info.last_exit_num = SUCCESS;
 }
