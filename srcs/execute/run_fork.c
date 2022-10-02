@@ -21,6 +21,8 @@ static void run_execve_proc(char **cmd)
 {
 	char	*path;
 
+	if (!cmd)
+		exit(SUCCESS);
 	path = get_path(*cmd);
 	if (!path)
 		ft_error_exit(*cmd, "command not found", ERR_CMD_NOT_FOUND);
