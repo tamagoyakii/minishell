@@ -6,6 +6,8 @@ int	put_cmd(t_cmd *cmd, t_argv **argvs)
 	char	**arr;
 	int		i;
 
+	if (!cmd->cnt)
+		return (SUCCESS);
 	arr = malloc(sizeof(char *) * (cmd->cnt + 1));
 	if (!arr)
 		return (FAIL);
