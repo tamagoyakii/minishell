@@ -40,7 +40,7 @@ void	ft_cd(char **cmd)
 	}
 	if (chdir(cmd[1]) != SUCCESS)
 	{
-		ft_error("cd", strerror(errno), FAIL);
+		ft_error(ft_strjoin_3("cd", ": ", cmd[1]), strerror(errno), FAIL);
 		return ;
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
