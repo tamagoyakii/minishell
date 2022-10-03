@@ -39,7 +39,7 @@ char	*get_path(char *cmd)
 			return (cmd);
 	env_path = get_env("PATH");
 	if (!env_path)
-		exit (FAIL);
+		ft_error_exit(cmd, "No such file or directory", FAIL);
 	paths = ft_split(env_path->value, ':');
 	if (!paths)
 		exit (FAIL);
