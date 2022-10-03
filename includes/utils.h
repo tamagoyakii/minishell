@@ -3,6 +3,10 @@
 
 # include "./global.h"
 
+# define ERR_CMD_NOT_FOUND 127
+# define ERR_EXIT_NAN 255
+# define SYNTEX_ERR 258
+
 /* alloc.c */
 void	free_strs(char **strs);
 void	*ft_malloc(size_t size);

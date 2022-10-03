@@ -29,6 +29,7 @@ PARSE_SRCS = parse.c \
 			create_argvs.c \
 			create_argvs_2.c \
 			utils_env.c \
+			replace.c
 
 UTILS_SRCS = alloc.c \
 			env1.c \

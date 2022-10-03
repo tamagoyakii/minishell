@@ -46,6 +46,7 @@ int	main(int ac, char *av[], char *envp[])
 	{
 		argvs = NULL;
 		parse(&argvs);
+		// system("leaks minishell");
 		execute(argvs);
 	}
 }
