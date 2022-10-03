@@ -48,27 +48,31 @@ libft = ./libs/libft/libft.a
 #		${addprefix ${PARSE_DIR}/, ${PARSE_SRCS}} \#
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 all : $(NAME)
 
 %.o : %.c
-	cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES)
+	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES)
 
 $(NAME) : $(OBJS)
-	make -C ./libs/libft
-	cc $(CFLAGS) -o $@ $^ $(libft) -lreadline
+	@make -C ./libs/libft
+	@cc $(CFLAGS) -o $@ $^ $(libft) -lreadline
+	@echo "🙋‍♀️🙋‍♂️ make"
+# @echo "💧⛽️🧼 make"
 
 clean :
-	make -C ./libs/libft clean
-	rm -f $(OBJS)
+	@make -C ./libs/libft clean
+	@rm -f $(OBJS)
+	@echo "🙋‍♀️🙋‍♂️ clean"
+# @echo "💧⛽️🧼 clean"
 
 fclean : clean
-	make -C ./libs/libft fclean
-	rm -f $(NAME)
+	@make -C ./libs/libft fclean
+	@rm -f $(NAME)
+	@echo "🙋‍♀️🙋‍♂️ fclean"
+# @echo "💧⛽️🧼 fclean"
 
-re :
-	make fclean
-	make all
+re : fclean all
 
 .PHONY : clean fclean re all
