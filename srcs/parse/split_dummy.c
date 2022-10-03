@@ -49,9 +49,9 @@ static int	update_dummy_type(t_dummy dummy, char line)
 {
 	if (dummy.type & CHAR && (line == '>' || line == '<' || line == '|'))
 		dummy.type ^= ADD_NULL;
-	else if (dummy.type & L_REDIR && line != '<')
+	else if (dummy.type & L_REDIR && (line != ' ' && line != '<'))
 		dummy.type ^= ADD_NULL;
-	else if (dummy.type & R_REDIR && line != '>')
+	else if (dummy.type & R_REDIR && (line != ' ' && line != '>'))
 		dummy.type ^= ADD_NULL;
 	else if (dummy.type & _PIPE || dummy.type & SPACE)
 		dummy.type ^= ADD_NULL;
@@ -75,7 +75,9 @@ int	search_dummy(t_dummy *dummy, char *line)
 			dummy->type ^= BREAK;
 		if (dummy->type & D_QUOTE && *line == '"')
 			dummy->type ^= BREAK;
-		if (dummy->type & (SPACE | _REDIR | _PIPE) && *(line + 1) != ' ')
+		if (dummy->type & (SPACE | _PIPE) && *(line + 1) != ' ')
+			dummy->type ^= BREAK;
+		if (dummy->type & _REDIR)
 			dummy->type ^= BREAK;
 		line++;
 	}
