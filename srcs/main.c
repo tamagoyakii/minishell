@@ -21,7 +21,10 @@ void	main_init(int ac, char *av[])
 	struct termios	term;
 
 	if (ac != 1)
-		printf("argument input error");
+	{
+		ft_putendl_fd("too many arguments", STDERR_FILENO);
+		exit(FAIL);
+	}
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
