@@ -22,7 +22,7 @@ void	main_init(int ac, char *av[])
 
 	if (ac != 1)
 	{
-		ft_putendl_fd("too many arguments", 2);
+		ft_putendl_fd("too many arguments", STDERR_FILENO);
 		exit(FAIL);
 	}
 	tcgetattr(STDIN_FILENO, &term);
