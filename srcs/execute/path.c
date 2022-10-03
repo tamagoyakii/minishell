@@ -5,6 +5,8 @@ static int	is_valid_path(char *path)
 {
 	struct stat	info;
 
+	if (!ft_strchr(path, '/'))
+		return (FALSE);
 	if (stat(path, &info) == SUCCESS)
 	{
 		if ((info.st_mode & S_IFMT) == S_IFDIR)
@@ -36,7 +38,7 @@ char	*get_path(char *cmd)
 	char	**paths;
 
 	if (is_valid_path(cmd))
-			return (cmd);
+		return (cmd);
 	env_path = get_env("PATH");
 	if (!env_path)
 		ft_error_exit(cmd, "No such file or directory", FAIL);
