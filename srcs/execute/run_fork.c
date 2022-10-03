@@ -35,8 +35,8 @@ static void	run_child_proc(t_argv *argv, int **pipes, int i)
 	set_child_signal();
 	set_stdin_pipe(pipes, i - 1);
 	set_stdout_pipe(argv, pipes, i);
-	set_stdin_redir(argv);
 	set_stdout_redir(argv);
+	set_stdin_redir(argv);
 	if (is_builtin(argv->cmd) == TRUE)
 		run_builtin_proc(argv->cmd);
 	else
