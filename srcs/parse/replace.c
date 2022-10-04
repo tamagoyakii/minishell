@@ -65,7 +65,7 @@ static int	is_variable(char *line, int *flag)
 	{
 		if (ft_isalnum(*(line + 1)) || *(line + 1) == '_')
 			return (TRUE);
-		if (*(line + 1) == '?')
+		if (*(line + 1) != ' ' && *(line + 1) != '\0')
 			return (TRUE);
 	}
 	return (FALSE);
