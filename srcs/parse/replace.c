@@ -104,8 +104,9 @@ char	*replace_env(char *line)
 	char		*dst;
 	char		*env;
 	int			size;
-	static int	flag;
+	int			flag;
 
+	flag = NONE;
 	size = get_size(line);
 	dst = ft_calloc(size + 1, sizeof(char));
 	if (!dst)
@@ -116,7 +117,10 @@ char	*replace_env(char *line)
 		{
 			env = get_value(line);
 			if (!env)
+			{
+				free(dst);
 				return (NULL);
+			}
 			ft_strlcat(dst, env, ft_strlen(env) + ft_strlen(dst) + 1);
 			line += ft_keylen(line + 1) + 1;
 			free(env);
