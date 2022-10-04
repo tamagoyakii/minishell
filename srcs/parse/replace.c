@@ -32,7 +32,7 @@ static int	ft_keylen(char *str)
 	i = 0;
 	if (str[i] == '?')
 		return (1);
-	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '=')
+	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
 	return (i);
 }
