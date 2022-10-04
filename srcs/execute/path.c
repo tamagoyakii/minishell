@@ -1,14 +1,14 @@
 #include "../../includes/execute.h"
 #include <sys/stat.h>
 
-static int	is_valid_command(char *command)
+static int	is_valid_command(char *cmd)
 {
 	struct stat	info;
 
-	if (stat(command, &info) == SUCCESS)
+	if (stat(cmd, &info) == SUCCESS)
 	{
 		if ((info.st_mode & S_IFMT) == S_IFDIR)
-			ft_error_exit(command, "is a directory", FAIL);
+			ft_error_exit(cmd, "is a directory", FAIL);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -16,6 +16,8 @@ static int	is_valid_command(char *command)
 
 static int	is_valid_path(char *path)
 {
+	if (!*path)
+		ft_error_exit(path, "command not found", ERR_CMD_NOT_FOUND);
 	if (!ft_strchr(path, '/'))
 		return (FALSE);
 	is_valid_command(path);

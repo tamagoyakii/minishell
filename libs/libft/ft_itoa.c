@@ -59,6 +59,8 @@ char	*ft_itoa(int n)
 	if (n == 0)
 	{
 		ret = (char *)malloc(sizeof(char) * 1 + 1);
+		if (!ret)
+			return (0);
 		*ret = '0';
 		*(ret + 1) = 0;
 	}

@@ -1,51 +1,132 @@
-# include "../../includes/parse.h"
+#include "../../includes/parse.h"
 
+# define NONE 0
 
-static char *get_env_key(char *str, t_env *env) // env 안에 str 해당 key가 존재한다면 value 반환, 존재하지 않는다면 NULL을 반환
+static char	*find_env(char *key)
 {
-	return "null";
+	t_env	*tmp;
+	char	*finded;
+
+	finded = NULL;
+	if (*key == '?')
+		finded = ft_itoa(g_info.last_exit_num);
+	tmp = g_info.env_list;
+	while (tmp && !finded)
+	{
+		if (!ft_strcmp(tmp->key, key))
+		{
+			finded = ft_strdup(tmp->value);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	if (!finded)
+		finded = ft_strdup("");
+	return (finded);
 }
-static char	*replace_dollar(char *line, t_env *env)
+
+static int	ft_keylen(char *str)
 {
-	char	*head;
-	char	*str;
-	size_t	len;
-	
-	head = line; // offset 역할 치환 시 갱신.
-	while(*line != '\0' && *line != '\'' && *line != '"')
-		line++;
-	len = line - head; // 해당 문자열에서 치환변수의 끝을 찾는다.
-	
-	strlcat(str,head,len); // str에 head에서 len 만큼의 문자를 복사 ( 환경변수 key값 찾기 위한 niddle )
-	get_env_key(str,env);
-	ft_strjoin(str,++head); // 치환될 문자열 다음에 것 저장 (++head) // 치환할 문자열을 반환 : $부터 키 내용 인덱스 다음 번째부터 다음 내용을 join한다.
-	
-	if(*line == '\'') // 함수 1. 문자의 끝, 2. 큰 따옴표 3. 작은 따옴표
-		// 치환한다.
-		head = *line;
-	return head;
+	int	i;
+
+	i = 0;
+	if (str[i] == '?')
+		return (1);
+	while (ft_isalnum(str[i]) || str[i] == '_')
+		i++;
+	return (i);
 }
 
-char	*replace_env(char *line, t_env *env)
+char	*get_value(char *line)
 {
-	/* 우채꺼 */
-	char	*dst;
-    char    *src;
+	char	*key;
+	char	*value;
+
+	key = ft_substr(line, 1, ft_keylen(line + 1));
+	if (!key)
+		return (NULL);
+	value = find_env(key);
+	if (!value)
+	{
+		free(key);
+		return (NULL);
+	}
+	free(key);
+	return (value);
+}
+
+static int	is_variable(char *line, int *flag)
+{
+	if (*line == '\"')
+		*flag ^= D_QUOTE;
+	if (!(*flag & D_QUOTE) && *line == '\'')
+		*flag ^= S_QUOTE;
+	if (*line == '$' && !(*flag & S_QUOTE))
+	{
+		if (ft_isalnum(*(line + 1)) || *(line + 1) == '_')
+			return (TRUE);
+		if (*(line + 1) != ' ' && *(line + 1) != '\0')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
+int	get_size(char *line)
+{
+	int		size;
 	int		flag;
+	char	*env;
+
+	size = 0;
+	flag = 0;
+	while (*line) // 문자를 확인해서 치환 또는 따옴표 일 때
+	{
+		if (is_variable(line, &flag))
+		{
+			env = get_value(line);
+			if (!env)
+				return (FALSE);
+			size += ft_strlen(env);
+			line += ft_strlen(env) + 1;
+			free(env);
+		}
+		else
+		{
+			line++;// + 그 다음 문자열 붙이기.
+			size++;
+		}
+	}
+	return (size);
+}
+
+char	*replace_env(char *line)
+{
+	char		*dst;
+	char		*env;
+	int			size;
+	int			flag;
 
 	flag = NONE;
+	size = get_size(line);
+	dst = ft_calloc(size + 1, sizeof(char));
+	if (!dst)
+		return (NULL);
 	while (*line)
 	{
-		enum quote;
-		if (*line == '\'')
-			flag ^= QUOTE;
-		if ( *line == '$' && !(flag & QUOTE)) // $가 있고, 작은 따옴표가 감싸져 있다 ( 넘어간다 ). 작은 따옴표가 마치지 않았다 ( 치환 해야한다. )
+		if (is_variable(line, &flag))
 		{
-            src = replace_dollar(line, env);
-            ft_strjoin(dst,src);
-        }
-		// + 그 다음 문자열 붙이기.
+			env = get_value(line);
+			if (!env)
+			{
+				free(dst);
+				return (NULL);
+			}
+			ft_strlcat(dst, env, ft_strlen(env) + ft_strlen(dst) + 1);
+			line += ft_keylen(line + 1) + 1;
+			free(env);
+		}
+		else
+			ft_strlcat(dst, line++, ft_strlen(dst) + 2);
 	}
-
-	return ;
+	return (dst);
 }

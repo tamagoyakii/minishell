@@ -61,7 +61,7 @@ int	error_handler(t_parse p, int err)
 	if (err & E_TOKENS)
 		ft_lstclear(&p.tokens, free_content);
 	if (err & E_SYNTAX)
-		;// error 출력
+		ft_error("syntax error", "", SYNTEX_ERR);
 	if (err & E_ARGVS)
 	{
 		ft_lstclear(&p.tokens, free_content);
@@ -86,25 +86,44 @@ void	init_parse(t_parse *p)
 	p->type = 0;
 }
 
+int	check_input(char *input)
+{
+	char	*line;
+
+	line = input;
+	if (!line)
+		exit (SUCCESS);
+	while (*line == ' ')
+		line++;
+	if (*line != '\0')
+		add_history(input);
+	else
+	{
+		free(input);
+		return (FAIL);
+	}
+	return (SUCCESS);
+}
+
 void	parse(t_argv **argvs)
 {
 	t_parse	p;
 	char	*line;
-//	char	*input;
+	char	*input;
 	int		err;
 
-	err = 0;
 	while(1)
 	{
+		err = 0;
 		init_parse(&p);
-		// 우채꺼
-		// read_input(&input);
-		// line = replace_env(input); // line을 읽어서 존재하는 환경변수를 치환한 다음, line에 변경된 값을 덮어쓴다. 그리고 이전 주소 해제
-		//if (!err)
-		//	err = split_line(&p.chunks, line);
-		line = readline("minishell > ");
+		input = readline("minishell > ");
+		if (check_input(input))
+			continue ;
+		line = replace_env(input);
+		free(input);
 		if (!err)
 		 	err = split_line(&p.chunks, line);
+		free(line);
 		if (!err)
 			err = create_tokens(p.chunks, &p.tokens);
 		if (!err)
@@ -118,5 +137,4 @@ void	parse(t_argv **argvs)
 			break ;
 		}
 	}
-	// test_argvs(argvs);
 }

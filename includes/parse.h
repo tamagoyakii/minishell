@@ -22,5 +22,6 @@ int		search_dummy(t_dummy *dummy, char *line);
 int		split_line(t_list **chunks, char *line);
 /* parse.c */
 void	parse(t_argv **argvs);
+char	*replace_env(char *line);
 
 #endif

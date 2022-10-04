@@ -7,9 +7,6 @@
 # include <string.h>
 # include <unistd.h>
 
-# define ERR_CMD_NOT_FOUND 127
-# define ERR_EXIT_NAN 255
-
 void	execute(t_argv *argv);
 /* run_fork */
 void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe);
