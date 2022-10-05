@@ -2,7 +2,6 @@
 # define UTILS_H
 
 # include "./global.h"
-# include <stdio.h>
 
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_EXIT_NAN 255
