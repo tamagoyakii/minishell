@@ -1,5 +1,21 @@
 #include "../../includes/execute.h"
 
+static void	set_child_exit(int status)
+{
+	if (status == 2)
+	{
+		printf("^C\n");
+		g_info.last_exit_num = status + 128;
+	}
+	else if (status == 3)
+	{
+		printf("^\\Quit: %d\n", status);
+		g_info.last_exit_num = status + 128;
+	}
+	else
+		g_info.last_exit_num = status >> 8;
+}
+
 static void	wait_childs(int cnt_pipe)
 {
 	int	i;
@@ -12,9 +28,7 @@ static void	wait_childs(int cnt_pipe)
 		if (wait(&status) < 0)
 			status = 1;
 	}
-	if (status > 1)
-		status = status >> 8;
-	g_info.last_exit_num = status;
+	set_child_exit(status);
 }
 
 static void run_execve_proc(char **cmd)
@@ -49,12 +63,18 @@ void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe)
 
 	i = -1;
 	tmp = argv;
-	init_signal();
+	// init_signal();
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (++i < cnt_pipe + 1)
 	{
 		pids[i] = fork();
 		if (pids[i] == 0)
+		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			run_child_proc(tmp, pipes, i);
+		}
 		if (pids[i] < 0)
 		{
 			ft_error("fork", strerror(errno), FAIL);
