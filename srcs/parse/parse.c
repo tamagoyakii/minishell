@@ -128,7 +128,7 @@ void	parse(t_argv **argvs)
 	{
 		init_info(&info);
 		if (take_input(&info))
-			continue;
+			continue ;
 		err = split_line(&info.chunks, &info.dummys, info.line);
 		if (!err)
 			err = create_tokens(info.chunks, &info.tokens);

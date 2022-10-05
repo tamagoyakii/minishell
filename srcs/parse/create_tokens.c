@@ -41,7 +41,7 @@ static int	check_syntax(t_list	*tokens)
 	int		last_type;
 
 	last_type = NONE;
-	while(tokens)
+	while (tokens)
 	{
 		token = (t_token *)tokens->content;
 		if (last_type == NONE && token->type == PIPE)
