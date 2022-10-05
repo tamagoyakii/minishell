@@ -21,15 +21,14 @@ EXECUTE_SRCS = builtin.c \
 			init_execute.c \
 			open.c
 
-#			replace.c
 PARSE_SRCS = parse.c \
 			split_dummy.c \
 			split_line.c \
 			create_tokens.c \
 			create_argvs.c \
 			create_argvs_2.c \
-			utils_env.c \
-			replace.c
+			replace_env.c \
+			replace_env_2.c
 
 UTILS_SRCS = alloc.c \
 			env1.c \
