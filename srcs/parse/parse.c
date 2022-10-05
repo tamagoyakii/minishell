@@ -52,38 +52,41 @@ static void read_input(char **line)
 }
 */
 
-int	error_handler(t_parse p, int err)
+static int	error_handler(t_parse info, int err)
 {
+	ft_lstclear(&info.dummys, free_content);
+	free(info.line);
 	if (!err)
-		return (NONE);
+		ft_lstclear(&info.tokens, free_content);
 	if (err & E_CHUNKS)
-		ft_lstclear(&p.chunks, free_content);
+		ft_lstclear(&info.chunks, free_content);
 	if (err & E_TOKENS)
-		ft_lstclear(&p.tokens, free_content);
+		ft_lstclear(&info.tokens, free_content);
 	if (err & E_SYNTAX)
 		ft_error("syntax error", "", SYNTEX_ERR);
 	if (err & E_ARGVS)
 	{
-		ft_lstclear(&p.tokens, free_content);
-		if (p.cmd)
+		ft_lstclear(&info.tokens, free_content);
+		if (info.cmd)
 		{
-			free_lst_only(&p.cmd->cmds);
-			free(p.cmd);
+			free_lst_only(&info.cmd->cmds);
+			free(info.cmd);
 		}
-		if (p.type)
-			free(p.type);
+		if (info.type)
+			free(info.type);
 	}
-	return (FAIL);
+	return (err);
 }
 
-void	init_parse(t_parse *p)
+static void	init_info(t_parse *info)
 {
-	p->line = 0;
-	p->input = 0;
-	p->chunks = 0;
-	p->tokens = 0;
-	p->cmd = 0;
-	p->type = 0;
+	info->line = NULL;
+	info->input = NULL;
+	info->dummys = NULL;
+	info->chunks = NULL;
+	info->tokens = NULL;
+	info->cmd = NULL;
+	info->type = NULL;
 }
 
 int	check_input(char *input)
@@ -105,36 +108,33 @@ int	check_input(char *input)
 	return (SUCCESS);
 }
 
+int	take_input(t_parse *info)
+{
+	info->input = readline("minishell > ");
+	if (check_input(info->input))
+		return (FAIL);
+	info->line = replace_env(info->input);
+	// replace_env에서는 에러 처리 안하는지?
+	free(info->input);
+	return (SUCCESS);
+}
+
 void	parse(t_argv **argvs)
 {
-	t_parse	p;
-	char	*line;
-	char	*input;
+	t_parse	info;
 	int		err;
 
-	while(1)
+	while (1)
 	{
-		err = 0;
-		init_parse(&p);
-		input = readline("minishell > ");
-		if (check_input(input))
-			continue ;
-		line = replace_env(input);
-		free(input);
+		init_info(&info);
+		if (take_input(&info))
+			continue;
+		err = split_line(&info.chunks, &info.dummys, info.line);
 		if (!err)
-		 	err = split_line(&p.chunks, line);
-		free(line);
+			err = create_tokens(info.chunks, &info.tokens);
 		if (!err)
-			err = create_tokens(p.chunks, &p.tokens);
-		if (!err)
-		{
-			free_lst_only(&p.chunks);
-			err = create_argvs(argvs, &p);
-		}
-		if (!error_handler(p, err))
-		{
-			ft_lstclear(&p.tokens, free_content);
+			err = create_argvs(argvs, &info.tokens, &info.cmd, &info.type);
+		if (!error_handler(info, err))
 			break ;
-		}
 	}
 }
