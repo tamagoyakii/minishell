@@ -15,11 +15,11 @@ int		create_tokens(t_list *chunks, t_list **tokens);
 int		put_cmd(t_cmd *cmd, t_argv **argvs);
 int		put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type);
 /* create_argvs.c */
-int		create_argvs(t_argv **argvs, t_parse *parse);
+int		create_argvs(t_argv **argvs, t_list **tokens, t_cmd **cmd, t_type **type);
 /* split_dummy.c */
 int		search_dummy(t_dummy *dummy, char *line);
 /* split_line.c */
-int		split_line(t_list **chunks, char *line);
+int		split_line(t_list **chunks, t_list **dummys, char *line);
 /* parse.c */
 void	parse(t_argv **argvs);
 char	*replace_env(char *line);

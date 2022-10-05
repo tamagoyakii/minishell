@@ -41,7 +41,7 @@ static int	check_syntax(t_list	*tokens)
 	int		last_type;
 
 	last_type = NONE;
-	while(tokens)
+	while (tokens)
 	{
 		token = (t_token *)tokens->content;
 		if (last_type == NONE && token->type == PIPE)
@@ -60,9 +60,11 @@ static int	check_syntax(t_list	*tokens)
 
 int	create_tokens(t_list *chunks, t_list **tokens)
 {
+	t_list	*h_chunks;
 	t_list	*new_lst;
 	t_token	*new_token;
 
+	h_chunks = chunks;
 	while (chunks)
 	{
 		if (is_pipe(chunks->content))
@@ -81,5 +83,6 @@ int	create_tokens(t_list *chunks, t_list **tokens)
 	}
 	if (check_syntax(*tokens))
 		return (E_CHUNKS | E_TOKENS | E_SYNTAX);
+	free_lst_only(&h_chunks);
 	return (SUCCESS);
 }
