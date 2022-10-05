@@ -54,11 +54,11 @@ CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 all : $(NAME)
 
 %.o : %.c
-	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES)
+	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES) -I/usr/local/opt/readline/include
 
 $(NAME) : $(OBJS)
 	@make -C ./libs/libft
-	@cc $(CFLAGS) -o $@ $^ $(libft) -lreadline
+	@cc $(CFLAGS) -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -o $@ $^ $(libft) -lreadline
 	@echo "🙋‍♀️🙋‍♂️ make"
 # @echo "💧⛽️🧼 make"
 

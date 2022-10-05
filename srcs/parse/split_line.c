@@ -53,9 +53,7 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 {
 	t_list	*chunk;
 	char	*chunk_prev;
-	char	*chunk_content;
 
-	chunk_content = NULL;
 	chunk = ft_calloc(1, sizeof(t_list));
 	if (!chunk)
 		return (NULL);
@@ -66,15 +64,14 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 			*dummy = (*dummy)->next;
 			break ;
 		}
-		chunk_prev = chunk_content;
-		chunk_content = ft_strjoin(chunk_content, (*dummy)->content);
-		if (!chunk_content)
+		chunk_prev = chunk->content;
+		chunk->content = ft_strjoin(chunk->content, (*dummy)->content);
+		if (!chunk->content)
 			return (NULL);
 		if (chunk_prev)
 			free(chunk_prev);
 		*dummy = (*dummy)->next;
 	}
-	chunk->content = chunk_content;
 	return (chunk);
 }
 

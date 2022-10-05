@@ -54,10 +54,11 @@ int	make_heredoc(t_argv *argv)
 	t_argv	*tmp;
 
 	tmp = argv;
+	signal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
-		set_heredoc_signal();
+		signal(SIGINT, heredoc_sigint_handler);
 		while (tmp)
 		{
 			run_heredoc(tmp->hdoc);

@@ -2,6 +2,7 @@
 # define UTILS_H
 
 # include "./global.h"
+# include <stdio.h>
 
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_EXIT_NAN 255
@@ -25,8 +26,8 @@ void	make_env_arr(void);
 void	ft_error(char *cmd, char *msg, int err_num);
 void	ft_error_exit(char *cmd, char *msg, int exit_num);
 /* signal.c */
-void	set_heredoc_signal(void);
-void	set_child_signal(void);
+void	heredoc_sigint_handler(int signo);
+void	init_signal(void);
 /* t_argv.c */
 t_argv	*create_argv(void);
 void	free_argv(t_argv *argv);
