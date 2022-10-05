@@ -43,13 +43,16 @@ static int	init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type)
 
 int	create_argvs(t_argv **argvs, t_list **tokens, t_cmd **cmd, t_type **type)
 {
+	t_list	*seek;
+
 	if (init_argvs(argvs, cmd, type))
 		return (E_ARGVS);
-	while (*tokens)
+	seek = *tokens;
+	while (seek)
 	{
-		if (put_argv(argvs, (*tokens)->content, *cmd, *type))
+		if (put_argv(argvs, seek->content, *cmd, *type))
 			return (E_ARGVS);
-		*tokens = (*tokens)->next;
+		seek = seek->next;
 	}
 	if (put_cmd(*cmd, argvs))
 		return (E_ARGVS);
