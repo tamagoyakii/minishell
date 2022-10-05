@@ -32,7 +32,6 @@ static void run_execve_proc(char **cmd)
 
 static void	run_child_proc(t_argv *argv, int **pipes, int i)
 {
-	set_child_signal();
 	set_stdin_pipe(pipes, i - 1);
 	set_stdout_pipe(argv, pipes, i);
 	set_stdout_redir(argv);
@@ -50,6 +49,7 @@ void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe)
 
 	i = -1;
 	tmp = argv;
+	init_signal();
 	while (++i < cnt_pipe + 1)
 	{
 		pids[i] = fork();
