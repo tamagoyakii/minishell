@@ -1,5 +1,7 @@
 #include "../../includes/parse.h"
 #include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
 
 /*
 static void	test_argvs(t_argv **argvs)
