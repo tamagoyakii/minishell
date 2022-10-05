@@ -1,30 +1,54 @@
 #include "../../includes/utils.h"
+#include <readline/readline.h>
 #include <signal.h>
 
-static void	heredoc_signal_handler(int signo)
+void	heredoc_sigint_handler(int signo)
 {
 	(void)signo;
 	exit(FAIL);
 }
 
-static void	child_signal_handler(int signo)
+static void	sigint_handler(int signo)
 {
-	if (signo == SIGINT)
-		ft_putstr_fd("^C\n", 2);
-	if (signo == SIGQUIT)
-		ft_putstr_fd("^\\Quit: 3\n", 2);
-	exit(signo + 128);
+	pid_t   pid;
+
+    pid = waitpid(-1, NULL, WNOHANG);
+    if (pid == -1)
+    {
+		rl_replace_line("", 0);
+        printf("\n"); // 히어독일 경우 개행, 히어독
+        rl_on_new_line();
+        rl_redisplay();
+        g_info.last_exit_num = FAIL;
+    }
+    else
+	{
+		g_info.last_exit_num = signo + 128;
+        printf("\n");
+	}
 }
 
-void	set_heredoc_signal(void)
+static void	sigquit_handler(int signo)
 {
-	signal(SIGINT, heredoc_signal_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
+	pid_t	pid;
 
-void	set_child_signal(void)
+	pid = waitpid(-1, NULL, WNOHANG);
+	if (pid == -1)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else
+	{
+		g_info.last_exit_num = signo + 128;
+		ft_putstr_fd("Quit: ", 1);
+		ft_putnbr_fd(signo, 1);
+		ft_putendl_fd("", 1);
+	}
+} 
+
+void	init_signal(void)
 {
-	signal(-1, child_signal_handler);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 }
-
-// 김우채 메인에서 사용하는 시그널 추가
