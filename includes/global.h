@@ -66,6 +66,7 @@ typedef struct s_parse
 {
 	char			*line;
 	char			*input;
+	struct s_list	*dummys;
 	struct s_list	*chunks;
 	struct s_list	*tokens;
 	struct s_cmd	*cmd;
