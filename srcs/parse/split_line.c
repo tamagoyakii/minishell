@@ -78,31 +78,20 @@ static t_list	*dummys_to_chunk(t_list **dummy)
 	return (chunk);
 }
 
-int	split_line(t_list **chunks, char *line)
+int	split_line(t_list **chunks, t_list **dummys, char *line)
 {
 	t_list	*chunk;
-	t_list	*dummys;
-	t_list	*h_dummys;
+	t_list	*seek;
 
-	dummys = NULL;
-	*chunks = NULL;
-	if (create_dummys(&dummys, line))
-	{
-		h_dummys = dummys;
-		ft_lstclear(&h_dummys, free_content);
+	if (create_dummys(dummys, line))
 		return (E_CHUNKS);
-	}
-	h_dummys = dummys;
-	while (dummys)
+	seek = *dummys;
+	while (seek)
 	{
-		chunk = dummys_to_chunk(&dummys);
+		chunk = dummys_to_chunk(&seek);
 		if (!chunk)
-		{
-			ft_lstclear(&h_dummys, free_content);
 			return (E_CHUNKS);
-		}
 		ft_lstadd_back(chunks, chunk);
 	}
-	ft_lstclear(&h_dummys, free_content);
 	return (SUCCESS);
 }

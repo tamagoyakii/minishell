@@ -27,7 +27,7 @@ int	put_cmd(t_cmd *cmd, t_argv **argvs)
 	return (SUCCESS);
 }
 
-static int	add_pipe(t_argv **argvs, t_cmd *cmd, t_type *type)
+static int	add_pipe(t_argv **argvs, char *value, t_cmd *cmd, t_type *type)
 {
 	t_argv	*new_argv;
 
@@ -39,6 +39,7 @@ static int	add_pipe(t_argv **argvs, t_cmd *cmd, t_type *type)
 	if (!new_argv)
 		return (FAIL);
 	ft_argvadd_back(argvs, new_argv);
+	free(value);
 	type->redir = NONE;
 	type->last = PIPE;
 	return (SUCCESS);
@@ -103,7 +104,7 @@ int	put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type)
 
 	argv_last = ft_argvlast(*argvs);
 	if (token->type == PIPE)
-		return (add_pipe(argvs, cmd, type));
+		return (add_pipe(argvs, token->value, cmd, type));
 	if (token->type == REDIR)
 		return (add_redir(&argv_last, token->value, type));
 	if (token->type == WORD)

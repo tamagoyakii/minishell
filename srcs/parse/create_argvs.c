@@ -41,23 +41,23 @@ static int	init_argvs(t_argv **argvs, t_cmd **cmd, t_type **type)
 	return (SUCCESS);
 }
 
-int	create_argvs(t_argv **argvs, t_parse *p)
+int	create_argvs(t_argv **argvs, t_list **tokens, t_cmd **cmd, t_type **type)
 {
-	t_list	*tokens;
+	t_list	*seek;
 
-	if (init_argvs(argvs, &p->cmd, &p->type))
+	if (init_argvs(argvs, cmd, type))
 		return (E_ARGVS);
-	tokens = p->tokens;
-	while (tokens)
+	seek = *tokens;
+	while (seek)
 	{
-		if (put_argv(argvs, tokens->content, p->cmd, p->type))
+		if (put_argv(argvs, seek->content, *cmd, *type))
 			return (E_ARGVS);
-		tokens = tokens->next;
+		seek = seek->next;
 	}
-	if (put_cmd(p->cmd, argvs))
+	if (put_cmd(*cmd, argvs))
 		return (E_ARGVS);
-	free_lst_only(&p->cmd->cmds);
-	free(p->cmd);
-	free(p->type);
+	free_lst_only(&(*cmd)->cmds);
+	free(*cmd);
+	free(*type);
 	return (SUCCESS);
 }
