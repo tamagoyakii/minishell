@@ -2,6 +2,7 @@
 # define GLOBAL_H
 
 # include "../libs/libft/libft.h"
+# include <stdio.h>
 
 typedef enum e_return_type
 {

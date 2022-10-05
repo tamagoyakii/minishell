@@ -12,16 +12,6 @@ static void	unset_echoctl(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-static void	set_echoctl(void)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag |= (ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
-
 int	main(int ac, char *av[], char *envp[])
 {
 	t_argv		*argvs;
@@ -35,7 +25,6 @@ int	main(int ac, char *av[], char *envp[])
 	g_info.pid = getpid();
 	//init_env_list(&env, envp); // 환경변수 초기화
 	init_env(envp);
-	// set_main_signal();
 	while (1)
 	{
 		argvs = NULL;
@@ -43,7 +32,6 @@ int	main(int ac, char *av[], char *envp[])
 		init_signal();
 		parse(&argvs);
 		// system("leaks minishell");
-		set_echoctl();
 		execute(argvs);
 	}
 }
