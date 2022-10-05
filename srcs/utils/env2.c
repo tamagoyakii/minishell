@@ -89,12 +89,25 @@ void	add_env(t_env **lst, char *env)
 void	init_env(char **env)
 {
 	int		i;
+	int		next_leve;
 	t_env	*head;
+	t_env	*lvl;
 
 	i = -1;
 	head = NULL;
 	while (env[++i])
 		add_env(&head, env[i]);
 	g_info.env_list = head;
+	lvl = get_env("SHLVL");
+	if (lvl)
+	{
+		next_leve = ft_atoi(lvl->value) + 1;
+		free(lvl->value);
+		lvl->value = ft_itoa(next_leve);
+		if (!lvl->value)
+			ft_error_exit("malloc", strerror(errno), FAIL);
+	}
+	else
+		add_env(&head, "SHLVL=1");
 	make_env_arr();
 }
