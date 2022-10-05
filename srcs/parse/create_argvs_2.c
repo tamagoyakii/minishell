@@ -39,9 +39,9 @@ static int	add_pipe(t_argv **argvs, char *value, t_cmd *cmd, t_type *type)
 	if (!new_argv)
 		return (FAIL);
 	ft_argvadd_back(argvs, new_argv);
+	free(value);
 	type->redir = NONE;
 	type->last = PIPE;
-	free(value);
 	return (SUCCESS);
 }
 
