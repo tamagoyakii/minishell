@@ -16,7 +16,7 @@ static int	is_valid_command(char *cmd)
 
 static int	is_valid_path(char *path)
 {
-	if (!*path)
+	if (!*path || !strcmp(path, ".") || !strcmp(path, ".."))
 		ft_error_exit(path, "command not found", ERR_CMD_NOT_FOUND);
 	if (!ft_strchr(path, '/'))
 		return (FALSE);
