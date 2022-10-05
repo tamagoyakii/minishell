@@ -90,5 +90,7 @@ int	split_line(t_list **chunks, t_list **dummys, char *line)
 			return (E_CHUNKS);
 		ft_lstadd_back(chunks, chunk);
 	}
+	if (!*dummys)
+		return (FAIL);
 	return (SUCCESS);
 }
