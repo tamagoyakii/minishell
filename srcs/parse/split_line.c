@@ -30,7 +30,7 @@ static int	create_dummys(t_list **dummys, char *line)
 	t_list	*dummy;
 	t_dummy	dummy_info;
 
-	while (*line == ' ')
+	while (is_wspace(*line))
 		line++;
 	while (*line)
 	{

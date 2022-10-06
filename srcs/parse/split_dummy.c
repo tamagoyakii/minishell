@@ -38,7 +38,7 @@ static int	get_dummy_type(char c)
 		type = _REDIR | R_REDIR;
 	else if (c == '|')
 		type = _PIPE;
-	else if (c == ' ')
+	else if (is_wspace(c))
 		type = SPACE;
 	else
 		type = CHAR;
@@ -49,9 +49,9 @@ static int	update_dummy_type(t_dummy dummy, char line)
 {
 	if (dummy.type & CHAR && (line == '>' || line == '<' || line == '|'))
 		dummy.type ^= ADD_NULL;
-	else if (dummy.type & L_REDIR && (line != ' ' && line != '<'))
+	else if (dummy.type & L_REDIR && (!is_wspace(line) && line != '<'))
 		dummy.type ^= ADD_NULL;
-	else if (dummy.type & R_REDIR && (line != ' ' && line != '>'))
+	else if (dummy.type & R_REDIR && (!is_wspace(line) && line != '>'))
 		dummy.type ^= ADD_NULL;
 	else if (dummy.type & _PIPE || dummy.type & SPACE)
 		dummy.type ^= ADD_NULL;
@@ -68,14 +68,14 @@ int	search_dummy(t_dummy *dummy, char *line)
 	dummy->addr = line;
 	while (*line && !(dummy->type & BREAK))
 	{
-		if (dummy->type & CHAR && (*line == ' ' || *line == '\'' || *line == '"'
-				|| *line == '>' || *line == '<' || *line == '|'))
+		if (dummy->type & CHAR && (is_wspace(*line) || *line == '\'' \
+			|| *line == '"' || *line == '>' || *line == '<' || *line == '|'))
 			break ;
 		if (dummy->type & S_QUOTE && *line == '\'')
 			dummy->type ^= BREAK;
 		if (dummy->type & D_QUOTE && *line == '"')
 			dummy->type ^= BREAK;
-		if (dummy->type & (SPACE | _PIPE) && *(line + 1) != ' ')
+		if (dummy->type & (SPACE | _PIPE) && *(line + 1) != is_wspace(*line))
 			dummy->type ^= BREAK;
 		if (dummy->type & _REDIR)
 			dummy->type ^= BREAK;

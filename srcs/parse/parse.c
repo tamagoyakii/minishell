@@ -32,17 +32,6 @@ static int	error_handler(t_parse info, int err)
 	return (err);
 }
 
-static int	only_whitespace(char *line)
-{
-	while (*line)
-	{
-		if (*line != 32 && !(*line >= 9 && *line <= 13))
-			return (FALSE);
-		line++;
-	}
-	return (TRUE);
-}
-
 static int	check_input(char *input)
 {
 	char	*seek;
@@ -86,7 +75,7 @@ void	parse(t_argv **argvs)
 		ft_memset(&info, 0, sizeof(t_parse));
 		if (rl_replace(&info))
 			continue ;
-		if (only_whitespace(info.line))
+		if (only_wspace(info.line))
 			continue ;
 		err = split_line(&info.chunks, &info.dummys, info.line);
 		if (!err)
