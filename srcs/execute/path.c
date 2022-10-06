@@ -8,7 +8,7 @@ static int	is_valid_command(char *cmd)
 	if (stat(cmd, &info) == SUCCESS)
 	{
 		if ((info.st_mode & S_IFMT) == S_IFDIR)
-			ft_error_exit(cmd, "is a directory", FAIL);
+			ft_error_exit(cmd, "is a directory", ERR_IS_A_DIRECTORY);
 		return (TRUE);
 	}
 	return (FALSE);
