@@ -6,7 +6,7 @@
 /*   By: jihyukim <jihyukim@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:56:55 by jihyukim          #+#    #+#             */
-/*   Updated: 2022/10/02 16:36:57 by jihyukim         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:10:23 by jihyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+
 typedef struct s_list
 {
 	void			*content;
