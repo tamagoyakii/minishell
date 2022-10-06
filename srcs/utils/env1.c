@@ -51,12 +51,9 @@ char	*make_key(char *cmd)
 void	print_invalid_key(char *cmd, char *input)
 {
 	char	*message;
-	char	*key;
 
-	key = make_key(input);
-	message = ft_strjoin_3(cmd, key, ": not a valid identifier");
+	message = ft_strjoin_3(cmd, input, "': not a valid identifier");
 	ft_putendl_fd(message, 2);
-	free(key);
 	free(message);
 	g_info.last_exit_num = FAIL;
 }
