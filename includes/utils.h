@@ -3,6 +3,7 @@
 
 # include "./global.h"
 
+# define ERR_IS_A_DIRECTORY 126
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_EXIT_NAN 255
 # define SYNTEX_ERR 258
@@ -25,7 +26,7 @@ void	make_env_arr(void);
 void	ft_error(char *cmd, char *msg, int err_num);
 void	ft_error_exit(char *cmd, char *msg, int exit_num);
 /* signal.c */
-void	heredoc_sigint_handler(int signo);
+void	hdoc_sigint_handler(int signo);
 void	init_signal(void);
 /* t_argv.c */
 t_argv	*create_argv(void);
