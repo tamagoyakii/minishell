@@ -25,7 +25,6 @@ int		split_line(t_list **chunks, t_list **dummys, char *line);
 int		ft_keylen(char *str);
 int		is_variable(char *input, int *flag);
 /* replace_env.c */
-char	*get_value(char *line);
 int		replace_env(char **line, char *input);
 /* parse.c */
 void	parse(t_argv **argvs);
