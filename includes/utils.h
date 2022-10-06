@@ -43,7 +43,7 @@ t_redir	*create_redir(int redir, char *value);
 void	free_redir(t_redir *redir);
 t_redir	*ft_redirlast(t_redir *redir);
 void	ft_rediradd_back(t_redir **redir, t_redir *new);
-/* check.c*/
+/* check.c */
 int		is_wspace(char c);
 int		only_wspace(char *str);
 #endif
