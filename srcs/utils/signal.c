@@ -2,7 +2,7 @@
 #include <readline/readline.h>
 #include <signal.h>
 
-void	heredoc_sigint_handler(int signo)
+void	hdoc_sigint_handler(int signo)
 {
 	(void)signo;
 	exit(FAIL);

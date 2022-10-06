@@ -32,7 +32,7 @@ int	is_variable(char *input, int *flag)
 	return (FALSE);
 }
 
-static int	is_variable_heredoc(char *input)
+static int	is_variable_hdoc(char *input)
 {
 	if (*input == '$')
 	{
@@ -46,7 +46,7 @@ static int	is_variable_heredoc(char *input)
 	return (FALSE);
 }
 
-int	replace_env_heredoc(char **line, char *input)
+int	replace_env_hdoc(char **line, char *input)
 {
 	char	*env;
 	int		size;
@@ -57,7 +57,7 @@ int	replace_env_heredoc(char **line, char *input)
 		return (FAIL);
 	while (*input)
 	{
-		if (is_variable_heredoc(input))
+		if (is_variable_hdoc(input))
 		{
 			env = get_value(input);
 			if (!env)
