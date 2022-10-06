@@ -31,7 +31,7 @@ static void	wait_childs(int cnt_pipe)
 	set_child_exit(status);
 }
 
-static void run_execve_proc(char **cmd)
+static void	run_execve_proc(char **cmd)
 {
 	char	*path;
 
@@ -63,7 +63,6 @@ void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe)
 
 	i = -1;
 	tmp = argv;
-	// init_signal();
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	while (++i < cnt_pipe + 1)

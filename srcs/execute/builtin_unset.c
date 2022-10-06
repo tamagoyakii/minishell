@@ -4,7 +4,7 @@ void	ft_unset(char **cmd)
 {
 	t_env	*del;
 	int		i;
-	
+
 	i = 0;
 	if (!cmd[1])
 		return ;

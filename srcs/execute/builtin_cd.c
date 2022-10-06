@@ -30,7 +30,7 @@ static void	update_env_pwds(char *cwd)
 void	ft_cd(char **cmd)
 {
 	char	cwd[PATH_MAX];
-	
+
 	if (!cmd[1])
 		return ;
 	if (cmd[2])

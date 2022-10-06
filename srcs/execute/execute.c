@@ -1,14 +1,14 @@
 #include "../../includes/execute.h"
 
-static int	init_execute(int *cnt_pipe, pid_t **pids, int ***pipes, t_argv *argv)
+static int	init_execute(int *cnt, pid_t **pids, int ***pipes, t_argv *argv)
 {
 	*pids = NULL;
 	*pipes = NULL;
-	set_pipe_cnt(cnt_pipe, argv);
-	set_pids(pids, *cnt_pipe);
-	if (*cnt_pipe > 0)
+	set_pipe_cnt(cnt, argv);
+	set_pids(pids, *cnt);
+	if (*cnt > 0)
 	{
-		if (set_pipes(pipes, *cnt_pipe) == FAIL)
+		if (set_pipes(pipes, *cnt) == FAIL)
 			return (FAIL);
 	}
 	return (SUCCESS);
