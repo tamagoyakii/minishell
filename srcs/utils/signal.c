@@ -13,10 +13,10 @@ static void	signal_handler(int signo)
 	if (signo == SIGINT)
 	{
 		rl_replace_line("", 0);
-        printf("\n");
-        rl_on_new_line();
-        rl_redisplay();
-        g_info.last_exit_num = FAIL;
+		printf("\n");
+		rl_on_new_line();
+		rl_redisplay();
+		g_info.last_exit_num = FAIL;
 	}
 	else if (signo == SIGQUIT)
 	{
