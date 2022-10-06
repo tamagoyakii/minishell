@@ -4,6 +4,11 @@ EXECUTE_DIR = ./srcs/execute
 PARSE_DIR = ./srcs/parse
 UTILS_DIR = ./srcs/utils
 INCLUDES = ./includes
+RD_INCLUDE = -I/usr/local/opt/readline/include
+#RD_INCLUDE = -I/opt/homebrew/Cellar/readline/8.1.2/include
+RD_LIB = -L/usr/local/opt/readline/lib
+#RD_LIB = -L/opt/homebrew/Cellar/readline/8.1.2/lib
+
 EXECUTE_SRCS = builtin.c \
 			builtin_cd.c \
 			builtin_echo.c \
@@ -45,19 +50,18 @@ SRCS := ${addprefix ${EXECUTE_DIR}/, ${EXECUTE_SRCS}} \
 		./srcs/main.c
 
 libft = ./libs/libft/libft.a
-#		${addprefix ${PARSE_DIR}/, ${PARSE_SRCS}} \#
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 
 all : $(NAME)
 
 %.o : %.c
-	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES) -I/opt/homebrew/Cellar/readline/8.1.2/include
+	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES) $(RD_INCLUDE)
 
 $(NAME) : $(OBJS)
 	@make -C ./libs/libft
-	@cc $(CFLAGS) -I/opt/homebrew/Cellar/readline/8.1.2include -L/opt/homebrew/Cellar/readline/8.1.2/lib -o $@ $^ $(libft) -lreadline
+	@cc $(CFLAGS) $(RD_INCLUDE) $(RD_LIB) -o $@ $^ $(libft) -lreadline
 	@echo "🙋‍♀️🙋‍♂️ make"
 # @echo "💧⛽️🧼 make"
 
