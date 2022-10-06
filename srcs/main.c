@@ -28,7 +28,7 @@ int	main(int ac, char *av[], char *envp[])
 	{
 		argvs = NULL;
 		unset_echoctl();
-		init_signal();
+		main_signal();
 		parse(&argvs);
 		execute(argvs);
 	}

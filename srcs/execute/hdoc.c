@@ -64,7 +64,7 @@ int	make_hdoc(t_argv *argv)
 	t_argv	*tmp;
 
 	tmp = argv;
-	signal(SIGQUIT, SIG_IGN);
+	ignore_signal();
 	pid = fork();
 	if (pid == 0)
 	{

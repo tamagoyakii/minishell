@@ -63,15 +63,13 @@ void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe)
 
 	i = -1;
 	tmp = argv;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	ignore_signal();
 	while (++i < cnt_pipe + 1)
 	{
 		pids[i] = fork();
 		if (pids[i] == 0)
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
+			default_signal();
 			run_child_proc(tmp, pipes, i);
 		}
 		if (pids[i] < 0)
