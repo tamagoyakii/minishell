@@ -31,9 +31,9 @@ void	reset_stdin(int fd);
 void	reset_stdout(int fd);
 int		set_stdin_redir(t_argv *argv);
 int		set_stdout_redir(t_argv *argv);
-/* heredoc */
-int		make_heredoc(t_argv *argv);
-void	unlink_heredoc(t_argv *argv);
+/* hdoc */
+int		make_hdoc(t_argv *argv);
+void	unlink_hdoc(t_argv *argv);
 
 /* mandatory part */
 void	ft_pwd(char **cmd);
