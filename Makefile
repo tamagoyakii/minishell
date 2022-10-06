@@ -4,10 +4,10 @@ EXECUTE_DIR = ./srcs/execute
 PARSE_DIR = ./srcs/parse
 UTILS_DIR = ./srcs/utils
 INCLUDES = ./includes
-#RD_INCLUDE = -I/usr/local/opt/readline/include
-RD_INCLUDE = -I/opt/homebrew/Cellar/readline/8.1.2/include
-#RD_LIB = -L/usr/local/opt/readline/lib
-RD_LIB = -L/opt/homebrew/Cellar/readline/8.1.2/lib
+RD_INCLUDE = -I/usr/local/opt/readline/include
+# RD_INCLUDE = -I/opt/homebrew/Cellar/readline/8.1.2/include
+RD_LIB = -L/usr/local/opt/readline/lib
+# RD_LIB = -L/opt/homebrew/Cellar/readline/8.1.2/lib
 
 EXECUTE_SRCS = builtin.c \
 			builtin_cd.c \
@@ -21,7 +21,7 @@ EXECUTE_SRCS = builtin.c \
 			pipe.c \
 			redir.c \
 			execute.c \
-			heredoc.c \
+			hdoc.c \
 			run_fork.c \
 			init_execute.c \
 			open.c

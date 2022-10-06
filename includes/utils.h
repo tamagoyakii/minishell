@@ -27,7 +27,9 @@ void	ft_error(char *cmd, char *msg, int err_num);
 void	ft_error_exit(char *cmd, char *msg, int exit_num);
 /* signal.c */
 void	hdoc_sigint_handler(int signo);
-void	init_signal(void);
+void	main_signal(void);
+void	ignore_signal(void);
+void	default_signal(void);
 /* t_argv.c */
 t_argv	*create_argv(void);
 void	free_argv(t_argv *argv);
