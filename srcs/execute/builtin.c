@@ -35,6 +35,8 @@ void	run_builtin_proc(char **cmd)
 		ft_exit(cmd);
 	if (g_info.pid != getpid())
 		exit (SUCCESS);
+	else
+		g_info.last_exit_num = SUCCESS;
 }
 
 void	single_builtin(t_argv *argv)

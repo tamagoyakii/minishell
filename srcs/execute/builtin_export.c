@@ -49,7 +49,7 @@ void	ft_export(char **cmd)
 	while (cmd[++i])
 	{
 		if (!is_valid_key(cmd[i]))
-			print_invalid_key("export: ", cmd[i]);
+			print_invalid_key("export: `", cmd[i]);
 		else if (!is_update_env(cmd[i]))
 			add_env(&g_info.env_list, cmd[i]);
 	}
