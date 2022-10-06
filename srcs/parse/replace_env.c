@@ -16,7 +16,7 @@ static char	*find_env(char *key)
 	return (ft_strdup(""));
 }
 
-char	*get_value(char *line)
+static char	*get_value(char *line)
 {
 	char	*key;
 	char	*value;
