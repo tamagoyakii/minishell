@@ -26,7 +26,7 @@ int	is_variable(char *input, int *flag)
 			return (FALSE);
 		if (ft_isalpha(*(input + 1)) || *(input + 1) == '_')
 			return (TRUE);
-		if (is_wspace(*(input + 1)) != ' ' && *(input + 1) != '\0')
+		if (!is_wspace(*(input + 1)) && *(input + 1) != '\0')
 			return (TRUE);
 	}
 	return (FALSE);
@@ -40,7 +40,7 @@ static int	is_variable_hdoc(char *input)
 			return (FALSE);
 		if (ft_isalpha(*(input + 1)) || *(input + 1) == '_')
 			return (TRUE);
-		if (is_wspace(*(input + 1)) != ' ' && *(input + 1) != '\0')
+		if (!is_wspace(*(input + 1)) && *(input + 1) != '\0')
 			return (TRUE);
 	}
 	return (FALSE);
