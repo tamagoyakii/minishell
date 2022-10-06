@@ -60,9 +60,9 @@ static int	check_syntax(t_list	*tokens)
 
 int	create_tokens(t_list *chunks, t_list **tokens)
 {
-	t_list	*seek;
 	t_list	*new_lst;
 	t_token	*new_token;
+	t_list	*seek;
 
 	seek = chunks;
 	while (seek)
