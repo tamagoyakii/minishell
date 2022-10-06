@@ -1,6 +1,6 @@
 #include "../../includes/parse.h"
 
-static char	*find_env(char *key)
+char	*find_env(char *key)
 {
 	t_env	*seek;
 
@@ -16,7 +16,7 @@ static char	*find_env(char *key)
 	return (ft_strdup(""));
 }
 
-static char	*get_value(char *line)
+char	*get_value(char *line)
 {
 	char	*key;
 	char	*value;
@@ -29,7 +29,7 @@ static char	*get_value(char *line)
 	return (value);
 }
 
-static int	get_size(char *input)
+int	get_size(char *input)
 {
 	int		size;
 	int		flag;

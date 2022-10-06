@@ -1,47 +1,57 @@
 #include "../../includes/execute.h"
+#include "../../includes/parse.h"
 #include <readline/readline.h>
 
 void	unlink_heredoc(t_argv *argv)
 {
 	t_argv	*tmp;
-	t_redir	*heredoc;
+	t_redir	*hdoc;
 
 	tmp = argv;
 	while (tmp)
 	{
-		heredoc = tmp->hdoc;
-		while (heredoc)
+		hdoc = tmp->hdoc;
+		while (hdoc)
 		{
-			unlink(heredoc->value);
-			heredoc = heredoc->next;
+			unlink(hdoc->value);
+			hdoc = hdoc->next;
 		}
 		tmp = tmp->next;
 	}
 }
 
-static void	run_heredoc(t_redir *heredoc)
+static void	read_for_heredoc(int fd, char *name)
+{
+	char	*line;
+	char	*input;
+
+	while (fd > 0)
+	{
+		input = readline("> ");
+		if (!input || ft_strcmp(input, &name[5]) == SUCCESS)
+		{
+			free(input);
+			break ;
+		}
+		if (replace_env_heredoc(&line, input))
+			ft_error_exit("heredoc", "error", 1);
+		ft_putendl_fd(line, fd);
+		free(line);
+		free(input);
+	}
+}
+
+static void	run_heredoc(t_redir *hdoc)
 {
 	int		fd;
-	char	*line;
 	t_redir	*tmp;
 
-	tmp = heredoc;
+	tmp = hdoc;
 	while (tmp)
 	{
 		unlink(tmp->value);
 		fd = ft_open(tmp->value, HDOC);
-		while (fd > 0)
-		{
-			line = readline("> ");
-			if (!line || ft_strcmp(line, &tmp->value[5]) == SUCCESS)
-			{
-				free(line);
-				close(fd);
-				break ;
-			}
-			ft_putendl_fd(line, fd);
-			free(line);
-		}
+		read_for_heredoc(fd, tmp->value);
 		close(fd);
 		tmp = tmp->next;
 	}

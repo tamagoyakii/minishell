@@ -26,6 +26,11 @@ int		ft_keylen(char *str);
 int		is_variable(char *input, int *flag);
 /* replace_env.c */
 int		replace_env(char **line, char *input);
+int		replace_env_heredoc(char **line, char *input);
+int		get_size(char *input);
+char	*get_value(char *line);
+int		ft_keylen(char *str);
+
 /* parse.c */
 void	parse(t_argv **argvs);
 
