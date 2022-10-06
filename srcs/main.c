@@ -12,15 +12,6 @@ static void	unset_echoctl(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-static void	set_echoctl(void)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag |= (ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
 int	main(int ac, char *av[], char *envp[])
 {
 	t_argv	*argvs;
@@ -39,7 +30,6 @@ int	main(int ac, char *av[], char *envp[])
 		unset_echoctl();
 		main_signal();
 		parse(&argvs);
-		set_echoctl();
 		execute(argvs);
 	}
 }
