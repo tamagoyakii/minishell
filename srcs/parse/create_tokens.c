@@ -83,6 +83,5 @@ int	create_tokens(t_list *chunks, t_list **tokens)
 	}
 	if (check_syntax(*tokens))
 		return (E_CHUNKS | E_TOKENS | E_SYNTAX);
-	free_lst_only(&h_chunks);
 	return (SUCCESS);
 }

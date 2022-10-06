@@ -21,15 +21,14 @@ EXECUTE_SRCS = builtin.c \
 			init_execute.c \
 			open.c
 
-#			replace.c
 PARSE_SRCS = parse.c \
 			split_dummy.c \
 			split_line.c \
 			create_tokens.c \
 			create_argvs.c \
 			create_argvs_2.c \
-			utils_env.c \
-			replace.c
+			replace_env.c \
+			replace_env_2.c
 
 UTILS_SRCS = alloc.c \
 			env1.c \
@@ -54,11 +53,11 @@ CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 all : $(NAME)
 
 %.o : %.c
-	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES) -I/usr/local/opt/readline/include
+	@cc $(CFLAGS) -c -o $@ $< -I $(INCLUDES) -I/opt/homebrew/Cellar/readline/8.1.2/include
 
 $(NAME) : $(OBJS)
 	@make -C ./libs/libft
-	@cc $(CFLAGS) -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -o $@ $^ $(libft) -lreadline
+	@cc $(CFLAGS) -I/opt/homebrew/Cellar/readline/8.1.2include -L/opt/homebrew/Cellar/readline/8.1.2/lib -o $@ $^ $(libft) -lreadline
 	@echo "🙋‍♀️🙋‍♂️ make"
 # @echo "💧⛽️🧼 make"
 

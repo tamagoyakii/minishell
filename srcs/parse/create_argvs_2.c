@@ -81,8 +81,8 @@ static int	add_word(t_argv **argvs, t_cmd *cmd, char *value, t_type *type)
 		ft_redirlast((*argvs)->in)->value = value;
 	else if (type->redir == HDOC)
 	{
-		ft_redirlast((*argvs)->in)->value = ft_strjoin("/tmp/", value);
-		ft_redirlast((*argvs)->hdoc)->value = ft_strjoin("/tmp/", value);
+		(ft_redirlast((*argvs)->in)->value) = ft_strjoin("/tmp/", value);
+		(ft_redirlast((*argvs)->hdoc)->value) = ft_strjoin("/tmp/", value);
 		free(value);
 	}
 	else
