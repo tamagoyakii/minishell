@@ -60,26 +60,26 @@ static int	check_syntax(t_list	*tokens)
 
 int	create_tokens(t_list *chunks, t_list **tokens)
 {
-	t_list	*h_chunks;
+	t_list	*seek;
 	t_list	*new_lst;
 	t_token	*new_token;
 
-	h_chunks = chunks;
-	while (chunks)
+	seek = chunks;
+	while (seek)
 	{
-		if (is_pipe(chunks->content))
-			new_token = create_token(PIPE, chunks->content);
-		else if (is_redir(chunks->content))
-			new_token = create_token(REDIR, chunks->content);
+		if (is_pipe(seek->content))
+			new_token = create_token(PIPE, seek->content);
+		else if (is_redir(seek->content))
+			new_token = create_token(REDIR, seek->content);
 		else
-			new_token = create_token(WORD, chunks->content);
+			new_token = create_token(WORD, seek->content);
 		if (!new_token)
 			return (E_CHUNKS | E_TOKENS);
 		new_lst = ft_lstnew(new_token);
 		if (!new_lst)
 			return (E_CHUNKS | E_TOKENS);
 		ft_lstadd_back(tokens, new_lst);
-		chunks = chunks->next;
+		seek = seek->next;
 	}
 	if (check_syntax(*tokens))
 		return (E_CHUNKS | E_TOKENS | E_SYNTAX);
