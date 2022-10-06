@@ -75,7 +75,7 @@ int	search_dummy(t_dummy *dummy, char *line)
 			dummy->type ^= BREAK;
 		if (dummy->type & D_QUOTE && *line == '"')
 			dummy->type ^= BREAK;
-		if (dummy->type & (SPACE | _PIPE) && *(line + 1) != is_wspace(*line))
+		if (dummy->type & (SPACE | _PIPE) && !is_wspace(*(line + 1)))
 			dummy->type ^= BREAK;
 		if (dummy->type & _REDIR)
 			dummy->type ^= BREAK;
