@@ -4,10 +4,10 @@ EXECUTE_DIR = ./srcs/execute
 PARSE_DIR = ./srcs/parse
 UTILS_DIR = ./srcs/utils
 INCLUDES = ./includes
-RD_INCLUDE = -I/usr/local/opt/readline/include
-#RD_INCLUDE = -I/opt/homebrew/Cellar/readline/8.1.2/include
-RD_LIB = -L/usr/local/opt/readline/lib
-#RD_LIB = -L/opt/homebrew/Cellar/readline/8.1.2/lib
+#RD_INCLUDE = -I/usr/local/opt/readline/include
+RD_INCLUDE = -I/opt/homebrew/Cellar/readline/8.1.2/include
+#RD_LIB = -L/usr/local/opt/readline/lib
+RD_LIB = -L/opt/homebrew/Cellar/readline/8.1.2/lib
 
 EXECUTE_SRCS = builtin.c \
 			builtin_cd.c \
@@ -36,6 +36,7 @@ PARSE_SRCS = parse.c \
 			replace_env_2.c
 
 UTILS_SRCS = alloc.c \
+			check.c \
 			env1.c \
 			env2.c \
 			error.c \
@@ -52,7 +53,7 @@ SRCS := ${addprefix ${EXECUTE_DIR}/, ${EXECUTE_SRCS}} \
 libft = ./libs/libft/libft.a
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
