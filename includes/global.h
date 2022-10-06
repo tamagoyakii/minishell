@@ -80,7 +80,7 @@ typedef struct s_token
 	char			*value;
 }	t_token;
 
-typedef	struct s_dummy
+typedef struct s_dummy
 {
 	int		type;
 	int		size;
