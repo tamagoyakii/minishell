@@ -1,7 +1,7 @@
 #include "../includes/minishell.h"
 #include <termios.h>
 
-t_info g_info;
+t_info	g_info;
 
 static void	unset_echoctl(void)
 {
@@ -14,16 +14,15 @@ static void	unset_echoctl(void)
 
 int	main(int ac, char *av[], char *envp[])
 {
-	t_argv		*argvs;
-	(void)		av;
+	t_argv	*argvs;
 
+	(void)av;
 	if (ac != 1)
 	{
 		ft_putendl_fd("too many arguments", STDERR_FILENO);
 		exit(FAIL);
 	}
 	g_info.pid = getpid();
-	//init_env_list(&env, envp); // 환경변수 초기화
 	init_env(envp);
 	while (1)
 	{
@@ -31,7 +30,6 @@ int	main(int ac, char *av[], char *envp[])
 		unset_echoctl();
 		init_signal();
 		parse(&argvs);
-		// system("leaks minishell");
 		execute(argvs);
 	}
 }
