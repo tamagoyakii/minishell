@@ -19,7 +19,7 @@ t_env	*get_env(char *key)
 int	is_valid_key(char *key)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!(ft_isalpha(key[i]) || key[i] == '_'))
 		return (FALSE);
@@ -44,7 +44,7 @@ char	*make_key(char *cmd)
 	else
 		key = ft_strdup(cmd);
 	if (!key)
-			ft_error_exit("malloc", strerror(errno), FAIL);
+		ft_error_exit("malloc", strerror(errno), FAIL);
 	return (key);
 }
 
