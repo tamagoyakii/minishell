@@ -1,4 +1,5 @@
 #include "../../includes/execute.h"
+#include <termios.h>
 
 static int	init_execute(int *cnt, pid_t **pids, int ***pipes, t_argv *argv)
 {
@@ -22,6 +23,15 @@ static void	end_execute(pid_t *pids, int **pipes, t_argv *argv)
 	free_argv(argv);
 }
 
+static void	set_echoctl(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= (ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 void	execute(t_argv *argv)
 {
 	int		cnt_pipe;
@@ -30,6 +40,7 @@ void	execute(t_argv *argv)
 
 	if (make_hdoc(argv) == FAIL)
 		return (free_argv(argv));
+	set_echoctl();
 	if (init_execute(&cnt_pipe, &pids, &pipes, argv) == FAIL)
 	{
 		close_pipes(pipes);
