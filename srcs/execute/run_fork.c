@@ -4,12 +4,12 @@ static void	set_child_exit(int status)
 {
 	if (status == 2)
 	{
-		printf("^C\n");
+		printf("\n");
 		g_info.last_exit_num = status + 128;
 	}
 	else if (status == 3)
 	{
-		printf("^\\Quit: %d\n", status);
+		printf("Quit: %d\n", status);
 		g_info.last_exit_num = status + 128;
 	}
 	else
