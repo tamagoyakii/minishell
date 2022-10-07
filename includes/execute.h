@@ -24,7 +24,7 @@ char	*get_path(char *cmd);
 /* pipe */
 void	set_stdout_pipe(t_argv *argv, int **pipes, int num);
 void	set_stdin_pipe(int **pipes, int num);
-void	close_pipes(int **pipes);
+void	close_pipes(int **pipes, int cnt);
 void	free_pipes(int **pipes);
 /* redir */
 void	reset_stdin(int fd);
