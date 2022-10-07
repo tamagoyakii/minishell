@@ -1,6 +1,6 @@
 #include "../../includes/parse.h"
 
-static int	get_read_size(t_dummy dummy, char *line)
+static int	get_read_size(t_dummy_info dummy, char *line)
 {
 	int	read_size;
 
@@ -10,7 +10,7 @@ static int	get_read_size(t_dummy dummy, char *line)
 	return (read_size);
 }
 
-static int	get_dummy_size(t_dummy dummy, char *line)
+static int	get_dummy_size(t_dummy_info dummy, char *line)
 {
 	int	size;
 
@@ -45,7 +45,7 @@ static int	get_dummy_type(char c)
 	return (type);
 }
 
-static int	update_dummy_type(t_dummy dummy, char line)
+static int	update_dummy_type(t_dummy_info dummy, char line)
 {
 	if (dummy.type & CHAR && (line == '>' || line == '<' || line == '|'))
 		dummy.type ^= ADD_NULL;
@@ -58,7 +58,7 @@ static int	update_dummy_type(t_dummy dummy, char line)
 	return (dummy.type);
 }
 
-int	search_dummy(t_dummy *dummy, char *line)
+int	search_dummy(t_dummy_info *dummy, char *line)
 {
 	int	read_size;
 
