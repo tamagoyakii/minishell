@@ -32,7 +32,7 @@ void	reset_stdout(int fd);
 int		set_stdin_redir(t_argv *argv);
 int		set_stdout_redir(t_argv *argv);
 /* hdoc */
-int		make_hdoc(t_argv *argv);
+int		check_heredoc(t_argv *argv);
 void	unlink_hdoc(t_argv *argv);
 
 /* mandatory part */
