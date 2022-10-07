@@ -45,7 +45,7 @@ int	get_size(char *input)
 			if (!env)
 				return (FALSE);
 			size += ft_strlen(env);
-			input += ft_strlen(env) + 1;
+			input += ft_keylen(input + 1) + 1;
 			free(env);
 		}
 		else
