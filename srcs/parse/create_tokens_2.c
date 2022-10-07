@@ -1,24 +1,24 @@
 #include "../../includes/parse.h"
 
-int	is_pipe(char *input)
+int	is_pipe(char *value)
 {
-	if (ft_strcmp(input, "|"))
+	if (ft_strcmp(value, "|"))
 		return (0);
 	return (1);
 }
 
-int	is_redir(char *chunk)
+int	is_redir(char *value)
 {
 	int	redir;
 
 	redir = NONE;
-	if (!ft_strcmp(chunk, ">"))
+	if (!ft_strcmp(value, ">"))
 		redir = T_OUT;
-	if (!ft_strcmp(chunk, ">>"))
+	if (!ft_strcmp(value, ">>"))
 		redir = A_OUT;
-	if (!ft_strcmp(chunk, "<"))
+	if (!ft_strcmp(value, "<"))
 		redir = IN;
-	if (!ft_strcmp(chunk, "<<"))
+	if (!ft_strcmp(value, "<<"))
 		redir = HDOC;
 	return (redir);
 }
