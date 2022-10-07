@@ -78,6 +78,7 @@ void	add_env(t_env **lst, char *env)
 		tmp->next = *lst;
 		tmp->prev = NULL;
 		*lst = tmp;
+		g_info.env_list = *lst;
 		return ;
 	}
 	while (tmp->next && ft_strcmp(tmp->key, env) < 0)
@@ -97,7 +98,6 @@ void	init_env(char **env)
 	head = NULL;
 	while (env[++i])
 		add_env(&head, env[i]);
-	g_info.env_list = head;
 	lvl = get_env("SHLVL");
 	if (lvl)
 	{
