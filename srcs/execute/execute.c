@@ -43,7 +43,6 @@ void	execute(t_argv *argv)
 	set_echoctl();
 	if (init_execute(&cnt_pipe, &pids, &pipes, argv) == FAIL)
 	{
-		close_pipes(pipes);
 		g_info.last_exit_num = FAIL;
 		return (end_execute(pids, pipes, argv));
 	}

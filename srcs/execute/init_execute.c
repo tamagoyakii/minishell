@@ -40,6 +40,7 @@ int	set_pipes(int ***pipes, int cnt_pipe)
 		if (pipe((*pipes)[i]) < 0)
 		{
 			ft_error("pipe", strerror(errno), FAIL);
+			close_pipes(*pipes, i);
 			return (FAIL);
 		}
 	}

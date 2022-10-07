@@ -79,6 +79,6 @@ void	run_fork(t_argv *argv, pid_t *pids, int **pipes, int cnt_pipe)
 		}
 		tmp = tmp->next;
 	}
-	close_pipes(pipes);
+	close_pipes(pipes, cnt_pipe);
 	wait_childs(cnt_pipe);
 }

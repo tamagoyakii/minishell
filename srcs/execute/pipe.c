@@ -36,14 +36,14 @@ void	set_stdout_pipe(t_argv *argv, int **pipes, int num)
 		close(pipes[i][1]);
 }
 
-void	close_pipes(int **pipes)
+void	close_pipes(int **pipes, int cnt)
 {
 	int	i;
 
 	if (!pipes)
 		return ;
 	i = -1;
-	while (pipes[++i])
+	while (++i < cnt)
 	{
 		close(pipes[i][0]);
 		close(pipes[i][1]);
