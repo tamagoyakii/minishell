@@ -8,9 +8,8 @@ static t_list	*create_dummy(char *addr, int size, int type)
 	dummy = ft_calloc(1, sizeof(t_dummy));
 	if (!dummy)
 		return (NULL);
-	if (!addr)
-		dummy->value = NULL;
-	else
+	dummy->value = NULL;
+	if (addr)
 	{
 		dummy->type = type;
 		dummy->value = ft_calloc(size + 1, sizeof(char));
@@ -21,11 +20,12 @@ static t_list	*create_dummy(char *addr, int size, int type)
 		}
 		ft_strlcpy(dummy->value, addr, size + 1);
 	}
-	new = ft_calloc(1, sizeof(t_list));
+	new = ft_lstnew(dummy);
 	if (!new)
-		return (NULL);
-	new->next = NULL;
-	new->content = dummy;
+	{
+		free(dummy->value);
+		free(dummy);
+	}
 	return (new);
 }
 
