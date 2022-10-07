@@ -51,5 +51,4 @@ void	ft_echo(char **cmd)
 	}
 	if (flag == FALSE)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	g_info.last_exit_num = SUCCESS;
 }

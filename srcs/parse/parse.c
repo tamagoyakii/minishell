@@ -17,7 +17,7 @@ static int	error_handler(t_parse info, int err)
 	if (err & E_TOKENS)
 		ft_lstclear(&info.tokens, free_content);
 	if (err & E_SYNTAX)
-		ft_error("syntax error", "", SYNTEX_ERR);
+		ft_error("syntax error", "unexpected tokens", SYNTEX_ERR);
 	if (err & E_ARGVS)
 	{
 		ft_lstclear(&info.tokens, free_content);
