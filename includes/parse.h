@@ -15,8 +15,6 @@ char	*get_token_value(t_list **dummies);
 t_token	*create_token(int type, char *value);
 /* create_tokens.c */
 int		create_tokens(t_list **tokens, t_list **dummys, char *line);
-
-// int		create_tokens(t_list *chunks, t_list **tokens);
 /* create_argvs_2.c */
 int		put_cmd(t_cmd *cmd, t_argv **argvs);
 int		put_argv(t_argv **argvs, t_token *token, t_cmd *cmd, t_type *type);
