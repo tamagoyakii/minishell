@@ -57,7 +57,7 @@ static void	run_hdoc(t_redir *hdoc)
 	}
 }
 
-int	make_hdoc(t_argv *argv)
+static int	make_hdoc(t_argv *argv)
 {
 	int		status;
 	pid_t	pid;
@@ -82,4 +82,23 @@ int	make_hdoc(t_argv *argv)
 	status = status >> 8;
 	g_info.last_exit_num = status;
 	return (status);
+}
+
+int	check_heredoc(t_argv *argv)
+{
+	t_argv	*tmp;
+	int		result;
+
+	tmp = argv;
+	result = SUCCESS;
+	while (tmp)
+	{
+		if (tmp->hdoc)
+		{
+			result = make_hdoc(argv);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	return (result);
 }

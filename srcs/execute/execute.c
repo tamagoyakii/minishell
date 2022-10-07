@@ -38,7 +38,7 @@ void	execute(t_argv *argv)
 	int		**pipes;
 	pid_t	*pids;
 
-	if (make_hdoc(argv) == FAIL)
+	if (check_heredoc(argv) == FAIL)
 		return (free_argv(argv));
 	set_echoctl();
 	if (init_execute(&cnt_pipe, &pids, &pipes, argv) == FAIL)
