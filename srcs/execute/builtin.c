@@ -46,7 +46,7 @@ void	single_builtin(t_argv *argv)
 
 	origin_stdin = dup(STDIN_FILENO);
 	origin_stdout = dup(STDOUT_FILENO);
-	if (set_stdin_redir(argv) == FAIL || set_stdout_redir(argv) == FAIL)
+	if (set_stdout_redir(argv) == FAIL || set_stdin_redir(argv) == FAIL)
 	{
 		reset_stdin(origin_stdin);
 		reset_stdout(origin_stdout);
