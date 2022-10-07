@@ -38,7 +38,7 @@ void	ft_exit(char **cmd)
 	if (cmd[1])
 		exit_num = ft_atouc(cmd[1]);
 	else
-		exit_num = 0;
+		exit_num = g_info.last_exit_num;
 	if (exit_num < 0)
 		ft_error_exit("exit", "numeric argument required", ERR_EXIT_NAN);
 	if (g_info.pid == getpid())
