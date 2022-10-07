@@ -1,38 +1,82 @@
 #include "../../includes/parse.h"
 
-int	is_pipe(char *input)
+static t_list	*create_dummy(char *addr, int size, int type)
 {
-	if (ft_strcmp(input, "|"))
-		return (0);
-	return (1);
-}
+	t_list	*new;
+	t_dummy	*dummy;
 
-int	is_redir(char *chunk)
-{
-	int	redir;
-
-	redir = NONE;
-	if (!ft_strcmp(chunk, ">"))
-		redir = T_OUT;
-	if (!ft_strcmp(chunk, ">>"))
-		redir = A_OUT;
-	if (!ft_strcmp(chunk, "<"))
-		redir = IN;
-	if (!ft_strcmp(chunk, "<<"))
-		redir = HDOC;
-	return (redir);
-}
-
-static t_token	*create_token(int type, char *value)
-{
-	t_token	*new;
-
-	new = malloc(sizeof(t_redir));
+	dummy = ft_calloc(1, sizeof(t_dummy));
+	if (!dummy)
+		return (NULL);
+	if (!addr)
+		dummy->value = NULL;
+	else
+	{
+		dummy->type = type;
+		dummy->value = ft_calloc(size + 1, sizeof(char));
+		if (!dummy->value)
+		{
+			free(dummy);
+			return (NULL);
+		}
+		ft_strlcpy(dummy->value, addr, size + 1);
+	}
+	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
-		return (0);
-	new->type = type;
-	new->value = value;
+		return (NULL);
+	new->next = NULL;
+	new->content = dummy;
 	return (new);
+}
+
+static int	create_dummies(t_list **dummys, char *line)
+{
+	t_list			*dummy;
+	t_dummy_info	dummy_info;
+
+	while (is_wspace(*line))
+		line++;
+	while (*line)
+	{
+		line += search_dummy(&dummy_info, line);
+		dummy = create_dummy(dummy_info.addr, dummy_info.size, dummy_info.type);
+		if (!dummy)
+			return (FAIL);
+		if (dummy_info.type & ADD_NULL)
+		{
+			dummy->next = create_dummy(NULL, 1, 0);
+			if (!dummy->next)
+				return (FAIL);
+		}
+		ft_lstadd_back(dummys, dummy);
+	}
+	return (SUCCESS);
+}
+
+static t_list	*dummies_to_token(t_list **dummies)
+{
+	t_list	*res;
+	t_token	*token;
+
+	token = ft_calloc(1, sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = get_token_type(((t_dummy *)(*dummies)->content)->type);
+	token->value = get_token_value(dummies);
+	if (!token->value)
+	{
+		free(token);
+		return (NULL);
+	}
+	res = ft_calloc(1, sizeof(t_list));
+	if (!res)
+	{
+		free(token->value);
+		free(token);
+		return (NULL);
+	}
+	res->content = (void *)token;
+	return (res);
 }
 
 static int	check_syntax(t_list	*tokens)
@@ -58,30 +102,24 @@ static int	check_syntax(t_list	*tokens)
 	return (SUCCESS);
 }
 
-int	create_tokens(t_list *chunks, t_list **tokens)
+int	create_tokens(t_list **tokens, t_list **dummys, char *line)
 {
-	t_list	*new_lst;
-	t_token	*new_token;
+	t_list	*token;
 	t_list	*seek;
 
-	seek = chunks;
+	if (create_dummies(dummys, line))
+		return (E_DUMMIES);
+	seek = *dummys;
 	while (seek)
 	{
-		if (is_pipe(seek->content))
-			new_token = create_token(PIPE, seek->content);
-		else if (is_redir(seek->content))
-			new_token = create_token(REDIR, seek->content);
-		else
-			new_token = create_token(WORD, seek->content);
-		if (!new_token)
-			return (E_CHUNKS | E_TOKENS);
-		new_lst = ft_lstnew(new_token);
-		if (!new_lst)
-			return (E_CHUNKS | E_TOKENS);
-		ft_lstadd_back(tokens, new_lst);
-		seek = seek->next;
+		token = dummies_to_token(&seek);
+		if (!token)
+			return (E_DUMMIES | E_TOKENS);
+		ft_lstadd_back(tokens, token);
 	}
+	if (!*dummys)
+		return (FAIL);
 	if (check_syntax(*tokens))
-		return (E_CHUNKS | E_TOKENS | E_SYNTAX);
+		return (E_DUMMIES | E_TOKENS | E_SYNTAX);
 	return (SUCCESS);
 }

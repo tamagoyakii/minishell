@@ -45,7 +45,7 @@ typedef enum e_dummy_type
 
 typedef enum e_error_type
 {
-	E_CHUNKS	= 0x01,
+	E_DUMMIES	= 0x01,
 	E_TOKENS	= 0x02,
 	E_ARGVS		= 0x04,
 	E_SYNTAX	= 0x08
@@ -68,7 +68,6 @@ typedef struct s_parse
 	char			*line;
 	char			*input;
 	struct s_list	*dummys;
-	struct s_list	*chunks;
 	struct s_list	*tokens;
 	struct s_cmd	*cmd;
 	struct s_type	*type;
@@ -76,15 +75,21 @@ typedef struct s_parse
 
 typedef struct s_token
 {
-	int				type;
-	char			*value;
+	int		type;
+	char	*value;
 }	t_token;
 
-typedef struct s_dummy
+typedef struct s_dummy_info
 {
 	int		type;
 	int		size;
 	char	*addr;
+}	t_dummy_info;
+
+typedef struct s_dummy
+{
+	int		type;
+	char	*value;
 }	t_dummy;
 
 typedef struct s_env

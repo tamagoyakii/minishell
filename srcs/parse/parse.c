@@ -5,22 +5,21 @@
 
 static int	error_handler(t_parse info, int err)
 {
-	ft_lstclear(&info.dummys, free_content);
 	free(info.line);
 	if (!err)
 	{
-		free_lst_only(&info.chunks);
+		ft_lstclear(&info.dummys, free_dummy);
 		ft_lstclear(&info.tokens, free_content);
 	}
-	if (err & E_CHUNKS)
-		ft_lstclear(&info.chunks, free_content);
+	if (err & E_DUMMIES)
+		ft_lstclear(&info.dummys, free_dummy);
 	if (err & E_TOKENS)
-		ft_lstclear(&info.tokens, free_content);
+		ft_lstclear(&info.tokens, free_token);
 	if (err & E_SYNTAX)
 		ft_error("syntax error", "unexpected tokens", SYNTEX_ERR);
 	if (err & E_ARGVS)
 	{
-		ft_lstclear(&info.tokens, free_content);
+		ft_lstclear(&info.tokens, free_token);
 		if (info.cmd)
 		{
 			free_lst_only(&info.cmd->cmds);
@@ -77,9 +76,7 @@ void	parse(t_argv **argvs)
 			continue ;
 		if (only_wspace(info.line))
 			continue ;
-		err = split_line(&info.chunks, &info.dummys, info.line);
-		if (!err)
-			err = create_tokens(info.chunks, &info.tokens);
+		err = create_tokens(&info.tokens, &info.dummys, info.line);
 		if (!err)
 			err = create_argvs(argvs, &info.tokens, &info.cmd, &info.type);
 		if (!error_handler(info, err))

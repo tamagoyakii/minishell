@@ -38,6 +38,8 @@ void	ft_argvadd_back(t_argv **argvs, t_argv *new);
 /* t_list.c */
 void	free_lst_only(t_list **lst);
 void	free_content(void *content);
+void	free_dummy(void *content);
+void	free_token(void *content);
 /* t_redir.c */
 t_redir	*create_redir(int redir, char *value);
 void	free_redir(t_redir *redir);

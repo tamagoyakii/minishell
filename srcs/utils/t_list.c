@@ -20,3 +20,23 @@ void	free_content(void *content)
 {
 	free(content);
 }
+
+void	free_dummy(void *content)
+{
+	t_dummy	*dummy;
+
+	dummy = (t_dummy *)content;
+	if (dummy->value)
+		free(dummy->value);
+	free(dummy);
+}
+
+void	free_token(void *content)
+{
+	t_token	*token;
+
+	token = (t_token *)content;
+	if (token->value)
+		free(token->value);
+	free(token);
+}
