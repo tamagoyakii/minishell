@@ -39,7 +39,7 @@ static int	check_input(char *input)
 	if (!seek)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		exit(SUCCESS);
+		exit(g_info.last_exit_num);
 	}
 	if (!(*seek))
 		return (FAIL);
