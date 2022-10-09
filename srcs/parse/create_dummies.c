@@ -45,13 +45,13 @@ static int	get_dummy_type(char c)
 	return (type);
 }
 
-static int	update_dummy_type(t_dummy_info dummy, char line)
+static int	update_dummy_type(t_dummy_info dummy, char c)
 {
-	if (dummy.type & CHAR && (line == '>' || line == '<' || line == '|'))
+	if (dummy.type & (_QUOTE | CHAR) && (c == '>' || c == '<' || c == '|'))
 		dummy.type ^= ADD_NULL;
-	else if (dummy.type & L_REDIR && (!is_wspace(line) && line != '<'))
+	else if (dummy.type & L_REDIR && (!is_wspace(c) && c != '<'))
 		dummy.type ^= ADD_NULL;
-	else if (dummy.type & R_REDIR && (!is_wspace(line) && line != '>'))
+	else if (dummy.type & R_REDIR && (!is_wspace(c) && c != '>'))
 		dummy.type ^= ADD_NULL;
 	else if (dummy.type & _PIPE || dummy.type & SPACE)
 		dummy.type ^= ADD_NULL;
