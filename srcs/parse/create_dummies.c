@@ -47,7 +47,7 @@ static int	get_dummy_type(char c)
 
 static int	update_dummy_type(t_dummy_info dummy, char c)
 {
-	if (dummy.type & (CHAR | _QUOTE) && (c == '>' || c == '<' || c == '|'))
+	if (dummy.type & (_QUOTE | CHAR) && (c == '>' || c == '<' || c == '|'))
 		dummy.type ^= ADD_NULL;
 	else if (dummy.type & L_REDIR && (!is_wspace(c) && c != '<'))
 		dummy.type ^= ADD_NULL;
