@@ -98,6 +98,7 @@ void	init_env(char **env)
 	head = NULL;
 	while (env[++i])
 		add_env(&head, env[i]);
+	g_info.env_list = head;
 	lvl = get_env("SHLVL");
 	if (lvl)
 	{
