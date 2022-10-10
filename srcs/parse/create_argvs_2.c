@@ -31,8 +31,6 @@ static int	add_pipe(t_argv **argvs, char *value, t_cmd *cmd, t_type *type)
 {
 	t_argv	*new_argv;
 
-	if (type->last != WORD)
-		return (FAIL);
 	if (put_cmd(cmd, argvs))
 		return (FAIL);
 	new_argv = create_argv();
@@ -49,8 +47,6 @@ static int	add_redir(t_argv **argvs, char *value, t_type *type)
 {
 	t_redir	*new;
 
-	if (type->last == REDIR)
-		return (FAIL);
 	type->redir = is_redir(value);
 	new = create_redir(type->redir, NULL);
 	if (!new)
@@ -81,8 +77,8 @@ static int	add_word(t_argv **argvs, t_cmd *cmd, char *value, t_type *type)
 		ft_redirlast((*argvs)->in)->value = value;
 	else if (type->redir == HDOC)
 	{
-		(ft_redirlast((*argvs)->in)->value) = ft_strjoin("/tmp/", value);
-		(ft_redirlast((*argvs)->hdoc)->value) = ft_strjoin("/tmp/", value);
+		(ft_redirlast((*argvs)->in)->value) = ft_strjoin("/tmp/.0", value);
+		(ft_redirlast((*argvs)->hdoc)->value) = ft_strjoin("/tmp/.0", value);
 		free(value);
 	}
 	else
