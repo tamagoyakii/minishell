@@ -28,7 +28,7 @@ static void	read_for_hdoc(int fd, char *name)
 	while (fd > 0)
 	{
 		input = readline("> ");
-		if (!input || ft_strcmp(input, &name[5]) == SUCCESS)
+		if (!input || ft_strcmp(input, &name[7]) == SUCCESS)
 		{
 			free(input);
 			break ;
