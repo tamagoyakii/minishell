@@ -27,8 +27,7 @@ int	get_token_type(int type)
 {
 	int	res;
 
-	if (type & (CHAR | _QUOTE))
-		res = WORD;
+	res = WORD;
 	if (type & _REDIR)
 		res = REDIR;
 	if (type & _PIPE)
