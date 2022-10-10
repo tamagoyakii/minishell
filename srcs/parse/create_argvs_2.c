@@ -11,6 +11,7 @@ int	put_cmd(t_cmd *cmd, t_argv **argvs)
 	arr = malloc(sizeof(char *) * (cmd->cnt + 1));
 	if (!arr)
 		return (FAIL);
+	ft_argvlast(*argvs)->cmd = arr;
 	h_cmd = cmd->cmds;
 	i = -1;
 	while (++i < cmd->cnt)
@@ -21,7 +22,6 @@ int	put_cmd(t_cmd *cmd, t_argv **argvs)
 		cmd->cmds = cmd->cmds->next;
 	}
 	arr[i] = NULL;
-	ft_argvlast(*argvs)->cmd = arr;
 	ft_lstclear(&h_cmd, free_content);
 	cmd->cnt = 0;
 	return (SUCCESS);
