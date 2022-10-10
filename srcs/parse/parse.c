@@ -75,7 +75,10 @@ void	parse(t_argv **argvs)
 		if (rl_replace(&info))
 			continue ;
 		if (only_wspace(info.line))
+		{
+			free(info.line);
 			continue ;
+		}
 		err = create_tokens(&info.tokens, &info.dummys, info.line);
 		if (!err)
 			err = create_argvs(argvs, &info.tokens, &info.cmd, &info.type);
