@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_tokens_2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 10:05:26 by donghyuk          #+#    #+#             */
+/*   Updated: 2022/10/10 10:54:02 by donghyuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/parse.h"
 
 int	is_pipe(char *value)
@@ -27,8 +39,7 @@ int	get_token_type(int type)
 {
 	int	res;
 
-	if (type & (CHAR | _QUOTE))
-		res = WORD;
+	res = WORD;
 	if (type & _REDIR)
 		res = REDIR;
 	if (type & _PIPE)

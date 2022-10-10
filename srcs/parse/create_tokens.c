@@ -94,6 +94,8 @@ static int	check_syntax(t_list	*tokens)
 			return (FAIL);
 		if (last_type == PIPE && token->type == PIPE)
 			return (FAIL);
+		if (token->type == REDIR && !is_redir(token->value))
+			return (FAIL);
 		last_type = token->type;
 		tokens = tokens->next;
 	}
