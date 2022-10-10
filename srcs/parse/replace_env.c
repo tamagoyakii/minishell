@@ -9,7 +9,7 @@ char	*find_env(char *key)
 	seek = g_info.env_list;
 	while (seek)
 	{
-		if (!ft_strcmp(seek->key, key))
+		if (!ft_strcmp(seek->key, key) && seek->value)
 			return (ft_strdup(seek->value));
 		seek = seek->next;
 	}
