@@ -22,7 +22,7 @@ static void	check_option(char ***cmd, int *flag)
 	*flag = FALSE;
 	while (tmp[i] && tmp[i][j] == '-')
 	{
-		if (tmp[i][j] == '-')
+		if (tmp[i][j] == '-' && tmp[i][j + 1] == 'n')
 		{
 			j++;
 			while (tmp[i][j] == 'n')
